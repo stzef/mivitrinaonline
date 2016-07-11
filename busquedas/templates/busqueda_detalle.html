@@ -1,0 +1,323 @@
+{% extends "index.html" %}
+{% load staticfiles %}
+{% load humanize %}
+{% block head %}
+<title>Buscar | OportunidApp</title>
+<style>
+	.menuItemBusqueda{
+		background-color: rgb(12, 32, 50);;
+	}
+</style>
+{% endblock %}
+{% block content %}
+<div class="container content-info">
+	<div class="row habilidad">
+		<div class="row">
+			<div class="col-xs-12">
+				<h3 class="habilidad-titulo">
+					{{habilidad.nhabilidad}}
+				</h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-6 habilidad-foto">
+				<figure class="habilidad-foto-content">
+					<img src="{{habilidad.foto.url}}" alt="{{habilidad.nhabilidad}}" class="desc-img img-thumbnail" >
+				</figure>
+			</div>
+			<div class="col-xs-6 habilidad-descripcion">
+				<div class="row habilidad-info">
+					<div class="col-xs-12 ">
+						<h4><b>Descripción:</b></h4>
+						<p align="justify">{{habilidad.descripcion}}</p>
+					</div>
+
+					<ul class="col-xs-12 habilidad-metricas">
+						<li class="label-descp-2 label-warning col-xs-6 col-md-6 text-center separador-label" data-toggle="tooltip" data-placement="top" title="Calificación">
+							<i class="glyphicon glyphicon-star desc3"></i>
+							<strong class="desc3">
+								{% if habilidad.val_promedio %}
+								{{ habilidad.val_promedio }}
+								{% else %}
+								<span>ninguno</span>
+								{% endif %}
+							</strong>
+						</li>
+						<li class="label-descp-2 label-danger col-xs-6 col-md-6 text-center separador-label " data-toggle="tooltip" data-placement="top" title="Precio">
+							<i class="glyphicon glyphicon-usd desc3"></i>
+							<strong class="desc3">
+								{% if habilidad.precio %}
+								{{ habilidad.precio | intcomma }}
+								{% else %}
+								<span>por acordar</span>
+								{% endif %}
+							</strong>
+						</li>
+					</ul>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 ofertante-info text-center ">
+						<h4><b>Información del ofertante:</b></h4>
+						<div class="ofertante-nombre">
+							<img class="fotoOfertante" src="{{habilidad.usuario.foto.url}}" alt="{{habilidad.usuario.}}" width="40" />
+							{{habilidad.usuario.usuario.first_name}} {{habilidad.usuario.usuario.last_name}}
+						</div>
+						<button class="marginCeroAuto displayBlock label-descp-2 label-success btnVerMas" id="js_btnVermasDatos">Ver datos de contacto</button>
+						<section class="verMasDatos displayNone" id="js_verMasDatos">
+						</section>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Modal -->
+	<div class="modal fade" id="modalPregunta" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">Ingresa o registrate para poder preguntar</h4>
+				</div>
+				<form id="formularioLogin">
+					<div class="modal-body formularioLoginPregunta">
+						<input autofocus class="usuario form-control" type="text" id="usuario" name="usuario" placeholder="Usuario" required>
+						<input class="contrasena form-control" type="password" id="password" name="password" placeholder="Contraseña" required>
+						<div class="text-center">
+							<a href="{% url 'ingresar' %}" class="need-help">No tienes cuenta? <span class="blue-color">Registrate aqui!</span></a><br>
+							<a href="{% url 'recuperar-cuenta' %}" class="need-help" target="_blank">olvido su contraseña?</a>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger btn-lg" data-dismiss="modal">Cancelar</button>
+						<input type="submit" value="Ingresar" class="btn btn-success btn-lg "></input>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="row preguntas">
+		<h3 class="preguntas-titulo">Preguntas</h3>
+		<div class="row moduloPreguntas">
+			<div class="row preguntas-nueva preguntar">
+				<form class="formularioPregunta" id="formularioPregunta_js" >
+					<input type="hidden" value="{{habilidad.pk}}" id="habilidad" name="habilidad" />
+					<input class="inputPregunta" type="text" id="pregunta" rows="1" name="pregunta" placeholder="Escribe tu pregunta." required />
+					<input class="preguntar-btn" id="preguntar-btn" class="btn btn-success" type="submit" value="Enviar" />
+				</form>
+			</div>
+			<div id="pregunta-redactada">
+
+			</div>
+			<section class="row preguntas" id="preguntas-content">
+				{% if preguntas %}
+				{% for pregunta in preguntas %}
+				<article class="pregunta">
+					<div class="contenedorPregunta">
+						<p class="preguntaEspecifica">
+							<span class="glyphicon glyphicon-comment"></span>
+							{{pregunta.pregunta}}
+						</p>
+					</div>
+					<div class="contenedorPespuesta">
+						{% if pregunta.respuesta %}
+						<span class="respuesta glyphicon glyphicon-check"></span>
+						<p class="repuestaEspecifica">
+							{{pregunta.respuesta.respuesta}}
+						</p>
+						{% endif %}
+					</div>
+					<p class="fechaPregunta">
+						{{pregunta.fecha}}
+					</p>
+				</article>
+				{% endfor %}
+				{% endif %}
+			</section>
+		</div>
+	</div>
+	<div class="row sugerencias">
+		<h3 class="sugerencias-titulo">Sugerencias de Búsqueda</h3>
+		<div class="row">
+			{% if recomendados %}
+			{% for  recomendado in recomendados %}
+			<div class="col-xs-12 col-sm-6 col-md-3">
+				<div class="sugerencia">
+					<a class="hoverHabilidad" href="{% url 'detallebusqueda' slug=recomendado.slug %}">
+						<div class="row sugerencia-foto">
+							<figure>
+								<img src="{{ recomendado.foto.url}}" class="imgHabilidadSugerida img-thumbnail" alt="{{ recomendado.nhabilidad}}">
+							</figure>
+						</div>
+						<div class="row sugerencia-descripcion">
+							<h4 class="sugerencia-titulo">
+								{{ recomendado.nhabilidad}}
+							</h4>
+						</div>
+					</a>
+				</div>
+			</div>
+			{% endfor %}
+			{% else %}
+			<p>No hay sugerencias para esta búsqueda</p>
+			{% endif %}
+		</div>
+	</div>
+</div>
+
+{% verbatim %}
+<script id="pregunta-template" type="text/x-handlebars-template">
+	<div id="pregunta-hecha">
+		<div class="contenedorPregunta">
+			<p class="preguntaEspecifica" style="display: inline-block;">
+				<span class="glyphicon glyphicon-comment"></span>
+				{{this.pregunta}}
+			</p>
+		</div>
+		<div class="pregunta-mensaje alert alert-success" role="alert">
+			<b>
+				{{this.mensaje}}
+			</b>
+		</div>
+	</div>
+</script>
+<script id="datos-contacto-template" type="text/x-handlebars-template">
+	<ul class="ofertante-datos ">
+		<ul>
+			<li class="numeroTelefonico">
+				<i class="glyphicon glyphicon-phone-alt desc3"></i>
+				<span>Telefonos</span>
+			</li>
+			<li class="numeroTelefonico">
+				<span class="strong" >{{ this.celular1 }}</span>
+			</li>
+			<li class="numeroTelefonico">
+				<span class="strong" >{{ this.celular2 }}</span>
+			</li>
+			<li class="numeroTelefonico">
+				<span class="strong" >{{ this.celular3 }}</span>
+			</li>
+		</ul>
+		<ul>
+			<li>
+				<i class="glyphicon glyphicon-envelope desc3"></i>
+				<span>Email:</span>
+				<span class="strong">{{ this.email }}</span>
+			</li>
+		</ul>
+	</ul>
+</script>
+{% endverbatim %}
+{% endblock content %}
+{% block scripts %}
+<script src="{% static 'jsapp/csrf_load.js' %}"></script>
+<script>
+	$(function() {
+		$('#formularioPregunta_js').on('submit', function(event){
+			event.preventDefault();
+			is_authenticate();
+		});
+
+		//capturar boton y añadir el evento click
+		$("#js_btnVermasDatos").click(show_Information)
+		function show_Information() {
+			$.ajax({
+				url: '{% url 'datosdecontacto' %}' ,
+				type: 'GET' ,
+				dataType: 'json',
+				data:{
+					habilidad: {{habilidad.id}},
+				},
+				success : function(json)
+				{
+					var source   = $("#datos-contacto-template").html();
+					var template = Handlebars.compile(source);
+					t = template(json);
+					$('#js_verMasDatos').prepend(t);
+					$("#js_verMasDatos").toggle()
+					$("#js_btnVermasDatos").toggle()
+				}
+			})
+
+		}
+
+// Captura el evento de envio de formulario de preguntas
+
+
+// Verifica si el usuario esta loggeado
+function is_authenticate()
+{
+	$.ajax({
+		url:  '{% url 'is_auth_ajax' %}' ,
+		type: 'GET',
+		dataType: 'json',
+		success : function(json)
+		{
+			// abre modal para inicio de sesion
+			if(json.auth == 0){
+				abrirModal();
+			}
+			//envia la pregunta
+			else{
+				enviarPregunta();
+			}
+		}
+	});
+}
+
+// formulario de login ajax
+$('#formularioLogin').on('submit', function(event){
+	event.preventDefault();
+	$.ajax({
+		url: '{% url 'login_ajax' %}',
+		type: 'POST',
+		dataType: 'json',
+		data: {
+			username:  $('#usuario').val(),
+			password: $('#password').val(),
+		},
+		success: function(json){
+			if(json.estado == 0)
+				// hace algo si usuario no esta activo
+				alert(json.msg)
+			else if(json.estado == 1)
+				// hace algo si usuario no esta registrado
+				alert(json.msg)
+			else if(json.estado == 2){
+				//envia la pregunta
+				$('#modalPregunta').modal('hide')
+				enviarPregunta()
+			}
+		}
+	});
+});
+
+function abrirModal(){
+	$('#modalPregunta').modal('show')
+}
+
+function enviarPregunta(){
+	var pregunta = $('#pregunta');
+	$.ajax({
+		url: '{% url 'preguntanueva' %}',
+		type: 'POST',
+		dataType: 'json',
+		data:{
+			pregunta: pregunta.val(),
+			habilidad: $('#habilidad').val(),
+		},
+		success: function(json){
+			if(json.estado == 1){
+				var source   = $("#pregunta-template").html();
+				var template = Handlebars.compile(source);
+				t = template(json);
+				$('#pregunta-redactada').prepend(t);
+				pregunta.val('');
+				//mostrar mensaje
+			}
+		}
+	})
+	document.getElementById("formularioPregunta_js").reset()
+}
+})
+</script>
+{% endblock scripts %}

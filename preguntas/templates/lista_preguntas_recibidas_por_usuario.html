@@ -1,0 +1,176 @@
+{% extends "template.html" %}
+{% load staticfiles %}
+<!--
+
+CONTEXTO!
+
+	preguntasRespondidas -> Lista de preguntas respondidas
+	preguntasNoRespondidas -> Lista de preguntas sin respuesta
+
+-->
+
+{% block content %}
+<div class="page-header">
+	<h2>Te han preguntado</h2>
+</div>
+
+<!-- TABS -->
+<div class="row space-tab">
+	<ul class="nav nav-tabs" id="tabs" data-tabs="tabs">
+		<li role="presentation" class="active">
+			<a href="#sin-respuesta" data-toggle="tab">
+				Sin responder
+			</a>
+		</li>
+		<li role="presentation" class="">
+			<a href="#respondidas" data-toggle="tab">
+				Respondidas
+			</a>
+		</li>
+	</ul>
+</div>
+<!-- TABS -->
+
+<div class="row">
+	<div class="tab-content">
+		<section class="tab-pane " id="respondidas">
+			{% for preguntaRespondida in preguntasRespondidas  %}
+			<article class="pregunta">
+				<div class="contenedorPregunta">
+					<p class="textoIntroductorioPregunta">Has respondido la pregunta de <b>{{preguntaRespondida.solicitante.usuario.get_full_name}}</b> en la habilidad <b>{{preguntaRespondida.habilidad}}</b>.</p>
+					<p class="preguntaEspecifica">
+						<span class="glyphicon glyphicon-comment"></span>
+						{{preguntaRespondida.pregunta}}
+					</p>
+				</div>
+				<div class="contenedorPespuesta">
+					<span class="respuesta glyphicon glyphicon-check"></span>
+					<p class="repuestaEspecifica">
+						{{preguntaRespondida.respuesta}}
+					</p>
+				</div>
+				<p class="fechaPregunta">
+					{{preguntaRespondida.fecha}}
+				</p>
+			</article>
+
+			{% empty %}
+			<p>No han respondido ninguna de tus preguntas</p>
+
+			{% endfor %}
+
+		</section>
+
+		<section class="tab-pane active" id="sin-respuesta">
+			<!-- Modal -->
+			<div data-modal class="modal fade" id="" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" id="myModalLabel">Responder pregunta</h4>
+						</div>
+						<div class="modal-body modalResponderPregunta">
+							<p class="preguntaEspecifica modalPreguntaHaResponder">
+								<span class="glyphicon glyphicon-comment"></span>
+								<span id="preguntaModal"></span>
+							</p>
+							<form  id="responder-form">
+								<textarea name="" data-RepustaPreguntaModal id="respuesta" cols="5" rows="5" maxlength="1000" required></textarea>
+								<input type="hidden" value="" id="idPregunta">
+								<input class="btn btn-primary" type="submit" value="Responder" id="botonResponderPreguntaModal">
+							</form>
+							<div class="marginTopBottom pregunta-mensaje alert alert-success displayNone" id="contenedorMensageConfirmacionRespuesta" role="alert">
+								<p id="mensageConfirmacionRespuesta"></p>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--Fin Modal para responder preguntas-->
+
+			{% for preguntaNoRespondida in preguntasNoRespondidas  %}
+			<article class="pregunta">
+				<div class="contenedorPregunta" >
+					<p class="textoIntroductorioPregunta">El usuario <b>{{preguntaNoRespondida.solicitante.usuario.get_full_name}}</b> en la habilidad <b>{{preguntaNoRespondida.habilidad}}</b> te ha hecho la siguiente pregunta:</p>
+					<span class="glyphicon glyphicon-comment"></span>
+					<p class="preguntaEspecifica" id="{{preguntaNoRespondida.id}}" data-pregunta="yes">
+						{{preguntaNoRespondida.pregunta}}
+					</p>
+					<p class="fechaPregunta">
+						{{preguntaNoRespondida.fecha}}
+					</p>
+
+					<p class="btnResponderPregunta" >
+						<span id="btnResponderPregunta" data-toggle="modal" data-target="#{{preguntaNoRespondida.id}}" class="btn btn-primary">Responder</span>
+					</p>
+				</div>
+			</article>
+			{% empty %}
+			<p>Todas tus preguntas han sido respuestas</p>
+
+			{% endfor %}
+		</section>
+	</div>
+</div>
+{% endblock content %}
+{% block scripts %}
+<script src="{% static 'jsapp/csrf_load.js' %}"></script>
+<script>
+	//capturar las preguntas(el p que contiene la pregunta)
+	var preguntas = document.querySelectorAll("[data-pregunta]")
+	//convertir de HTMLCollection a array
+	var preguntasArray = [].slice.call(preguntas);
+
+	//camputara el contenedor del modal
+	var modal = document.querySelector("[data-modal]")
+
+	//capturar los btn de responder
+	var btnsResponder = document.querySelectorAll("#btnResponderPregunta")
+	//convertir de HTMLCollection a array
+	var btnsResponderArray = [].slice.call(btnsResponder);
+
+	//recorrer arreglo de botones de responder
+	btnsResponderArray.forEach(function(btnResponder, index){
+		//añadir eventos a los botones
+		btnsResponderArray[index].addEventListener("click", function(){
+			//capturra el id de de la pregunta
+			var id = preguntasArray[index].getAttribute("id")
+			//añadir el id al modal. para poder abrilo al darle click
+			modal.setAttribute("id", id)
+			//añadir el el texto de la pregunta al modal que se va abrir
+			document.getElementById("preguntaModal").innerHTML = preguntasArray[index].innerHTML
+			//enviar el id al campo hidden del modal
+			idPregunta.setAttribute("value", modal.id)
+
+		})
+	});
+
+	$('#responder-form').on('submit', function(e){
+		document.getElementById("botonResponderPreguntaModal").classList.add("displayNone")
+		e.preventDefault()
+		$.ajax({
+			type : 'POST',
+			url  : '/crear-respuesta/',
+			data : {
+				pregunta  : $('#idPregunta').val(),
+				respuesta : $('#respuesta').val(),
+			},
+			success : function(json){
+				$('#contenedorMensageConfirmacionRespuesta').addClass('displayBlock');
+				$('#mensageConfirmacionRespuesta').html(json.mensaje);
+			},
+			error: function(){
+
+			}
+		})
+		setTimeout(function() {
+			location.reload();
+		}, 2000)
+	})
+
+</script>
+{% endblock %}

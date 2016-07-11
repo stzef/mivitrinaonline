@@ -1,0 +1,20 @@
+{% extends "index.html" %}
+
+{% load staticfiles %}
+
+{% block head %}
+	<title>Buscar | OportunidApp</title>
+{% endblock %}
+
+{% block content %}
+	<body class="body-img">
+		<div class="container div-error">
+			<div class="row text-center">
+				<img src="{% static 'img/logo.png' %}"/>
+				<h1 class="error">Error 404</h1>
+				<small>Página no Encontrada</small>
+				<p>Lo sentimos, pero la página que busca no existe o no se puede encontrar.</p>
+			</div>
+		</div>
+	</body>
+{% endblock %}

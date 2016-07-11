@@ -1,0 +1,39 @@
+{% extends "template.html" %}
+
+{% block head %}
+	<title>Mi Cuenta | OportunidApp </title>
+	<style>
+		.menuItemPerfil{
+			background-color: #729C34;
+		}
+	</style>
+{% endblock %}
+
+{% block content %}
+		<h3>
+			<span class="glyphicon glyphicon-user colorAzul tituloMiCuenta"></span> 
+			<span class="tituloMiCuenta">Mi cuenta</span>
+		</h3>
+
+		<p class="bloqueSeparador"></p>
+
+
+		<a href="{% url 'habilidades' %}">
+			<p><span  class="glyphicon glyphicon-wrench colorAzul "></span>
+			<span>Productos/Servicios</span>
+		</a>
+
+		<ul class="datosInformativosMiCuenta">
+			<li>
+				<span class="glyphicon glyphicon-play colorVerde "></span>
+				Activos 
+				<span class="badge">{{habilidades_activas}}</span>
+			</li>
+			<li>
+				<span class="glyphicon glyphicon-stop colorRojo" ></span>
+				Inactivos
+				<span class="badge">{{habilidades_inactivas}}</span>
+			</li>
+		</ul>
+
+{% endblock content %}

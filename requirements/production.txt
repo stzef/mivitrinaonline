@@ -1,0 +1,11 @@
+dj-database-url==0.3.0
+django-braces==1.8.0
+django-postgrespool==0.3.0
+django==1.7
+gunicorn==19.2.1
+pillow
+psycopg2==2.6
+SQLAlchemy==0.9.8
+whitenoise==1.0.6
+wsgiref==0.1.2
+djrill

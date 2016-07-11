@@ -1,0 +1,20 @@
+{% extends "index.html" %}
+
+{% load staticfiles %}
+
+{% block head %}
+	<title>Buscar | OportunidApp</title>
+{% endblock %}
+
+{% block content %}
+	<body class="body-img">
+		<div class="container div-error">
+			<div class="row text-center">
+				<img src="{% static 'img/logo.png' %}"/>
+				<h1 class="error">Error 505</h1>
+				<small>Error interno en el servidor</small>
+				<p>Por favor, contactarse con el Administrador del sitio.</p>
+			</div>
+		</div>
+	</body>
+{% endblock %}

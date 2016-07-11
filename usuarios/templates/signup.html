@@ -1,0 +1,108 @@
+{% extends "base_int.html" %}
+{% block head %}
+<title>Registro | Oportunidapp</title>
+<script src="//cdn.jsdelivr.net/webshim/1.14.5/polyfiller.js"></script>
+<script>
+	webshims.setOptions('forms-ext', {types: 'date'});
+	webshims.polyfill('forms forms-ext');
+</script>
+<style>
+	.errorlist{
+		color: #db2c2c;
+		font-size: 15px;
+		position: absolute;
+		z-index: 2;
+		top: 20px;
+		width: 100%;
+	}
+</style>
+<script src="//cdn.jsdelivr.net/webshim/1.14.5/polyfiller.js"></script>
+<script>
+	webshims.setOptions('forms-ext', {types: 'date'});
+	webshims.polyfill('forms forms-ext');
+</script>
+{% endblock %}
+{% block content  %}
+<body class="body-login">
+	<div class="container">
+		<div class="row">
+			<div>
+				<div class="account-wall">
+					<h3 class="text-center">Mi Vitrina Online</h3>
+					<form action="" method="post" class="text-center form-padding">
+						{% csrf_token %}
+						<div class="form-group col-md-6">
+							<label>Nombre Completo:</label>
+							{% if form.name.errors %}
+							{{ form.name.errors }}
+							{% endif%}
+							{{  form.name }}
+						</div>
+						<div class="form-group col-md-6">
+							<label>Apellidos:</label>
+							{% if form.lastname.errors %}
+							{{ form.lastname.errors }}
+							{% endif%}
+							{{  form.lastname }}
+						</div>
+						<div class="form-group col-md-6">
+							<label>Usuario:</label>
+							{% if form.username.errors %}
+							{{ form.username.errors }}
+							{% endif%}
+							{{  form.username }}
+						</div>
+						<div class="form-group col-md-6">
+							<label>Correo Electrónico:</label>
+							{% if form.email.errors %}
+							{{ form.email.errors }}
+							{% endif%}
+							{{  form.email }}
+						</div>
+						<div class="form-group col-md-6">
+							<label>Contraseña:</label>
+							{{  form.password }}
+						</div>
+						<div class="form-group col-md-6">
+							<label>Confirme la Contraseña:</label>
+							{{  form.password_confirm }}
+							<div class="notify"></div>
+						</div>
+						<div class="form-group col-md-6">
+							<label>Fecha Nacimiento:</label>
+							{% if form.fnacimiento.errors %}
+							{{ form.fnacimiento.errors }}
+							{% endif%}
+							{{  form.fnacimiento }}
+						</div>
+						<div class="form-group col-md-6">
+							<label>Sexo:</label>
+							{{  form.genero }}
+						</div>
+						<div class="form-group col-md-6">
+							<label>Numero Celular:</label>
+							{% if form.celular.errors %}
+							{{ form.celular.errors }}
+							{% endif%}
+							{{  form.celular }}
+						</div>
+						<input class="btn btn-success btn-lg btn-block" type="submit" id="submit" value="Registrarme">
+						<a href="{% url 'inicio' %}" class="btn btn-danger btn-lg btn-block">Cancelar</a>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		$("#id_password_confirm").keyup(function() {
+			if($(this).val() != $('#id_password').val()){
+				$('div .notify').html('<p class="text-danger">Las contraseñas no coinciden</p>');
+				$('#submit').prop("disabled", true);
+			}else{
+				$('div .notify').html('<p class="text-success">Las contraseñas coinciden</p>');
+				$('#submit').prop("disabled", false);
+			}
+		});
+	</script>
+</body>
+{% endblock %}

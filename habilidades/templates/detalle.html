@@ -1,0 +1,323 @@
+{% extends "template.html" %}
+
+{% load staticfiles %}
+{% load humanize %}
+
+{% block head %}
+<title>Habilidades | OportunidApp </title>
+<style>
+	.menuItemHabilidad{
+		background-color: rgb(12, 32, 50);;
+	}
+</style>
+{% endblock %}
+
+{% block content %}
+	<div class="row first">
+		<div class="full col-md-12">
+			<a href="{% url 'habilidades' %}" class="btn btn-primary left">Atrás</a>
+		</div>
+	</div>
+	<div class="row second">
+		<div class="col-md-4 label-category label-description text-center">
+			<p>
+				<strong>
+					{{ habilidad.categoria }} -
+					{% if habilidad.estado %}
+					<span class="text-success">Activo</span>
+					{% else %}
+					<span class="text-danger">Inactivo</span>
+					{% endif %}
+				</strong>
+			</p>
+		</div>
+		<div class="notice text-center col-xs-12 col-md-12 ">
+			<div class="imgDetalleEdit relative">
+
+				<a class="link-user linkCambiarFoto" data-toggle="modal" data-target="#editarFotoModal">
+					<img src="/media/{{ habilidad.foto }}" class="img-responsive center-block img-thumbnail">
+				</a>
+			</div>
+			<ul class="contenedorOpcionesHabilidad list-unstyled">
+				{% if habilidad.estado %}
+				<li >
+					<a class="inactivarHabilidad link-user" data-toggle="modal" data-target="#desactivarHabilidadModal">
+						<span class=" iconoOpcionesHabilidad glyphicon glyphicon-stop"></span><span>Inactivar</span>
+					</a>
+				</li>
+				{% else %}
+				<li >
+					<a class="activarHabilidad link-user" data-toggle="modal" data-target="#activarHabilidadModal">
+						<span class=" iconoOpcionesHabilidad glyphicon glyphicon-play"></span><span>Activar</span>
+					</a>
+				</li>
+				{% endif %}
+				<li>
+					<a class="link-user" data-toggle="modal" data-target="#editarHabilidadModal">
+						<span class="iconoOpcionesHabilidad glyphicon glyphicon-pencil"></span><span>Editar</span>
+					</a>
+				</li>
+			</ul>
+
+			<div class="col-md-12">
+				<h3>{{ habilidad.nhabilidad | capfirst}}</h3>
+				<p>{{ habilidad.descripcion | capfirst}}</p>
+			</div>
+			<ul class="col-md-12 list-unstyled">
+				<li class="text-top text-center col-xs-4 col-md-4 label-descp-detalle label-warning" data-toggle="tooltip" data-placement="top" title="Puntos">
+					<i class="glyphicon glyphicon-star desc3"></i>
+					{% if habilidad.val_promedio %}
+					<span class="desc">Puntuacion: </span>
+					<strong class="desc3">{{ habilidad.val_promedio}}</strong>
+					{% else %}
+					<strong class="desc3">ninguno</strong>
+					{% endif %}
+				</li>
+				<li class="text-top text-center col-xs-4 col-md-4 label-descp-detalle label-success" data-toggle="tooltip" data-placement="top" title="Solicitudes">
+
+					<i class="glyphicon glyphicon-th-list desc3"></i>
+					{% if habilidad.val_promedio %}
+					<span class="desc">Solicitudes: </span>
+					<strong class="desc3">{{ habilidad.num_solicitudes }}</strong>
+					{% else %}
+					<strong class="desc3">ninguno</strong>
+					{% endif %}
+				</li>
+				<li class="text-top text-center col-xs-4 col-md-4 label-descp-detalle label-danger" data-toggle="tooltip" data-placement="top" title="Precio">
+
+					<i class="glyphicon glyphicon-usd desc3"></i>
+					{% if habilidad.precio %}
+					<span class="desc">Precio: </span>
+					<strong class="desc3">{{ habilidad.precio | intcomma}}</strong>
+					{% else %}
+					<strong class="desc3">ninguno</strong>
+					{% endif %}
+				</li>
+			</ul>
+		</div>
+	</div>
+	{% if habilidad.estado %}
+	<div class="modal fade" id="desactivarHabilidadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">
+						<b>Desactivar Producto/Servicio</b>
+					</h4>
+				</div>
+				<div class="modal-body">
+					<div class="content-modal">
+						<p>
+							Seguro quieres desactivar el Producto/Servicio: <b><h4>"{{ habilidad.nhabilidad }}" ?</h4></b>
+							Esto significa que las personas no podrán encontrarte si buscan un producto/servicio como este o similar.
+						</p>
+						<div class="accept">
+							<button id="btn-desactivar-habilidad" class="btn btn-success">Si, seguro</button>
+							<button class="btn btn-danger" data-dismiss="modal">No, Salir</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% else %}
+	<div class="modal fade" id="activarHabilidadModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">
+						<b>Activar Habilidad</b>
+					</h4>
+				</div>
+				<div class="modal-body">
+					<div class="content-modal">
+						<p>
+							Al activar el Producto/Servicio: <b><h4>"{{ habilidad.nhabilidad }}"</h4></b> permitiras que otras personas te encuentren si buscan un producto/servicio como este o similar.
+						</p>
+						<div class="accept">
+							<button id="btn-activar-habilidad" class="btn btn-success">Si, seguro</button>
+							<button href="#" class="btn btn-danger" data-dismiss="modal">No, Salir</button>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	{% endif %}
+	<div class="modal fade" id="editarHabilidadModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" >
+						<b>Editar Producto/Servicio</b>
+					</h4>
+				</div>
+				<div class="modal-body">
+					<div class="content-modal">
+						<form id="editar-habilidad-form" method="post">
+							<div class="form-group">
+								<input id="id_habilidad" type="hidden" name="id" value="{{habilidad.id}}">
+								<input id="{{form.categoria.id_for_label}}" type="hidden" name="{{form.categoria.id_for_label}}" value="{{form.categoria.value}}">
+								{% csrf_token %}
+								<p>
+									{{form.nhabilidad.label_tag}}
+									{{form.nhabilidad}}
+								</p>
+								<p>
+									{{form.descripcion.label_tag}}
+									{{form.descripcion}}
+								</p>
+								<p>
+									{{form.precio.label_tag}}
+									{{form.precio}}
+								</p>
+								<p>
+									<input type="submit" value="Guardar" class="btn btn-success">
+									<button class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+								</p>
+							</div>
+						</form>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="editarFotoModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" >
+						<b>Editar Foto</b>
+					</h4>
+				</div>
+				<div class="modal-body">
+					<div class="content-modal">
+						<h4>
+							Selecciona una foto para tu producto/servicio
+						</h4>
+						<p>
+							Esta foto aparecera cuando otras personas busquen un producto/servicio como este o similar. <br> <span class="font-descrip-min">Puedes cargar archivos JPEG, PNG (tamaño max. 2MB)</span>
+						</p>
+						<div>
+							<form id="subir-foto-form" enctype="multipart/form-data">
+								<p>
+									<input type="file" id="archivo-foto" name="foto" onchange="mostrarFoto(event)" />
+								</p>
+								<div class="preview-foto-habilidad">
+									<figure >
+										<img id="preview-img-habilidad" src="">
+									</figure>
+								</div>
+								<p>
+									<input type="submit" value="Guardar" class="btn btn-success">
+									<button href="#" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+								</p>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+{% block scripts %}
+	<script src="{% static 'jsapp/csrf_load.js' %}"></script>
+	<script>
+		var mostrarFoto = function(event) {
+			var preview = document.getElementById('preview-img-habilidad');
+			preview.src = URL.createObjectURL(event.target.files[0]);
+		};
+
+		$(function () {
+			$('[data-toggle="tooltip"]').tooltip();
+
+			$('#btn-desactivar-habilidad').click(function () {
+				$.ajax({
+					url: '{% url 'desactivarHabilidad' %}',
+					type: 'POST',
+					data: { habilidad_id : '{{ habilidad.id }}'},
+					success: function (json) {
+						location.reload();
+					},
+				});
+			});
+
+			$('#btn-activar-habilidad').click(function(){
+				$.ajax({
+					url : '{% url 'activarHabilidad' %}',
+					type : 'POST',
+					data : {habilidad_id : '{{habilidad.id}}'},
+					success:function(json){
+						location.reload();
+					}
+				});
+			})
+
+			$('#editar-habilidad-form').on('submit', function(event){
+				event.preventDefault();
+				$.ajax({
+					url: '{% url 'editarHabilidad' %}',
+					type: "POST",
+					dataType: 'json',
+					data : {
+						id : $('#id_habilidad').val(),
+						categoria: $('#id_categoria').val(),
+						nhabilidad: $('#id_nhabilidad').val(),
+						descripcion: $('#id_descripcion').val(),
+						precio: $('#id_precio').val(),
+					},
+					success: function(json){
+						location.reload();
+					},
+				});
+			});
+
+			$('#subir-foto-form').on('submit',function(event)
+			{
+				event.preventDefault();
+				archivoSeleccionado = document.getElementById('archivo-foto');
+
+				var archivo = archivoSeleccionado.files[0];
+				var formData = new FormData();
+
+				formData.append('habilidad', {{habilidad.id}});
+
+				if (archivo.type.match('image.*'))
+				{
+					if (archivo.size < 1024 * 1024 * 2)
+					{
+						formData.append('foto', archivo);
+						var xhr = new XMLHttpRequest();
+
+						xhr.open('POST', '{% url 'fotoHabilidad' %}', true);
+						xhr.send(formData);
+						xhr.onload = function () {
+							if (xhr.status === 200) {
+								console.log(xhr.response);
+								location.reload();
+							}
+							else {
+								alert('Ha ocurrido un error, Intentelo nuevamente!');
+							}
+						};
+					}
+					else
+					{
+						alert('Archivo muy grande');
+					}
+				}
+				else
+				{
+					alert('Esto No es una imagen');
+				}
+			});
+		});
+	</script>
+{% endblock %}

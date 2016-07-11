@@ -1,0 +1,320 @@
+{% extends "template.html" %}
+{% load staticfiles %}
+{% load humanize %}
+
+
+{% block head %}
+<title>Productos/Servicios | OportunidApp </title>
+<style>
+	.menuItemHabilidad{
+		background-color: #729C34;
+	}
+</style>
+{% endblock %}
+{% block content %}
+<div class="page-header">
+	<h2 class="hbl-t">Productos/Servicios <a href="#" class="btn btn-primary" id="hbl">Nueva</a></h2>
+</div>
+<div>
+	<div class="col-sm-12">
+		<div class="well" style="display:none">
+			<form id="nueva-habilidad-form" method="post" enctype='multipart/form-data'>
+				<h4>Nuevo Producto/Servicio</h4>
+				<div class="form-group">
+					{{ form.as_p }}
+				</div>
+				<div class="text-right">
+					<a href="" class="btn btn-danger" id="cancel">Cancelar</a>
+					<input type="submit" value="Agregar + " class="btn btn-primary">
+				</div>
+				<ul class="list-inline">
+				</ul>
+			</form>
+		</div>
+	</div>
+</div>
+<div class="space-tab">
+	<ul class="nav nav-tabs" id="tabs" data-tabs="tabs">
+		<li role="presentation" class="active" id="btn-habilidades-activas">
+			<a href="#activas" data-toggle="tab">
+				Activos
+				<span id="cantidad-activas" data-cactiva="{{cantidadActivas}}" class="n-red badge">
+					{{ cantidadActivas }}
+				</span>
+			</a>
+		</li>
+		<li role="presentation" class="" id="btn-habilidades-noActivas">
+			<a href="#inactivas" data-toggle="tab">
+				Inactivos
+				<span class="n-red badge">
+					{{ cantidadInactivas }}
+				</span>
+			</a>
+		</li>
+	</ul>
+</div>
+<ul id="listul">
+</ul>
+<p id="foo"></p>
+<div>
+	<div class="tab-content">
+		<div class="tab-pane active" id="activas">
+			{% if habilidades %}
+				{% for habilidad in habilidades %}
+					<div class="col-md-12">
+						<div class="label-category label-description text-center">
+							<strong class="desc3">{{ habilidad.categoria }}</strong>
+						</div>
+					</div>
+					<div class="habilidad-item">
+						<div className="col-sm-12">
+							<a href="/habilidades/{{ habilidad.slug }}/{{ habilidad.pk }}">	
+								<div class=" row panel panel-default">
+									<div class="col-sm-12 col-md-4 div-align">
+										<img src="{{ habilidad.foto.url }}" class="img-responsive center-block img-thumbnail" alt="{{ habilidad.nhabilidad }}">
+									</div>
+									<div class="col-sm-12 col-md-5 div-align">
+										<h3>
+											<strong>{{ habilidad.nhabilidad | capfirst}}</strong>
+										</h3>
+										<p class="textJustify">{{ habilidad.descripcion | capfirst}}</p>
+									</div>
+									<div class="col-sm-12 col-md-3">
+										<ul class="list-inline">
+											<li class="label-descp label-warning">
+												<i class="glyphicon glyphicon-star desc3"></i>
+												{% if habilidad.val_promedio %}
+													<span class="desc">Puntuacion: </span>
+													<strong class="desc3">
+														{{ habilidad.val_promedio }}
+													</strong>
+												{% else %}
+													<strong class="desc3">ninguno</strong>
+												{% endif %}
+											</li>
+
+											<li class="label-descp label-success">
+												<i class="glyphicon glyphicon-th-list desc3"></i>
+												{% if  habilidad.num_solicitudes%}
+													<span class="desc">Solicitudes: </span>
+													<strong class="desc3">
+														{{ habilidad.num_solicitudes }}
+													</strong>
+												{% else %}
+													<strong class="desc3">ninguno</strong>
+												{% endif %}
+											</li>
+
+											<li class="label-descp label-danger">
+												{% if habilidad.precio %}
+													<i class="glyphicon glyphicon-usd desc3"></i>
+													<span class="desc">Precio: </span>
+													<strong class="desc3">
+														{{ habilidad.precio | intcomma}}
+													</strong>
+												{% else %}
+													<span><b>ninguno</b></span>
+												{% endif %}
+											</li>
+
+										</ul>
+									</div>
+								</div>
+							</a>
+						</div>
+					</div>
+				{% endfor %}
+			{% else %}
+			<div class="row text-center">
+				<img src="/static/img/not-found.png" class="desc-img">
+				<p>Aún no has creado tu primera habilidad, oprime click en nueva y llena el formulario</p>
+			</div>
+			{% endif %}
+		</div>
+		<div class="tab-pane" id="inactivas">
+			{% if inactivas %}
+			{% for inactiva in inactivas %}
+			<div class="col-md-12">
+				<div class="label-category label-description text-center">
+					<strong class="desc3">{{ inactiva.categoria }}</strong>
+				</div>
+			</div>
+			<div class="habilidad-item">
+				<div className="col-sm-12">
+					<a href="/habilidades/{{ inactiva.slug }}/{{ inactiva.pk }}">
+						<div class="row panel panel-default">
+							<div class="col-sm-12 col-md-4 div-align">
+								<img src="{{ inactiva.foto.url }}" class="img-responsive center-block img-thumbnail" alt="{{ inactiva.nhabilidad }}">
+							</div>
+							<div class="col-sm-12 col-md-5 div-align">
+								<h3>
+									{{ inactiva.nhabilidad | capfirst}}
+
+								</h3>
+								<p class="textJustify">{{ inactiva.descripcion | capfirst}}</p>
+							</div>
+							<ul class="list-inline">
+
+								<li class="label-descp label-warning">
+									<i class="glyphicon glyphicon-star desc3"></i>
+									{% if inactiva.val_promedio %}
+									<span class="desc">Puntuacion: </span>
+									<strong class="desc3">{{ inactiva.val_promedio }}</strong>
+									{% else %}
+									<strong class="desc3">ninguno</strong>
+									{% endif %}
+
+								</li>
+
+								<li class="label-descp label-success">
+									<i class="glyphicon glyphicon-th-list desc3"></i>
+									{% if  inactiva.num_solicitudes%}
+									<span class="desc">Solicitudes: </span>
+									<strong class="desc3">{{ inactiva.num_solicitudes }}</strong>
+									{% else %}
+									<strong class="desc3">ninguno</strong>
+									{% endif %}
+
+								</li>
+
+								<li class="label-descp label-danger">
+									{% if inactiva.precio %}
+									<i class="glyphicon glyphicon-usd desc3"></i>
+									<span class="desc">Precio: </span>
+									<strong class="desc3">{{ inactiva.precio | intcomma}}</strong>
+									{% else %}
+									<span><b>ninguno</b></span>
+									{% endif %}
+								</li>
+							</ul>
+						</div>
+					</a>
+				</div>
+			</div>
+			{% endfor %}
+			{% else %}
+			<div class="row text-center">
+				<img src="/static/img/not-found.png" class="desc-img">
+				<p>No tienes habilidades inactivas.</p>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+	{% verbatim %}
+	<script id="habilidad-item-template" type="text/x-handlebars-template">
+		<div class="col-md-12">
+			<div class="label-category label-description text-center">
+				<strong class="desc3">{{ this.categoria }}</strong>
+			</div>
+		</div>
+		<div class="habilidad-item">
+			<div className="col-sm-12">
+				<a href="/habilidades/{{ this.slug }}/{{ this.pk }}">	
+					<div class=" row panel panel-default">
+						<div class="col-sm-12 col-md-4 div-align">
+							<img src="{{ this.foto }}" class="desc-img img-thumbnail" alt="{{ this.nhabilidad }}">
+						</div>
+						<div class="col-sm-12 col-md-5 div-align">
+							<h3>
+								<strong>{{ this.nhabilidad }}</strong>
+							</h3>
+							<p class="textJustify">{{ this.descripcion }}</p>
+						</div>
+						<div class="col-sm-12 col-md-3">
+							<ul>
+								<li class="label-descp label-warning">
+									<i class="glyphicon glyphicon-star desc3"></i>
+									{{#if this.val_promedio}}
+										<span class="desc">Puntuacion: </span>
+										<strong class="desc3">
+											{{ this.val_promedio }}
+										</strong>
+									{{else}
+										<strong class="desc3">ninguno</strong>
+									{{/endif}}
+								</li>
+								<li class="label-descp label-success">
+									<i class="glyphicon glyphicon-th-list desc3"></i>
+									{{#if  this.num_solicitudes }}
+										<span class="desc">Solicitudes: </span>
+										<strong class="desc3">
+											{{ this.num_solicitudes }}
+										</strong>
+									{{else}}
+										<strong class="desc3">ninguno</strong>
+									}
+									}
+									{{/endif}}
+								</li>
+								<li class="label-descp label-danger">
+									{{#if habilidad.precio }}
+										<i class="glyphicon glyphicon-usd desc3"></i>
+										<span class="desc">Precio: </span>
+										<strong class="desc3">
+											{{ this.precio }}
+										</strong>
+									{{else}}
+										<span><b>ninguno</b></span>
+									}
+									}
+									{{/endif}}
+								</li>
+							</ul>
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+	</script>
+	{% endverbatim %}
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'jsapp/csrf_load.js' %}"></script>
+<script>
+	$(function() {
+		var TIME = 200
+		$('#nueva-habilidad-form').on('submit', function(event){
+			event.preventDefault();
+			$.ajax({
+				url: '{% url 'nuevaHabilidad' %}',
+				type: "POST",
+				dataType: 'json',
+				data: {
+					categoria: $('#id_categoria').val(),
+					nhabilidad: $('#id_nhabilidad').val(),
+					descripcion: $('#id_descripcion').val(),
+					precio: $('#id_precio').val(),
+				},
+				success: function(json){
+					var source   = $("#habilidad-item-template").html();
+					var template = Handlebars.compile(source);
+					t = template(json);
+					$("#nueva-habilidad-form").trigger('reset');
+					$('.well').hide(TIME);
+					$('#hbl').show(TIME);
+					$('#activas').prepend(t);
+					setTimeout(function(){
+						var activas = $('#cantidad-activas').attr('data-cactiva');
+						$('#cantidad-activas').attr('data-cactiva',parseInt(activas)+1);
+						$('#cantidad-activas').text(parseInt(activas)+1);
+					},1000);
+				},
+			});
+		});
+
+		$('.well').hide();
+		$('#hbl').click(function(event){
+			$('.well').show(TIME);
+			$('#hbl').hide(TIME);
+			event.preventDefault();
+		});
+		$('#cancel').click(function(event){
+			$("#nueva-habilidad-form").trigger('reset');
+			$('.well').hide(TIME);
+			$('#hbl').show(TIME);
+			event.preventDefault();
+		});
+	});
+</script>
+{% endblock %}

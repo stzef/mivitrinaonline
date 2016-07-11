@@ -1,0 +1,62 @@
+{% extends "index.html" %}
+
+{% block head %}
+<title>Buscar | OportunidApp</title>
+<style>
+	.menuItemBusqueda{
+		background-color: rgb(12, 32, 50);;
+	}
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="contentWidth">
+
+	<div class="text-center box">
+
+		<h2>Encuentra el Producto/Servicio que buscas</h2>
+
+		<form id="formBusquedaHabilidad" class=" formBusqueda input-group">
+			<input id="busqueda" name="busqueda" type="search" class="form-control" placeholder="¿Que Estas Buscando?" autocomplete="off" required />
+			<span class="input-group-btn">
+				<input class="btn btn-success btn-find" id="buscar" type="submit" value="Buscar" />
+			</span>
+		</form>
+
+		<span class="divider"></span>
+
+		<div class="text-left">
+			<h2 class="text-left"><b>Categorias</b></h2>
+			<ul class="list-inline listaCategorias">
+				{% for categoria in categorias %}
+				<li class=" label label-success">
+					<a href="{% url 'busqueda' categoria.slug %}" class="labelCategoria">
+						{{ categoria.categoria }}
+					</a>
+				</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+	$(function(){
+
+		$('#formBusquedaHabilidad').submit(function(e) {
+			e.preventDefault()
+			palabraBuscada = $('#busqueda').get(0);
+
+			palabraBuscada = palabraBuscada.value;
+			window.location = '/b/pl/'+palabraBuscada;
+		})
+	})
+</script>
+{% endblock %}
+
+
+

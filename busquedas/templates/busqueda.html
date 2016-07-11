@@ -1,0 +1,266 @@
+{% extends "index.html" %}
+
+{% load staticfiles %}
+{% load humanize %}
+
+{% block head %}
+<title>Buscar | OportunidApp</title>
+
+<style>
+	.menuItemBusqueda{
+		background-color: rgb(12, 32, 50);;
+	}
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="contentWidth">
+	<div >
+		<div >
+			<div class="row header-titulo">
+				<div class=" col-md-3">
+					<h3>Resultados</h3>
+				</div>
+				<div class="col-md-9 header-busqueda">
+					<div class="input-group">
+						<input id="busqueda" name="busqueda" type="text" class="form-control" placeholder="¿Buscas algo mas?" autocomplete="off">
+						<span class="input-group-btn">
+							<button class="btn btn-block btn-find" id="buscar" type="button">Buscar</button>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="row controles">
+				<div class="col-md-8">
+					<ul class="breadcrumbs">
+						<li>
+							<a href="{% url 'buscar' %}">Categorias > </a>
+						</li>
+						<li>
+							<a href="{% url 'busqueda' categoria.slug %}">{{categoria.categoria}} </a>
+						</li>
+						{% if  busqueda %}
+						<li>
+							<a href="/buscar/{{categoria.slug}}/?q={{busqueda}}"> > {{busqueda}}</a>
+						</li>
+						{% endif %}
+					</ul>
+				</div>
+				<div class="col-md-4 controles-paginador">
+					<span class="page-links">
+						{% if is_paginated %}
+						{% if page_obj.has_previous %}
+						<a href="/buscar/{{categoria.slug}}/?{% if busqueda%}q={{busqueda}}&{%endif%}{%if orden%}orden={{orden}}&{%endif%}page={{ page_obj.previous_page_number }}">atrás</a>
+						{% endif %}
+						<span class="page-current">
+							Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+						</span>
+						{% if page_obj.has_next %}
+						<a href="/buscar/{{categoria.slug}}/?{% if busqueda%}q={{busqueda}}&{%endif%}{%if orden%}orden={{orden}}&{%endif%}page={{ page_obj.next_page_number }}">siguiente</a>
+						{% endif %}
+						{% endif %}
+					</span>
+				</div>
+			</div>
+		</div>
+
+		<!-- Modal -->
+		<div class="modal fade bs-example-modal-sm" id="modalCategorias" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title text-center" id="myModalLabel">Otras Categorias</h4>
+					</div>
+					<div class="modal-body">
+						<div class="panel">
+							<ul class="text-left padding">
+								{% if todasCategorias %}
+								{% for categoria  in todasCategorias %}
+								<li><a href="#"><p>{{ categoria }}</p></a></li>
+								{% endfor %}
+								{% endif %}
+							</ul>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<span class="btn-cancelar cursorPointer label label-danger" data-dismiss="modal">Cancelar</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Modal -->
+
+		<div class="container div-result">
+			<div>
+				<div class="col-md-3">
+					<div class="filtros">
+						<h3>Filtros</h3>
+						<label for="orden">Categoria</label><br>
+						<dd class="item">
+							<h5 class="item-titulo">{{categoria.categoria}}</h5>
+							<a class="glyphicon glyphicon-remove"href="{% url 'buscar' %}"></a><br>
+						</dd>
+
+						<a href="#" class="label label-info" data-toggle="modal" data-target="#modalCategorias">otras categorias</a>
+						<br><br>
+						<label for="orden">Orden</label><br>
+						<li>
+							<a id="drop2" href="#"  data-toggle="dropdown">
+								{{ordenActual}}
+								<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu" style="width:100%;">
+								{% for a,b,c in ordenList %}
+								{% if c != ordenActual %}
+								<li>
+									<a href="/buscar/{{categoria.slug}}/?{% if busqueda %}q={{busqueda}}&{% endif %}orden={{a}}">
+										{{c}}
+									</a>
+								</li>
+								{% endif %}
+								{% endfor %}
+							</ul>
+						</li>
+					</div>
+				</div>
+				<div class="col-md-9">
+
+					<div class="row">
+						<div id = "resultados">
+							{% if habilidades %}
+							{% for habilidad in habilidades %}
+							<div>
+								<a class="habilidad__hover" href="{% url 'detallebusqueda' slug=habilidad.slug %}">
+
+									<div class="textJustify row panel panel-default">
+
+										<div class="col-sm-12 col-md-4 div-align">
+											<img src="{{ habilidad.foto.url }}" class="desc-img img-thumbnail" alt="Responsive image">
+										</div>
+
+										<div class="col-sm-12 col-md-5 div-align">
+											<h3>
+												<strong>{{ habilidad.nhabilidad }}</strong>
+											</h3>
+											<p>
+												{{ habilidad.descripcion|truncatechars:150  }}
+											</p>
+										</div>
+
+
+
+										<div class="col-sm-12 col-md-3">
+											<ul>
+												<li class="label-descp label-warning" data-toggle="tooltip" data-placement="top" title="Calificación">
+
+													<i class="glyphicon glyphicon-star desc3"></i>
+													<strong class="desc3">
+														{% if habilidad.val_promedio %}
+														{{ habilidad.val_promedio }}
+														{% else %}
+														<span>ninguno</span>
+														{% endif %}
+													</strong>
+												</li>
+
+												<li class="label-descp label-danger" data-toggle="tooltip" data-placement="top" title="Precio">
+													<i class="glyphicon glyphicon-usd desc3"></i>
+													<strong class="desc3">
+														{% if habilidad.precio %}
+														{{ habilidad.precio | intcomma}}
+														{% else %}
+														<span>por acordar</span>
+														{% endif %}
+													</strong>
+												</li>
+											</ul>
+										</div>
+									</div>
+
+								</a>
+							</div>
+
+							{% endfor %}
+							{% else %}
+							<p>No hay resultados</p>
+							<p>Quieres sugerir una habilidad</p>
+							{% endif %}
+						</div>
+					</div>
+
+					<div class="row paginador">
+						{% if is_paginated %}
+						<div class="pagination">
+							<span class="page-links">
+								{% if page_obj.has_previous %}
+								<a href="/buscar/{{categoria.slug}}/?{% if busqueda %}q={{busqueda}}&{% endif %}{%if orden%}orden={{orden}}&{%endif%}page={{ page_obj.previous_page_number }}">atrás</a>
+								{% endif %}
+								<span class="page-current">
+									Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+								</span>
+								{% if page_obj.has_next %}
+								<a href="/buscar/{{categoria.slug}}/?{% if busqueda %}q={{busqueda}}&{% endif %}{%if orden%}orden={{orden}}&{%endif%}page={{ page_obj.next_page_number }}">siguiente</a>
+								{% endif %}
+							</span>
+						</div>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script>
+	$(function(){
+			//input de busqueda en focus
+			$('#busqueda').focus();
+
+			//Funcion para evento click en boton 'buscar'
+			$('#buscar').click(function() {
+				palabraBuscada = $('#busqueda').get(0);
+
+				//remplazando caracteres en blanco por '+'
+				palabraBuscada = palabraBuscada.value.split(' ').join('+');
+				urlActual = window.location.href;
+
+				if (urlActual.indexOf("?") > 0 ){
+					parametro = '&q=';
+				}
+				else{
+					parametro = '?q=';
+				}
+
+				//Peticion URL
+				window.location.href = urlActual+parametro+palabraBuscada;
+			});
+
+			//Funcion para evento tecla ENTER
+			$('#busqueda').keyup(function(e){
+				if (e.keyCode == 13){
+					palabraBuscada = $('#busqueda').get(0);
+
+					//remplazando caracteres en blanco por '+'
+					palabraBuscada = palabraBuscada.value.split(' ').join('+');
+					urlActual = window.location.href;
+
+					if (urlActual.indexOf("?") > 0 ){
+						parametro = '&q=';
+					}
+					else{
+						parametro = '?q=';
+					}
+					//Peticion URL
+					window.location.href = urlActual+parametro+palabraBuscada;
+				}
+			});
+		})
+</script>
+
+{% endblock %}

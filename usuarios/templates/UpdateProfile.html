@@ -1,0 +1,60 @@
+<div class="modal fade" id="modal-pro" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  	<div class="modal-dialog">
+    	<div class="modal-content">
+      		<div class="modal-header">
+        		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        		<h4 class="modal-title" id="myModalLabel">Editar mis Datos</h4>
+      		</div>
+      		<div class="modal-body">
+        		<div class="content-modal">
+        			<form method="post" id="form">
+              {% csrf_token %}
+                <div class="form-group">
+                  <label>Nombres:</label>
+                  {{ form_2.first_name }}
+                </div>
+                <div class="form-group">
+                  <label>Apellidos:</label>
+                  {{ form_2.last_name }}
+                </div>
+                <div class="form-group">
+                  <label>Cedula:</label>
+                  {{ form.cedula }}
+                </div>
+                <div class="form-group">
+                  <label>Genero:</label>
+                  {{ form.genero }}
+                </div>
+                <div class="form-group">
+                  <label>Fecha Nacimiento:</label>
+                  {{ form.fnacimiento }}
+                </div>
+                <div class="form-group">
+                  <label>Número de Celular:</label>
+                  {{ form.celular1 }}
+                </div>
+                <input class="btn btn-success" id="submit" type="submit" value="Guardar">
+                <a data-dismiss="modal" aria-label="Close" class="btn btn-danger">Cancelar</a>
+              </form>
+        		</div>
+      		</div>
+    	</div>
+  	</div>
+</div>
+<script>
+  $('#form').submit(function(e){
+    $.post('{% url "update-profile" %}', $(this).serialize(), function(data){
+      $('#modal-pro').modal('hide');
+    })
+    .fail(function(data){
+      $('#alert').attr('class', 'alert alert-danger').html(data.response);
+    })
+    .done(function(data){
+      $('#name').html($('#id_first_name').val()+' '+$('#id_last_name').val());
+      $('#cedula').html($('#id_cedula').val());
+      $('#celular1').html($('#id_celular1').val());
+      $('#alert').attr('class', 'alert alert-success').html(data.response);
+    });
+    e.preventDefault();
+  });
+</script>

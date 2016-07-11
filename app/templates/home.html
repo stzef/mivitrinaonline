@@ -1,0 +1,40 @@
+{% extends "base_mvv.html" %}
+
+{% load staticfiles %}
+
+{% block head %}
+	<title>Inicio | Mi Vitrina Online</title>
+	<style>
+		.menuItemInicio{
+			background-color: #729C34;
+		}
+	</style>
+{% endblock %}
+
+{% block content %}
+
+	<div class="img-back">
+		<div class="container first-content">
+			<div class="row text-center">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					<section>
+						<img src="{% static 'img/logo.png' %}"/>
+						<h3 class="h3-align">Mi Vitrina Online</h3>
+					</section>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+
+	<section class="container">
+		<article>
+
+			<h2 class="text-center">Como Funciona</h2>
+
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet sit distinctio, veniam deleniti incidunt nulla officia esse vero delectus asperiores velit veritatis eius atque aliquid. Beatae, similique labore illo facere.</p>
+
+		</article>
+	</section>
+
+{% endblock %}
