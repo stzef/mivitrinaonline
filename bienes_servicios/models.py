@@ -2,14 +2,13 @@ from django.db import models
 from usuarios.models import perfilUsuarioModel
 from django.template import defaultfilters
 
-
 HABILIDADES_FOTO_DEFAULT = 'habilidades/img/no_image.png'
 
 class habCategoriasModelManager(models.Manager):
 	def get_by_natural_key(self, categoria):
 		return self.get(categoria=categoria)
 
-class habCategoriasModel(models.Model):
+class categoriasModel(models.Model):
 	categoria = models.CharField(max_length=30,blank=False,null=False)
 	slug = models.CharField(unique=True,max_length=30,blank=False,null=False)
 	objects = habCategoriasModelManager()
@@ -25,12 +24,12 @@ class habCategoriasModel(models.Model):
 
 	def save(self, *args, **kwargs):
 		self.slug = defaultfilters.slugify(self.categoria)
-		super(habCategoriasModel, self).save( *args, **kwargs)
+		super(categoriasModel, self).save( *args, **kwargs)
 
-class habilidadesModel(models.Model):
+class bienesServiciosModel(models.Model):
 	usuario = models.ForeignKey(perfilUsuarioModel)
-	categoria = models.ForeignKey(habCategoriasModel)
-	nhabilidad = models.CharField(max_length=50,blank=False,null=False)
+	categoria = models.ForeignKey(categoriasModel)
+	nBienServicio = models.CharField(max_length=50,blank=False,null=False)
 	slug = models.SlugField(unique=True,max_length=50,editable=False)
 	descripcion = models.CharField(max_length=250,blank=False,null=False)
 	foto = models.ImageField(upload_to= 'habilidades/img',blank=True,null=True, default=HABILIDADES_FOTO_DEFAULT)
@@ -41,12 +40,12 @@ class habilidadesModel(models.Model):
 	fecha_creacion =  models.DateTimeField(auto_now=True,null=False,blank=True)
 
 	def __str__(self):
-		return u'%s' % (self.nhabilidad)
+		return u'%s' % (self.nBienServicio)
 
 	def __unicode__(self):
-		return u'%s' % (self.nhabilidad)
+		return u'%s' % (self.nBienServicio)
 
 	def save(self, *args, **kwargs):
-		self.slug = defaultfilters.slugify(self.nhabilidad)
-		super(habilidadesModel, self).save( *args, **kwargs)
+		self.slug = defaultfilters.slugify(self.nBienServicio)
+		super(bienesServiciosModel, self).save( *args, **kwargs)
 

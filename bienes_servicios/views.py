@@ -11,13 +11,13 @@ from django.shortcuts import get_object_or_404
 
 
 #Importaciones desde Aplicacion [Oportunidad]
-from models import habilidadesModel, habCategoriasModel
+from models import bienesServiciosModel, categoriasModel
 from forms import nuevaHabilidadForm
 from usuarios.models import perfilUsuarioModel
 from app.utilidades import cleanJsonModel
 from mivitrinaonline.settings import BASE_DIR
 from app.utilidades import get_or_none
-from estadisticas.models import habilidadesSolicitadasModel
+from estadisticas.models import bienesServiciosSolicitadosModel
 
 #Importaciones desde Python
 import json
@@ -28,21 +28,21 @@ from braces.views import LoginRequiredMixin
 
 class habilidadesListView(LoginRequiredMixin, ListView):
 	login_required = True
-	model = habilidadesModel
+	model = bienesServiciosModel
 	template_name = 'habilidades.html'
 	context_object_name = 'habilidades'
 	form = nuevaHabilidadForm
 
 	def getCantidadActivas(self):
-		cantidadActivas = habilidadesModel.objects.filter(usuario=self.request.user, estado=True).count()
+		cantidadActivas = bienesServiciosModel.objects.filter(usuario=self.request.user, estado=True).count()
 		return cantidadActivas
 
 	def getHabilidadesInactivas(self):
-		inactivas = habilidadesModel.objects.filter(usuario=self.request.user,estado=False).order_by('-fecha_creacion')
+		inactivas = bienesServiciosModel.objects.filter(usuario=self.request.user,estado=False).order_by('-fecha_creacion')
 		return inactivas
 
 	def get_queryset(self):
-		queryset = habilidadesModel.objects.filter(usuario=self.request.user, estado=True).order_by('-fecha_creacion')
+		queryset = bienesServiciosModel.objects.filter(usuario=self.request.user, estado=True).order_by('-fecha_creacion')
 		return queryset
 
 	def get(self, request, *args, **kwargs):
@@ -87,9 +87,9 @@ def crearNuevaHabilidad(request):
 def detalle(request, slug, pk):
 
 	try:
-		habilidadBuscada = habilidadesModel.objects.get(slug=slug, pk=pk)
+		habilidadBuscada = bienesServiciosModel.objects.get(slug=slug, pk=pk)
 	except ObjectDoesNotExist:
-		habilidadBuscada = get_object_or_404(habilidadesModel,pk=pk)
+		habilidadBuscada = get_object_or_404(bienesServiciosModel,pk=pk)
 
 	templateRespuesta = 'no_permitido.html'
 	form = nuevaHabilidadForm(instance=habilidadBuscada)
@@ -110,7 +110,7 @@ def editarHabilidad(request):
 	if request.method == "POST":
 		form = nuevaHabilidadForm(request.POST)
 		if form.is_valid():
-			habilidadParaEditar = habilidadesModel.objects.get(id=request.POST['id'])
+			habilidadParaEditar = bienesServiciosModel.objects.get(id=request.POST['id'])
 			response_data = {}
 			if habilidadParaEditar.usuario_id == request.user.id:
 				habilidadParaEditar.nhabilidad = request.POST['nhabilidad']
@@ -137,7 +137,7 @@ def editarHabilidad(request):
 def desactivarHabilidad(request):
 	if request.is_ajax() and request.method == "POST":
 		habilidad_id = request.POST['habilidad_id']
-		habilidadPorDesactivar = get_object_or_404 (habilidadesModel,id = habilidad_id)
+		habilidadPorDesactivar = get_object_or_404 (bienesServiciosModel,id = habilidad_id)
 		response_data = {}
 
 		if habilidadPorDesactivar.usuario_id == request.user.id:
@@ -159,7 +159,7 @@ def desactivarHabilidad(request):
 def activarHabilidad(request):
 	if request.is_ajax() and request.method == "POST":
 		habilidad_id = request.POST['habilidad_id']
-		habilidadPorActivar = get_object_or_404 (habilidadesModel,id = habilidad_id)
+		habilidadPorActivar = get_object_or_404 (bienesServiciosModel,id = habilidad_id)
 		if habilidadPorActivar.usuario_id == request.user.id:
 			response_data = {}
 			habilidadPorActivar.estado = True
@@ -182,7 +182,7 @@ def activarHabilidad(request):
 def cambiarFotoHabilidad(request):
 
 	#Obtener Parametros
-	habilidadCambioImagen = habilidadesModel.objects.get(id=request.POST['habilidad'])
+	habilidadCambioImagen = bienesServiciosModel.objects.get(id=request.POST['habilidad'])
 	imagenRecibida = request.FILES['foto']
 	imagenRecibida.name = habilidadCambioImagen.nhabilidad.replace(' ','_')+str(habilidadCambioImagen.id)
 	response_data = {}
@@ -211,7 +211,7 @@ def borrarFotoActual(habilidad):
 def obtener_datos_de_contacto(request):
 	if request.is_ajax():
 		habilidad_id = request.GET.get('habilidad',None)
-		habilidad = get_or_none(habilidadesModel,id=habilidad_id)
+		habilidad = get_or_none(bienesServiciosModel,id=habilidad_id)
 		if habilidad is not None:
 			response_data = {}
 			response_data['celular1'] = habilidad.usuario.celular1
@@ -219,7 +219,7 @@ def obtener_datos_de_contacto(request):
 			response_data['celular3'] = habilidad.usuario.celular3
 			response_data['email'] = habilidad.usuario.usuario.email
 
-			hs = habilidadesSolicitadasModel(habilidad=habilidad)
+			hs = bienesServiciosSolicitadosModel(habilidad=habilidad)
 			if request.user.is_authenticated():
 				usuario = perfilUsuarioModel.objects.get(pk=request.user.id)
 				hs.usuario = usuario
