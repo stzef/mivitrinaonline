@@ -74,11 +74,11 @@ USE_TZ = True
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd19nmg8u9k0f6j',
-        'USER': 'imxmlamvskvoyi',
-        'PASSWORD': '9aiQQ3kfOj5D06Vn4F6SUATg_V',
-        'HOST':'ec2-54-225-134-223.compute-1.amazonaws.com',
-        'PORT':'5432',
+        #'NAME': 'd19nmg8u9k0f6j',
+        #'USER': 'imxmlamvskvoyi',
+        #'PASSWORD': '9aiQQ3kfOj5D06Vn4F6SUATg_V',
+        #'HOST':'ec2-54-225-134-223.compute-1.amazonaws.com',
+        #'PORT':'5432',
     }
 }
 #DATABASES['default'] =  dj_database_url.config()

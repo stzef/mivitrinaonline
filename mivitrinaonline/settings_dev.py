@@ -72,7 +72,7 @@ USE_TZ = True
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'oportunidapp',
+        'NAME': 'mivitrinavirtual',
         'USER': 'postgres',
         'PASSWORD': '1234',
         'HOST':'127.0.0.1',
