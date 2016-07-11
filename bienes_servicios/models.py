@@ -4,14 +4,14 @@ from django.template import defaultfilters
 
 HABILIDADES_FOTO_DEFAULT = 'habilidades/img/no_image.png'
 
-class habCategoriasModelManager(models.Manager):
+class categoriasModelManager(models.Manager):
 	def get_by_natural_key(self, categoria):
 		return self.get(categoria=categoria)
 
 class categoriasModel(models.Model):
 	categoria = models.CharField(max_length=30,blank=False,null=False)
 	slug = models.CharField(unique=True,max_length=30,blank=False,null=False)
-	objects = habCategoriasModelManager()
+	objects = categoriasModelManager()
 
 	def __str__(self):
 		return u'%s' % (self.categoria)

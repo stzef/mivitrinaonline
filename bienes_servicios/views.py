@@ -12,7 +12,7 @@ from django.shortcuts import get_object_or_404
 
 #Importaciones desde Aplicacion [Oportunidad]
 from models import bienesServiciosModel, categoriasModel
-from forms import nuevaHabilidadForm
+from forms import nuevoBienServicioForm
 from usuarios.models import perfilUsuarioModel
 from app.utilidades import cleanJsonModel
 from mivitrinaonline.settings import BASE_DIR
@@ -31,7 +31,7 @@ class habilidadesListView(LoginRequiredMixin, ListView):
 	model = bienesServiciosModel
 	template_name = 'habilidades.html'
 	context_object_name = 'habilidades'
-	form = nuevaHabilidadForm
+	form = nuevoBienServicioForm
 
 	def getCantidadActivas(self):
 		cantidadActivas = bienesServiciosModel.objects.filter(usuario=self.request.user, estado=True).count()
@@ -59,7 +59,7 @@ class habilidadesListView(LoginRequiredMixin, ListView):
 @login_required()
 def crearNuevaHabilidad(request):	
 	if request.is_ajax():
-		form = nuevaHabilidadForm(request.POST)
+		form = nuevoBienServicioForm(request.POST)
 		response_data = {}
 		if form.is_valid():
 			habilidadNueva = form.save(commit=False)
@@ -81,7 +81,6 @@ def crearNuevaHabilidad(request):
 		else:
 			return JsonResponse(form.errors.as_json(), safe=False)
 
-
 #[detalleHabilidadView] View encargada de retornar template del detalle de una habilidad
 @login_required()
 def detalle(request, slug, pk):
@@ -92,7 +91,7 @@ def detalle(request, slug, pk):
 		habilidadBuscada = get_object_or_404(bienesServiciosModel,pk=pk)
 
 	templateRespuesta = 'no_permitido.html'
-	form = nuevaHabilidadForm(instance=habilidadBuscada)
+	form = nuevoBienServicioForm(instance=habilidadBuscada)
 
 	if habilidadBuscada.usuario_id == request.user.id:
 		templateRespuesta = 'detalle.html'
@@ -103,12 +102,11 @@ def detalle(request, slug, pk):
 		return render(request,templateRespuesta, contexto)
 	return render(request,templateRespuesta)
 
-
 #[editarHabilidad] View encargada editar una habilidad
 @login_required()
 def editarHabilidad(request):
 	if request.method == "POST":
-		form = nuevaHabilidadForm(request.POST)
+		form = nuevoBienServicioForm(request.POST)
 		if form.is_valid():
 			habilidadParaEditar = bienesServiciosModel.objects.get(id=request.POST['id'])
 			response_data = {}
@@ -176,7 +174,6 @@ def activarHabilidad(request):
 	else:
 		return render(request,'no_permitido.html')
 
-
 @csrf_exempt
 @login_required
 def cambiarFotoHabilidad(request):
@@ -198,14 +195,12 @@ def cambiarFotoHabilidad(request):
 		content_type="application/json"
 	)
 
-
 #Borra la foto actual en Disco
 def borrarFotoActual(habilidad):
 	archivoPath = BASE_DIR+habilidad.foto.url
 	imgPorDefecto = '/media/habilidades/img/no_image.png'
 	if habilidad.foto.url != imgPorDefecto and os.path.isfile(archivoPath):
 		os.remove(archivoPath)
-
 
 #Responde en json los datos de contacto de la persona para una habilidad especifica
 def obtener_datos_de_contacto(request):

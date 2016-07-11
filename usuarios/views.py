@@ -58,7 +58,7 @@ class registroView(FormView):
 		#datos para renderizar el template de email
 		contextoDeTemplateParaEmail = {
 			'usuario' : nombreDeUsuario+' '+apellidoDeUsuario,
-			'descripcion' : 'Te damos la bienvenida a oportunidapp, esperamos que puedas obtener gran provecho de esta herramienta',
+			'descripcion' : 'Te damos la bienvenida a Mi Vitrina Online, esperamos que puedas obtener gran provecho de esta herramienta',
 		}
 
 		#retorna el texto de el template renderizado

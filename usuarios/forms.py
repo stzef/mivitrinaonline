@@ -7,16 +7,14 @@ from models import perfilUsuarioModel
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext, ugettext_lazy as _
 
-
-
 class loginForm(AuthenticationForm):
 	username = forms.CharField(error_messages={'required': 'Ingresa tu Usuario, '},widget=forms.TextInput(attrs={'class':'form-control ','placeholder':'Nombre de Usuario','autofocus':''}))
-	password = forms.CharField(error_messages={'required': 'Contraseña'},widget=forms.PasswordInput(attrs={'class':'form-control','placeholder':'Contraseña'}))
+	password = forms.CharField(error_messages={'required': 'Ingresa tu '},widget=forms.PasswordInput(attrs={'class':'form-control','placeholder':'Ingresa tu Contraseña'}))
 
 
 class emailLoginForm(forms.Form):
 	email = forms.EmailField(error_messages={'required': 'Ingresa tu email'})
-	password = forms.CharField(error_messages={'required': 'Ingresa tu Contraseña'},widget=forms.PasswordInput(attrs={'class':'form-control','placeholder':'Contraseña'}))
+	password = forms.CharField(error_messages={'required': 'Ingresa tu Contraseña'},widget=forms.PasswordInput(attrs={'class':'form-control','placeholder':'Ingresa tu Contraseña'}))
 
 	def __init__(self, *args, **kwargs):
 		self.user_cache = None

@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User, AbstractBaseUser
 from django.core.exceptions import ValidationError
-# Create your models here.
+
 PERFIL_FOTO_DEFAULT = 'usuarios/avatar/user.jpg'
 
 class perfilUsuarioModel(models.Model):

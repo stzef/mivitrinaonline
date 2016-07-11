@@ -7,7 +7,6 @@ from bienes_servicios.models import bienesServiciosModel
 #Importaciones de otras librerias
 from braces.views import LoginRequiredMixin
 
-
 class miCuentaView(LoginRequiredMixin, TemplateView):
 	template_name = 'mi_cuenta.html'
 	login_required = True
@@ -17,13 +16,10 @@ class miCuentaView(LoginRequiredMixin, TemplateView):
 		perfil = perfilUsuarioModel.objects.get(usuario=self.request.user)
 
 		context = super(miCuentaView, self).get_context_data(**kwargs)
-		context['habilidades_activas'] = bienesServiciosModel.objects.filter(usuario=perfil,estado=True).count()
-		context['habilidades_inactivas'] = bienesServiciosModel.objects.filter(usuario=perfil,estado=False).count()
+		context['bienes_servicios_activos'] = bienesServiciosModel.objects.filter(usuario=perfil,estado=True).count()
+		context['bienes_servicios_inactivos'] = bienesServiciosModel.objects.filter(usuario=perfil,estado=False).count()
 
 		return context
-
-
-
 
 def inicio(request):
 	return render(request,'home.html')

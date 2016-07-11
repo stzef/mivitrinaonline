@@ -39,7 +39,6 @@ class detalleHabilidadBuscada(DetailView):
 		context['preguntas'] = preguntas
 		return context
 
-
 class busquedasCategoriaLista(ListView):
 
 	#atributos de la clase
@@ -140,7 +139,6 @@ class busquedasCategoriaLista(ListView):
 
 		return context
 
-
 class busquedasPorPalabraLista(ListView):
 	model = bienesServiciosModel
 	paginate_by = 10
@@ -225,7 +223,6 @@ class busquedasPorPalabraLista(ListView):
 
 	def get_algunas_categorias(self):
 		return categoriasModel.objects.all()[:10]
-
 
 #[View]
 #retorna el template

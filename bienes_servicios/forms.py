@@ -2,7 +2,7 @@
 from django import forms
 from models import bienesServiciosModel
 
-class nuevaHabilidadForm(forms.ModelForm):
+class nuevoBienServicioForm(forms.ModelForm):
 	class Meta:
 		model = bienesServiciosModel
 		fields = ['categoria','nBienServicio','descripcion','precio']
