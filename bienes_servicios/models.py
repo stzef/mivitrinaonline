@@ -2,7 +2,7 @@ from django.db import models
 from usuarios.models import perfilUsuarioModel
 from django.template import defaultfilters
 
-HABILIDADES_FOTO_DEFAULT = 'habilidades/img/no_image.png'
+BIEN_SERVICIO_FOTO_DEFAULT = 'bienes_servicios/img/no_image.png'
 
 class categoriasModelManager(models.Manager):
 	def get_by_natural_key(self, categoria):
@@ -32,7 +32,7 @@ class bienesServiciosModel(models.Model):
 	nBienServicio = models.CharField(max_length=50,blank=False,null=False)
 	slug = models.SlugField(unique=True,max_length=50,editable=False)
 	descripcion = models.CharField(max_length=250,blank=False,null=False)
-	foto = models.ImageField(upload_to= 'habilidades/img',blank=True,null=True, default=HABILIDADES_FOTO_DEFAULT)
+	foto = models.ImageField(upload_to= 'bienes_servicios/img',blank=True,null=True, default=BIEN_SERVICIO_FOTO_DEFAULT)
 	val_promedio = models.IntegerField(blank=True,null=True)
 	num_solicitudes = models.IntegerField(blank=True,null=True,default=0)
 	estado = models.BooleanField(default=True)

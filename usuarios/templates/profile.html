@@ -1,7 +1,7 @@
 {% extends "base_mvv.html" %}
 {% load staticfiles %}
 {% block head %}
-<title>Habilidades | OportunidApp </title>
+<title>Perfil | Mi Vitrina Online </title>
 <style>
 	.menuItemPerfil{
 		background-color: rgb(12, 32, 50);;
@@ -14,10 +14,10 @@
 		<div class="col-md-12">
 			<div id="alert"></div>
 		</div>
-		<div class="col-md-12 desc-profile">
+		<div class="col-md-12">
 			<div class="col-md-4 text-center">
-				<img src="/media/{{ profile.foto }}" class="img-profile"><br>
-				<a href="#" class="btn btn-danger btn-photo" data-toggle="modal" data-target="#modal-photo">Cambiar Foto</a>
+				<img src="/media/{{ profile.foto }}" class="img-profile" data-toggle="modal" data-target="#modal-photo"><br>
+				<!--<a href="#" class="btn btn-danger btn-photo" data-toggle="modal" data-target="#modal-photo">Cambiar Foto</a>-->
 			</div>
 			<div class="col-md-8">
 				<h2 id="name">{{ user.first_name }} {{ user.last_name }}</h2>
@@ -43,12 +43,16 @@
 					<h4>Selecciona una foto para tu perfil</h4>
 					<p><span class="font-descrip-min">Puedes cargar archivos JPEG, PNG (tamaño max. 2MB)</span></p>
 					<form id="subir-foto-form" enctype="multipart/form-data">
+					<div class="form-control">
 						<input type="file" id="archivo-foto" name="foto"/>
+					</div>
 						<div class="preview-foto-habilidad text-center">
 							<img id="preview-img-habilidad" src="">
 						</div>
-						<input type="submit" value="Guardar" class="btn btn-success">
-						<input type="submit" value="Cancelar" class="btn btn-danger" data-dismiss="modal">
+						<div class="btn-group">
+							<input type="submit" value="Guardar" class="btn btn-success">
+							<input type="submit" value="Cancelar" class="btn btn-danger" data-dismiss="modal">
+						</div>
 					</form>
 				</div>
 			</div>

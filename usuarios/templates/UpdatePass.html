@@ -1,53 +1,53 @@
 <div class="modal fade" id="modal-pass" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  	<div class="modal-dialog">
-    	<div class="modal-content">
-      		<div class="modal-header">
-        		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        		<h4 class="modal-title" id="myModalLabel">Cambiar mi Contraseña</h4>
-      		</div>
-      		<div class="modal-body">
-        		<div class="content-modal">
-        			<form method="post" id="form">
-        				{% csrf_token %}
-        				<div class="form-group">
-        					<label>Contraseña Nueva:</label>
-                  			{{ form.password_new }}
-        				</div>
-        				<div class="form-group">
-        					<label>Confirmar Contraseña:</label>
-                  			{{ form.password_confirm }}
-                  			<div class="notify"></div>
-        				</div>
-        				<div class="row">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">Cambiar mi Contraseña</h4>
+			</div>
+			<div class="modal-body">
+				<div class="content-modal">
+					<form method="post" id="form">
+						{% csrf_token %}
+						<div class="form-group">
+							<label>Contraseña Nueva:</label>
+							{{ form.password_new }}
+						</div>
+						<div class="form-group">
+							<label>Confirmar Contraseña:</label>
+							{{ form.password_confirm }}
+							<div class="notify"></div>
+						</div>
+						<div class="btn-group">
 							<input class="btn btn-success" id="submit" type="submit" value="Guardar">
-	                		<a data-dismiss="modal" aria-label="Close" class="btn btn-danger">Cancelar</a>
-	                	</div>
-        			</form>
-        		</div>
-        	</div>
-      	</div>
-    </div>
+							<a data-dismiss="modal" aria-label="Close" class="btn btn-danger">Cancelar</a>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 <script>
 	$("#id_password_confirm").keyup(function() {
-	  	if($(this).val() != $('#id_password_new').val()){
-	  		$('div .notify').html('<p class="text-danger">Las contraseñas no coinciden</p>');
-	  		$('#submit').prop("disabled", true);
-	  	}else{
-	  		$('div .notify').html('<p class="text-success">Las contraseñas coinciden</p>');
-	  		$('#submit').prop("disabled", false);
-	  	}
+		if($(this).val() != $('#id_password_new').val()){
+			$('div .notify').html('<p class="text-danger">Las contraseñas no coinciden</p>');
+			$('#submit').prop("disabled", true);
+		}else{
+			$('div .notify').html('<p class="text-success">Las contraseñas coinciden</p>');
+			$('#submit').prop("disabled", false);
+		}
 	});
-  	$('#form').submit(function(e){
-    	$.post('{% url "update-password" %}', $(this).serialize(), function(json_response){
-      		$('#modal-pass').modal('hide');
-    	})
-    	.fail(function(json_response){
-      		$('#alert').attr('class', 'alert alert-'+json_response.type).html(json_response.message);
-    	})
-    	.done(function(json_response){
-      		$('#alert').attr('class', 'alert alert-'+json_response.type).html(json_response.message);
-    	});
-    	e.preventDefault();
-  	});
+	$('#form').submit(function(e){
+		$.post('{% url "update-password" %}', $(this).serialize(), function(json_response){
+			$('#modal-pass').modal('hide');
+		})
+		.fail(function(json_response){
+			$('#alert').attr('class', 'alert alert-'+json_response.type).html(json_response.message);
+		})
+		.done(function(json_response){
+			$('#alert').attr('class', 'alert alert-'+json_response.type).html(json_response.message);
+		});
+		e.preventDefault();
+	});
 </script>

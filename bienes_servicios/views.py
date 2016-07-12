@@ -9,7 +9,6 @@ from django.shortcuts import render
 from django.core import serializers
 from django.shortcuts import get_object_or_404
 
-
 #Importaciones desde Aplicacion [Oportunidad]
 from models import bienesServiciosModel, categoriasModel
 from forms import nuevoBienServicioForm
@@ -62,20 +61,20 @@ def crearNuevoBienServicio(request):
 		form = nuevoBienServicioForm(request.POST)
 		response_data = {}
 		if form.is_valid():
-			habilidadNueva = form.save(commit=False)
+			bienServicioNuevo = form.save(commit=False)
 			usuario = perfilUsuarioModel.objects.get(pk=request.user.id)
-			habilidadNueva.usuario = usuario
-			habilidadNueva.save()
+			bienServicioNuevo.usuario = usuario
+			bienServicioNuevo.save()
 
-			response_data['id'] = habilidadNueva.pk
-			response_data['nhabilidad'] = habilidadNueva.nhabilidad
-			response_data['slug'] = habilidadNueva.slug
-			response_data['descripcion'] = habilidadNueva.descripcion
-			response_data['categoria'] = habilidadNueva.categoria.categoria
-			response_data['val_promedio'] = habilidadNueva.val_promedio
-			response_data['num_solicitudes'] = habilidadNueva.num_solicitudes
-			response_data['precio'] = habilidadNueva.precio
-			response_data['foto'] = habilidadNueva.foto.url
+			response_data['id'] = bienServicioNuevo.pk
+			response_data['nBienServicio'] = bienServicioNuevo.nBienServicio
+			response_data['slug'] = bienServicioNuevo.slug
+			response_data['descripcion'] = bienServicioNuevo.descripcion
+			response_data['categoria'] = bienServicioNuevo.categoria.categoria
+			response_data['val_promedio'] = bienServicioNuevo.val_promedio
+			response_data['num_solicitudes'] = bienServicioNuevo.num_solicitudes
+			response_data['precio'] = bienServicioNuevo.precio
+			response_data['foto'] = bienServicioNuevo.foto.url
 			return JsonResponse(response_data, safe=False)
 
 		else:
@@ -86,17 +85,17 @@ def crearNuevoBienServicio(request):
 def detalle(request, slug, pk):
 
 	try:
-		habilidadBuscada = bienesServiciosModel.objects.get(slug=slug, pk=pk)
+		bienServicioBuscado = bienesServiciosModel.objects.get(slug=slug, pk=pk)
 	except ObjectDoesNotExist:
-		habilidadBuscada = get_object_or_404(bienesServiciosModel,pk=pk)
+		bienServicioBuscado = get_object_or_404(bienesServiciosModel,pk=pk)
 
 	templateRespuesta = 'no_permitido.html'
-	form = nuevoBienServicioForm(instance=habilidadBuscada)
+	form = nuevoBienServicioForm(instance=bienServicioBuscado)
 
-	if habilidadBuscada.usuario_id == request.user.id:
+	if bienServicioBuscado.usuario_id == request.user.id:
 		templateRespuesta = 'detalle.html'
 		contexto = {
-			'habilidad': habilidadBuscada,
+			'habilidad': bienServicioBuscado,
 			'form' : form,
 		}
 		return render(request,templateRespuesta, contexto)
@@ -107,14 +106,14 @@ def detalle(request, slug, pk):
 def editarBienServicio(request):
 	if request.method == "POST":
 		form = nuevoBienServicioForm(request.POST)
+		response_data = {}
 		if form.is_valid():
-			habilidadParaEditar = bienesServiciosModel.objects.get(id=request.POST['id'])
-			response_data = {}
-			if habilidadParaEditar.usuario_id == request.user.id:
-				habilidadParaEditar.nhabilidad = request.POST['nhabilidad']
-				habilidadParaEditar.descripcion = request.POST['descripcion']
-				habilidadParaEditar.precio = request.POST['precio']
-				habilidadParaEditar.save(update_fields=['nhabilidad','descripcion','precio'])
+			bienServicioEditar = bienesServiciosModel.objects.get(id=request.POST['id'])
+			if bienServicioEditar.usuario_id == request.user.id:
+				bienServicioEditar.nBienServicio = request.POST['nBienServicio']
+				bienServicioEditar.descripcion = request.POST['descripcion']
+				bienServicioEditar.precio = request.POST['precio']
+				bienServicioEditar.save(update_fields=['nBienServicio','descripcion','precio'])
 
 				response_data['message'] = 'Edición exitosa'
 				return HttpResponse(
@@ -124,6 +123,7 @@ def editarBienServicio(request):
 			else:
 				return render(request,'no_permitido.html')
 		else:
+			print form.is_valid()
 			response_data['message'] = 'error formulario'
 			return HttpResponse(
 				json.dumps(response_data),
@@ -134,13 +134,13 @@ def editarBienServicio(request):
 @login_required()
 def desactivarBienServicio(request):
 	if request.is_ajax() and request.method == "POST":
-		habilidad_id = request.POST['habilidad_id']
-		habilidadPorDesactivar = get_object_or_404 (bienesServiciosModel,id = habilidad_id)
+		bienServicio_id = request.POST['habilidad_id']
+		bienServicioDesactivar = get_object_or_404 (bienesServiciosModel,id = bienServicio_id)
 		response_data = {}
 
-		if habilidadPorDesactivar.usuario_id == request.user.id:
-			habilidadPorDesactivar.estado = False
-			habilidadPorDesactivar.save(update_fields=["estado"])
+		if bienServicioDesactivar.usuario_id == request.user.id:
+			bienServicioDesactivar.estado = False
+			bienServicioDesactivar.save(update_fields=["estado"])
 
 			response_data['message'] = 'Habilidad activada'
 
@@ -156,12 +156,12 @@ def desactivarBienServicio(request):
 @login_required()
 def activarBienServicio(request):
 	if request.is_ajax() and request.method == "POST":
-		habilidad_id = request.POST['habilidad_id']
-		habilidadPorActivar = get_object_or_404 (bienesServiciosModel,id = habilidad_id)
-		if habilidadPorActivar.usuario_id == request.user.id:
+		bienServicio_id = request.POST['habilidad_id']
+		bienServicioActivar = get_object_or_404 (bienesServiciosModel,id = bienServicio_id)
+		if bienServicioActivar.usuario_id == request.user.id:
 			response_data = {}
-			habilidadPorActivar.estado = True
-			habilidadPorActivar.save(update_fields=["estado"])
+			bienServicioActivar.estado = True
+			bienServicioActivar.save(update_fields=["estado"])
 
 			response_data['message'] = 'Habilidad activada'
 			return HttpResponse(
@@ -179,14 +179,14 @@ def activarBienServicio(request):
 def cambiarFotoBienServicio(request):
 
 	#Obtener Parametros
-	habilidadCambioImagen = bienesServiciosModel.objects.get(id=request.POST['habilidad'])
+	bienServicioCambiarFoto = bienesServiciosModel.objects.get(id=request.POST['habilidad'])
 	imagenRecibida = request.FILES['foto']
-	imagenRecibida.name = habilidadCambioImagen.nhabilidad.replace(' ','_')+str(habilidadCambioImagen.id)
+	imagenRecibida.name = bienServicioCambiarFoto.nBienServicio.replace(' ','_')+str(bienServicioCambiarFoto.id)
 	response_data = {}
-	if habilidadCambioImagen.usuario_id == request.user.id:
-		borrarFotoActual(habilidadCambioImagen)
-		habilidadCambioImagen.foto = imagenRecibida
-		habilidadCambioImagen.save(update_fields=["foto"])
+	if bienServicioCambiarFoto.usuario_id == request.user.id:
+		borrarFotoActual(bienServicioCambiarFoto)
+		bienServicioCambiarFoto.foto = imagenRecibida
+		bienServicioCambiarFoto.save(update_fields=["foto"])
 	else:
 		response_data['error'] = "No tiene permitido cambiar imagen de otros."
 
@@ -196,25 +196,25 @@ def cambiarFotoBienServicio(request):
 	)
 
 #Borra la foto actual en Disco
-def borrarFotoActual(habilidad):
-	archivoPath = BASE_DIR+habilidad.foto.url
+def borrarFotoActual(bienServicio):
+	archivoPath = BASE_DIR+bienServicio.foto.url
 	imgPorDefecto = '/media/habilidades/img/no_image.png'
-	if habilidad.foto.url != imgPorDefecto and os.path.isfile(archivoPath):
+	if bienServicio.foto.url != imgPorDefecto and os.path.isfile(archivoPath):
 		os.remove(archivoPath)
 
 #Responde en json los datos de contacto de la persona para una habilidad especifica
 def obtener_datos_de_contacto(request):
 	if request.is_ajax():
-		habilidad_id = request.GET.get('habilidad',None)
-		habilidad = get_or_none(bienesServiciosModel,id=habilidad_id)
-		if habilidad is not None:
+		bienServicio_id = request.GET.get('habilidad',None)
+		bienServicio = get_or_none(bienesServiciosModel,id=bienServicio_id)
+		if bienServicio is not None:
 			response_data = {}
-			response_data['celular1'] = habilidad.usuario.celular1
-			response_data['celular2'] = habilidad.usuario.celular2
-			response_data['celular3'] = habilidad.usuario.celular3
-			response_data['email'] = habilidad.usuario.usuario.email
+			response_data['celular1'] = bienServicio.usuario.celular1
+			response_data['celular2'] = bienServicio.usuario.celular2
+			response_data['celular3'] = bienServicio.usuario.celular3
+			response_data['email'] = bienServicio.usuario.usuario.email
 
-			hs = bienesServiciosSolicitadosModel(habilidad=habilidad)
+			hs = bienesServiciosSolicitadosModel(bien_servicio=bienServicio)
 			if request.user.is_authenticated():
 				usuario = perfilUsuarioModel.objects.get(pk=request.user.id)
 				hs.usuario = usuario

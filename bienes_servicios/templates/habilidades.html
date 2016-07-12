@@ -4,22 +4,17 @@
 
 
 {% block head %}
-<title>Productos/Servicios | OportunidApp </title>
-<style>
-	.menuItemHabilidad{
-		background-color: #729C34;
-	}
-</style>
+<title>Biens/Servicios | Mi Vitrina Online </title>
 {% endblock %}
 {% block content %}
 <div class="page-header">
-	<h2 class="hbl-t">Productos/Servicios <a href="#" class="btn btn-primary" id="hbl">Nueva</a></h2>
+	<h2 class="hbl-t">Biens/Servicios <a href="#" class="btn btn-primary" id="hbl">Nueva</a></h2>
 </div>
 <div>
 	<div class="col-sm-12">
 		<div class="well" style="display:none">
 			<form id="nueva-habilidad-form" method="post" enctype='multipart/form-data'>
-				<h4>Nuevo Producto/Servicio</h4>
+				<h4>Nuevo Bien/Servicio</h4>
 				<div class="form-group">
 					{{ form.as_p }}
 				</div>
@@ -68,24 +63,22 @@
 					</div>
 					<div class="habilidad-item">
 						<div className="col-sm-12">
-							<a href="/habilidades/{{ habilidad.slug }}/{{ habilidad.pk }}">	
+							<a href="/bienes-servicios/{{ habilidad.slug }}/{{ habilidad.pk }}" class="normal">	
 								<div class=" row panel panel-default">
 									<div class="col-sm-12 col-md-4 div-align">
-										<img src="{{ habilidad.foto.url }}" class="img-responsive center-block img-thumbnail" alt="{{ habilidad.nhabilidad }}">
+										<img src="{{ habilidad.foto.url }}" class="img-responsive center-block img-thumbnail" alt="{{ habilidad.nBienServicio }}">
 									</div>
 									<div class="col-sm-12 col-md-5 div-align">
 										<h3>
-											<strong>{{ habilidad.nhabilidad | capfirst}}</strong>
+											<strong>{{ habilidad.nBienServicio | capfirst}}</strong>
 										</h3>
 										<p class="textJustify">{{ habilidad.descripcion | capfirst}}</p>
-									</div>
-									<div class="col-sm-12 col-md-3">
 										<ul class="list-inline">
-											<li class="label-descp label-warning">
+											<li class="label label-warning">
 												<i class="glyphicon glyphicon-star desc3"></i>
 												{% if habilidad.val_promedio %}
-													<span class="desc">Puntuacion: </span>
-													<strong class="desc3">
+													<span>Puntuacion: </span>
+													<strong>
 														{{ habilidad.val_promedio }}
 													</strong>
 												{% else %}
@@ -93,11 +86,11 @@
 												{% endif %}
 											</li>
 
-											<li class="label-descp label-success">
+											<li class="label label-success">
 												<i class="glyphicon glyphicon-th-list desc3"></i>
 												{% if  habilidad.num_solicitudes%}
-													<span class="desc">Solicitudes: </span>
-													<strong class="desc3">
+													<span>Solicitudes: </span>
+													<strong>
 														{{ habilidad.num_solicitudes }}
 													</strong>
 												{% else %}
@@ -105,18 +98,17 @@
 												{% endif %}
 											</li>
 
-											<li class="label-descp label-danger">
+											<li class="label label-danger">
 												{% if habilidad.precio %}
 													<i class="glyphicon glyphicon-usd desc3"></i>
-													<span class="desc">Precio: </span>
-													<strong class="desc3">
+													<span>Precio: </span>
+													<strong>
 														{{ habilidad.precio | intcomma}}
 													</strong>
 												{% else %}
 													<span><b>ninguno</b></span>
 												{% endif %}
 											</li>
-
 										</ul>
 									</div>
 								</div>
@@ -127,7 +119,7 @@
 			{% else %}
 			<div class="row text-center">
 				<img src="/static/img/not-found.png" class="desc-img">
-				<p>Aún no has creado tu primera habilidad, oprime click en nueva y llena el formulario</p>
+				<p>Aún no has creado tu primer Bienes/Servicios, oprime click en nueva y llena el formulario</p>
 			</div>
 			{% endif %}
 		</div>
@@ -141,52 +133,51 @@
 			</div>
 			<div class="habilidad-item">
 				<div className="col-sm-12">
-					<a href="/habilidades/{{ inactiva.slug }}/{{ inactiva.pk }}">
+					<a href="/bienes-servicios/{{ inactiva.slug }}/{{ inactiva.pk }}" class="normal">
 						<div class="row panel panel-default">
 							<div class="col-sm-12 col-md-4 div-align">
-								<img src="{{ inactiva.foto.url }}" class="img-responsive center-block img-thumbnail" alt="{{ inactiva.nhabilidad }}">
+								<img src="{{ inactiva.foto.url }}" class="img-responsive center-block img-thumbnail" alt="{{ inactiva.nBienServicio }}">
 							</div>
 							<div class="col-sm-12 col-md-5 div-align">
 								<h3>
-									{{ inactiva.nhabilidad | capfirst}}
-
+									{{ inactiva.nBienServicio | capfirst}}
 								</h3>
 								<p class="textJustify">{{ inactiva.descripcion | capfirst}}</p>
+								<ul class="list-inline">
+
+									<li class="label label-warning">
+										<i class="glyphicon glyphicon-star"></i>
+										{% if inactiva.val_promedio %}
+										<span>Puntuacion: </span>
+										<strong>{{ inactiva.val_promedio }}</strong>
+										{% else %}
+										<strong>Ninguno</strong>
+										{% endif %}
+
+									</li>
+
+									<li class="label label-success">
+										<i class="glyphicon glyphicon-th-list"></i>
+										{% if  inactiva.num_solicitudes%}
+										<span class="desc">Solicitudes: </span>
+										<strong>{{ inactiva.num_solicitudes }}</strong>
+										{% else %}
+										<strong>Ninguno</strong>
+										{% endif %}
+
+									</li>
+
+									<li class="label label-danger">
+										{% if inactiva.precio %}
+										<i class="glyphicon glyphicon-usd"></i>
+										<span>Precio: </span>
+										<strong>{{ inactiva.precio | intcomma}}</strong>
+										{% else %}
+										<span><b>Ninguno</b></span>
+										{% endif %}
+									</li>
+								</ul>
 							</div>
-							<ul class="list-inline">
-
-								<li class="label-descp label-warning">
-									<i class="glyphicon glyphicon-star desc3"></i>
-									{% if inactiva.val_promedio %}
-									<span class="desc">Puntuacion: </span>
-									<strong class="desc3">{{ inactiva.val_promedio }}</strong>
-									{% else %}
-									<strong class="desc3">ninguno</strong>
-									{% endif %}
-
-								</li>
-
-								<li class="label-descp label-success">
-									<i class="glyphicon glyphicon-th-list desc3"></i>
-									{% if  inactiva.num_solicitudes%}
-									<span class="desc">Solicitudes: </span>
-									<strong class="desc3">{{ inactiva.num_solicitudes }}</strong>
-									{% else %}
-									<strong class="desc3">ninguno</strong>
-									{% endif %}
-
-								</li>
-
-								<li class="label-descp label-danger">
-									{% if inactiva.precio %}
-									<i class="glyphicon glyphicon-usd desc3"></i>
-									<span class="desc">Precio: </span>
-									<strong class="desc3">{{ inactiva.precio | intcomma}}</strong>
-									{% else %}
-									<span><b>ninguno</b></span>
-									{% endif %}
-								</li>
-							</ul>
 						</div>
 					</a>
 				</div>
@@ -195,7 +186,7 @@
 			{% else %}
 			<div class="row text-center">
 				<img src="/static/img/not-found.png" class="desc-img">
-				<p>No tienes habilidades inactivas.</p>
+				<p>No tienes Bienes/Servicios inactivos.</p>
 			</div>
 			{% endif %}
 		</div>
@@ -209,14 +200,14 @@
 		</div>
 		<div class="habilidad-item">
 			<div className="col-sm-12">
-				<a href="/habilidades/{{ this.slug }}/{{ this.pk }}">	
+				<a href="/bienes-servicios/{{ this.slug }}/{{ this.pk }}">
 					<div class=" row panel panel-default">
 						<div class="col-sm-12 col-md-4 div-align">
-							<img src="{{ this.foto }}" class="desc-img img-thumbnail" alt="{{ this.nhabilidad }}">
+							<img src="{{ this.foto }}" class="desc-img img-thumbnail" alt="{{ this.nBienServicio }}">
 						</div>
 						<div class="col-sm-12 col-md-5 div-align">
 							<h3>
-								<strong>{{ this.nhabilidad }}</strong>
+								<strong>{{ this.nBienServicio }}</strong>
 							</h3>
 							<p class="textJustify">{{ this.descripcion }}</p>
 						</div>
@@ -277,12 +268,12 @@
 		$('#nueva-habilidad-form').on('submit', function(event){
 			event.preventDefault();
 			$.ajax({
-				url: '{% url 'nuevaHabilidad' %}',
+				url: '{% url 'nuevo-bien-servicio' %}',
 				type: "POST",
 				dataType: 'json',
 				data: {
 					categoria: $('#id_categoria').val(),
-					nhabilidad: $('#id_nhabilidad').val(),
+					nBienServicio: $('#id_nBienServicio').val(),
 					descripcion: $('#id_descripcion').val(),
 					precio: $('#id_precio').val(),
 				},

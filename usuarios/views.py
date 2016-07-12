@@ -15,7 +15,6 @@ from django.template.loader import render_to_string
 import os
 import json
 
-
 from forms import *
 from forms import loginForm,registroForm
 from models import perfilUsuarioModel
@@ -42,7 +41,7 @@ class registroView(FormView):
 
 	def form_valid(self,form):
 		form.save()
-		self.enviar_email_registro(form)
+		#self.enviar_email_registro(form)
 		return HttpResponseRedirect(self.get_success_url())
 
 	def form_invalid(self, form):

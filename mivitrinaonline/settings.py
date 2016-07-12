@@ -10,37 +10,37 @@ DEBUG = True
 TEMPLATE_DEBUG = True
 
 DJANGO_APPS = (
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.messages',
-    'django.contrib.sessions',
-    'django.contrib.staticfiles',
-    'django.contrib.humanize',
+	'django.contrib.admin',
+	'django.contrib.auth',
+	'django.contrib.contenttypes',
+	'django.contrib.messages',
+	'django.contrib.sessions',
+	'django.contrib.staticfiles',
+	'django.contrib.humanize',
 )
 
 PROJECT_APPS = (
-    'app',
-    'busquedas',
-    'estadisticas',
-    'bienes_servicios',
-    'usuarios',
+	'app',
+	'busquedas',
+	'estadisticas',
+	'bienes_servicios',
+	'usuarios',
 )
 
 THIRTY_PARTY_APPS = (
-    'djrill',
+	'djrill',
 )
 
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + THIRTY_PARTY_APPS
 
 MIDDLEWARE_CLASSES = (
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+	'django.contrib.sessions.middleware.SessionMiddleware',
+	'django.middleware.common.CommonMiddleware',
+	'django.middleware.csrf.CsrfViewMiddleware',
+	'django.contrib.auth.middleware.AuthenticationMiddleware',
+	'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+	'django.contrib.messages.middleware.MessageMiddleware',
+	'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
 
@@ -70,14 +70,14 @@ USE_L10N = True
 USE_TZ = True
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        #'NAME': 'd19nmg8u9k0f6j',
-        #'USER': 'imxmlamvskvoyi',
-        #'PASSWORD': '9aiQQ3kfOj5D06Vn4F6SUATg_V',
-        #'HOST':'ec2-54-225-134-223.compute-1.amazonaws.com',
-        #'PORT':'5432',
-    }
+	'default': {
+		'ENGINE': 'django.db.backends.postgresql_psycopg2',
+		#'NAME': 'd19nmg8u9k0f6j',
+		#'USER': 'imxmlamvskvoyi',
+		#'PASSWORD': '9aiQQ3kfOj5D06Vn4F6SUATg_V',
+		#'HOST':'ec2-54-225-134-223.compute-1.amazonaws.com',
+		#'PORT':'5432',
+	}
 }
 #DATABASES['default'] =  dj_database_url.config()
 
@@ -97,7 +97,7 @@ STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
+	os.path.join(BASE_DIR, 'static'),
 )
 
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')

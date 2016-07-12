@@ -10,37 +10,37 @@ DEBUG = True
 TEMPLATE_DEBUG = True
 
 DJANGO_APPS = (
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.messages',
-    'django.contrib.sessions',
-    'django.contrib.staticfiles',
-    'django.contrib.humanize',
+	'django.contrib.admin',
+	'django.contrib.auth',
+	'django.contrib.contenttypes',
+	'django.contrib.messages',
+	'django.contrib.sessions',
+	'django.contrib.staticfiles',
+	'django.contrib.humanize',
 )
 
 PROJECT_APPS = (
-    'app',
-    'busquedas',
-    'estadisticas',
-    'bienes_servicios',
-    'usuarios',
+	'app',
+	'busquedas',
+	'estadisticas',
+	'bienes_servicios',
+	'usuarios',
 )
 
 THIRTY_PARTY_APPS = (
-    'djrill',
+	'djrill',
 )
 
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + THIRTY_PARTY_APPS
 
 MIDDLEWARE_CLASSES = (
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+	'django.contrib.sessions.middleware.SessionMiddleware',
+	'django.middleware.common.CommonMiddleware',
+	'django.middleware.csrf.CsrfViewMiddleware',
+	'django.contrib.auth.middleware.AuthenticationMiddleware',
+	'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+	'django.contrib.messages.middleware.MessageMiddleware',
+	'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
 # SMTP Settings Backend
@@ -68,15 +68,15 @@ USE_L10N = True
 USE_TZ = True
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'mivitrinavirtual',
-        'USER': 'postgres',
-        'PASSWORD': '1234',
-        'HOST':'127.0.0.1',
-        #'HOST':'192.168.20.107',
-        'PORT':'5432',
-    }
+	'default': {
+		'ENGINE': 'django.db.backends.postgresql_psycopg2',
+		'NAME': 'mivitrinavirtual',
+		'USER': 'postgres',
+		'PASSWORD': '1234',
+		'HOST':'127.0.0.1',
+		#'HOST':'192.168.20.107',
+		'PORT':'5432',
+	}
 }
 #DATABASES['default'] =  dj_database_url.config()
 
@@ -96,7 +96,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = 'staticfiles'
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
+	os.path.join(BASE_DIR, 'static'),
 )
 
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')

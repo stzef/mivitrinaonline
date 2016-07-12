@@ -9,6 +9,7 @@
 		<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;" />
 		<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
 		<link href="{% static 'css/style.css' %}" rel="stylesheet" />
+		<link href="{% static 'css/style_mvo.css' %}" rel="stylesheet" />
 		<script src="{% static 'jslibraries/handlebars.js' %}"></script>
 		<script src="{% static 'jslibraries/spin.js' %}"></script>
 		<script src="{% static 'jslibraries/jquery-1.11.3.min.js' %}"></script>
@@ -18,7 +19,7 @@
 	</head>
 
 	<body>
-		<section class="contendorInfoIndex">
+		<section>
 			<nav class="navbar navbar-default">
 				<div class="container">
 					<div class="navbar-header">
@@ -28,25 +29,29 @@
 							<span class="icon-bar"></span>
 							<span class="icon-bar"></span>
 						</button>
-						<a class="navbar-brand" href="/">Mi Vitrina Online</a>
+						<a class="NAME_APP navbar-brand" href="/">
+							<span class="mi" >Mi</span>
+							<span class="vitrina" >Vitrina</span>
+							<span class="online" >Online</span>
+						</a>
 					</div>
 					{% if user.is_authenticated %}
 						<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 							<!--<ul class="nav navbar-nav"></ul>-->
-							<ul class="nav navbar-nav">
+							<ul class="nav navbar-nav navbar-left">
 								<li>
 									<a class="" href="{% url 'buscar' %}">
 										<strong>
-											<span class="glyphicon glyphicon-search desc3"></span>
+											<span class="glyphicon glyphicon-search"></span>
 											<span class="desc">Busqueda</span>
 										</strong>
 									</a>
 								</li>
 								<li>
-									<a class="" href="{% url 'habilidades' %}">
+									<a class="" href="{% url 'bienes-servicios' %}">
 										<strong>
-											<span class="glyphicon glyphicon-heart-empty desc3"></span>
-											<span class="desc">Productos/Servicios</span>
+											<span class="glyphicon glyphicon-globe"></span>
+											<span class="desc">Bienes/Servicios</span>
 										</strong>
 									</a>
 								</li>
@@ -55,7 +60,7 @@
 								<li class="dropdown">
 									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 										<strong>
-											<span class="glyphicon glyphicon-cog desc3"></span>
+											<span class="glyphicon glyphicon-cog"></span>
 											<span class="desc">{{ user.first_name }}</span>
 										</strong>
 									</a>
@@ -63,7 +68,7 @@
 										<li><a class="link-user" href="{% url 'miCuenta' %}">Mi Cuenta</a></li>
 										<li><a class="link-user" href="{% url 'profile' %}">Perfil</a></li>
 										<li role="separator" class="divider"></li>
-										<li><a href="{% url 'habilidades' %}">Habilidades</a></li>
+										<li><a href="{% url 'bienes-servicios' %}">Bienes/Servicios</a></li>
 										<li role="separator" class="divider"></li>
 										<li><a class="link-user" href="{% url 'salir' %}">Salir</a></li>
 									</ul>
@@ -87,12 +92,12 @@
 				</div>
 			</nav>
 
-			<section class="contenidoTemplateIndex">
+			<section>
 				{% block content %}
 				{% endblock %}
 			</section>
 
-			<footer class="footer">
+			<footer>
 				<p>Desarrollado por <a href="http://sistematizar.co/" target="_blank" class="link">SistematizarEF</a></p>
 			</footer>
 			{% block scripts %}

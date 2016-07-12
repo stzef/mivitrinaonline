@@ -4,18 +4,13 @@
 {% load humanize %}
 
 {% block head %}
-<title>Habilidades | OportunidApp </title>
-<style>
-	.menuItemHabilidad{
-		background-color: rgb(12, 32, 50);;
-	}
-</style>
+<title>Bienes/Servicios | Mi Vitrina Online </title>
 {% endblock %}
 
 {% block content %}
 	<div class="row first">
 		<div class="full col-md-12">
-			<a href="{% url 'habilidades' %}" class="btn btn-primary left">Atrás</a>
+			<a href="{% url 'bienes-servicios' %}" class="btn btn-primary left">Atrás</a>
 		</div>
 	</div>
 	<div class="row second">
@@ -60,7 +55,7 @@
 			</ul>
 
 			<div class="col-md-12">
-				<h3>{{ habilidad.nhabilidad | capfirst}}</h3>
+				<h3>{{ habilidad.nBienServicio | capfirst}}</h3>
 				<p>{{ habilidad.descripcion | capfirst}}</p>
 			</div>
 			<ul class="col-md-12 list-unstyled">
@@ -103,14 +98,14 @@
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 					<h4 class="modal-title" id="myModalLabel">
-						<b>Desactivar Producto/Servicio</b>
+						<b>Desactivar Bien/Servicio</b>
 					</h4>
 				</div>
 				<div class="modal-body">
 					<div class="content-modal">
 						<p>
-							Seguro quieres desactivar el Producto/Servicio: <b><h4>"{{ habilidad.nhabilidad }}" ?</h4></b>
-							Esto significa que las personas no podrán encontrarte si buscan un producto/servicio como este o similar.
+							Seguro quieres desactivar el Bien/Servicio: <b><h4>"{{ habilidad.nBienServicio }}" ?</h4></b>
+							Esto significa que las personas no podrán encontrarte si buscan un bien/servicio como este o similar.
 						</p>
 						<div class="accept">
 							<button id="btn-desactivar-habilidad" class="btn btn-success">Si, seguro</button>
@@ -134,7 +129,7 @@
 				<div class="modal-body">
 					<div class="content-modal">
 						<p>
-							Al activar el Producto/Servicio: <b><h4>"{{ habilidad.nhabilidad }}"</h4></b> permitiras que otras personas te encuentren si buscan un producto/servicio como este o similar.
+							Al activar el Bien/Servicio: <b><h4>"{{ habilidad.nBienServicio }}"</h4></b> permitiras que otras personas te encuentren si buscan un bien/servicio como este o similar.
 						</p>
 						<div class="accept">
 							<button id="btn-activar-habilidad" class="btn btn-success">Si, seguro</button>
@@ -153,7 +148,7 @@
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 					<h4 class="modal-title" >
-						<b>Editar Producto/Servicio</b>
+						<b>Editar Bien/Servicio</b>
 					</h4>
 				</div>
 				<div class="modal-body">
@@ -164,8 +159,8 @@
 								<input id="{{form.categoria.id_for_label}}" type="hidden" name="{{form.categoria.id_for_label}}" value="{{form.categoria.value}}">
 								{% csrf_token %}
 								<p>
-									{{form.nhabilidad.label_tag}}
-									{{form.nhabilidad}}
+									{{form.nBienServicio.label_tag}}
+									{{form.nBienServicio}}
 								</p>
 								<p>
 									{{form.descripcion.label_tag}}
@@ -199,10 +194,10 @@
 				<div class="modal-body">
 					<div class="content-modal">
 						<h4>
-							Selecciona una foto para tu producto/servicio
+							Selecciona una foto para tu bien/servicio
 						</h4>
 						<p>
-							Esta foto aparecera cuando otras personas busquen un producto/servicio como este o similar. <br> <span class="font-descrip-min">Puedes cargar archivos JPEG, PNG (tamaño max. 2MB)</span>
+							Esta foto aparecera cuando otras personas busquen un bien/servicio como este o similar. <br> <span class="font-descrip-min">Puedes cargar archivos JPEG, PNG (tamaño max. 2MB)</span>
 						</p>
 						<div>
 							<form id="subir-foto-form" enctype="multipart/form-data">
@@ -240,7 +235,7 @@
 
 			$('#btn-desactivar-habilidad').click(function () {
 				$.ajax({
-					url: '{% url 'desactivarHabilidad' %}',
+					url: '{% url 'desactivar-bien-servicio' %}',
 					type: 'POST',
 					data: { habilidad_id : '{{ habilidad.id }}'},
 					success: function (json) {
@@ -251,7 +246,7 @@
 
 			$('#btn-activar-habilidad').click(function(){
 				$.ajax({
-					url : '{% url 'activarHabilidad' %}',
+					url : '{% url 'activar-bien-servicio' %}',
 					type : 'POST',
 					data : {habilidad_id : '{{habilidad.id}}'},
 					success:function(json){
@@ -263,13 +258,13 @@
 			$('#editar-habilidad-form').on('submit', function(event){
 				event.preventDefault();
 				$.ajax({
-					url: '{% url 'editarHabilidad' %}',
+					url: '{% url 'editar-bien-servicio' %}',
 					type: "POST",
 					dataType: 'json',
 					data : {
 						id : $('#id_habilidad').val(),
 						categoria: $('#id_categoria').val(),
-						nhabilidad: $('#id_nhabilidad').val(),
+						nBienServicio: $('#id_nBienServicio').val(),
 						descripcion: $('#id_descripcion').val(),
 						precio: $('#id_precio').val(),
 					},
@@ -296,7 +291,7 @@
 						formData.append('foto', archivo);
 						var xhr = new XMLHttpRequest();
 
-						xhr.open('POST', '{% url 'fotoHabilidad' %}', true);
+						xhr.open('POST', '{% url 'foto-bien-servicio' %}', true);
 						xhr.send(formData);
 						xhr.onload = function () {
 							if (xhr.status === 200) {

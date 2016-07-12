@@ -1,7 +1,7 @@
 {% extends "base_mvv.html" %}
 
 {% block head %}
-	<title>Mi Cuenta | OportunidApp </title>
+	<title>Mi Cuenta | Mi Vitrina Online </title>
 	<style>
 		.menuItemPerfil{
 			background-color: #729C34;
@@ -11,26 +11,25 @@
 
 {% block content %}
 		<h3>
-			<span class="glyphicon glyphicon-user colorAzul tituloMiCuenta"></span> 
+			<span class="glyphicon glyphicon-user"></span> 
 			<span class="tituloMiCuenta">Mi cuenta</span>
 		</h3>
 
 		<p class="bloqueSeparador"></p>
 
-
-		<a href="{% url 'habilidades' %}">
-			<p><span  class="glyphicon glyphicon-wrench colorAzul "></span>
-			<span>Productos/Servicios</span>
+		<a href="{% url 'bienes-servicios' %}">
+			<p><span  class="glyphicon glyphicon-wrench "></span>
+			<span>Bienes/Servicios</span>
 		</a>
 
-		<ul class="datosInformativosMiCuenta">
+		<ul>
 			<li>
-				<span class="glyphicon glyphicon-play colorVerde "></span>
+				<span class="glyphicon glyphicon-play "></span>
 				Activos 
 				<span class="badge">{{bienes_servicios_activos}}</span>
 			</li>
 			<li>
-				<span class="glyphicon glyphicon-stop colorRojo" ></span>
+				<span class="glyphicon glyphicon-stop" ></span>
 				Inactivos
 				<span class="badge">{{bienes_servicios_inactivos}}</span>
 			</li>

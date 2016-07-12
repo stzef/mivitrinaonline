@@ -1,1 +1,1 @@
-web: gunicorn oportunidapp.wsgi --log-file -
+web: gunicorn mivitrinaonline.wsgi --log-file -

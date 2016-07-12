@@ -1,0 +1,26 @@
+@import "nib"
+vendor-prefixes = webkit o ms moz official
+
+colorBaseApp1 = #FFC618
+colorBaseApp2 = #43B7D8
+colorBaseApp2Oscuro = #006182
+
+.NAME_APP
+	font-weight bold
+	.mi
+		color colorBaseApp1
+	.vitrina
+		color colorBaseApp1
+	.online
+		color colorBaseApp2
+
+a
+	color colorBaseApp2
+	&:hover
+		color colorBaseApp2Oscuro
+	&.normal
+		color inherit
+		text-decoration none
+
+.img-profile
+	height 200px
