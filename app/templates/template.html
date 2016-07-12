@@ -30,45 +30,45 @@
 					</button>
 					<a class="navbar-brand" href="/">Mi Vitrina Virtual</a>
 				</div>
-					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-						<ul class="nav navbar-nav">
-							<li>
-								<a class="" href="{% url 'buscar' %}">
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<li>
+							<a class="" href="{% url 'buscar' %}">
+								<strong>
+									<span class="glyphicon glyphicon-search desc3"></span>
+									<span class="desc">Busqueda</span>
+								</strong>
+							</a>
+						</li>
+						<li>
+							<a class="" href="{% url 'habilidades' %}">
+								<strong>
+									<span class="glyphicon glyphicon-heart-empty desc3"></span>
+									<span class="desc">Productos/Servicios</span>
+								</strong>
+							</a>
+						</li>
+					</ul>
+					<ul class="nav navbar-nav"></ul>
+						<ul class="nav navbar-nav navbar-right">
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 									<strong>
-										<span class="glyphicon glyphicon-search desc3"></span>
-										<span class="desc">Busqueda</span>
+										<span class="glyphicon glyphicon-cog desc3"></span>
+										<span class="desc">{{ user.first_name }}</span>
 									</strong>
 								</a>
-							</li>
-							<li>
-								<a class="" href="{% url 'habilidades' %}">
-									<strong>
-										<span class="glyphicon glyphicon-heart-empty desc3"></span>
-										<span class="desc">Productos/Servicios</span>
-									</strong>
-								</a>
+								<ul class="dropdown-menu">
+									<li><a class="link-user" href="{% url 'miCuenta' %}">Mi Cuenta</a></li>
+									<li><a class="link-user" href="{% url 'profile' %}">Perfil</a></li>
+									<li role="separator" class="divider"></li>
+									<li><a href="{% url 'habilidades' %}">Habilidades</a></li>
+									<li role="separator" class="divider"></li>
+									<li><a class="link-user" href="{% url 'salir' %}">Salir</a></li>
+								</ul>
 							</li>
 						</ul>
-						<ul class="nav navbar-nav"></ul>
-							<ul class="nav navbar-nav navbar-right">
-								<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-										<strong>
-											<span class="glyphicon glyphicon-cog desc3"></span>
-											<span class="desc">{{ user.first_name }}</span>
-										</strong>
-									</a>
-									<ul class="dropdown-menu">
-										<li><a class="link-user" href="{% url 'miCuenta' %}">Mi Cuenta</a></li>
-										<li><a class="link-user" href="{% url 'profile' %}">Perfil</a></li>
-										<li role="separator" class="divider"></li>
-										<li><a href="{% url 'habilidades' %}">Habilidades</a></li>
-										<li role="separator" class="divider"></li>
-										<li><a class="link-user" href="{% url 'salir' %}">Salir</a></li>
-									</ul>
-								</li>
-							</ul>
-					</div>
+				</div>
 			</div>
 		</nav>
 

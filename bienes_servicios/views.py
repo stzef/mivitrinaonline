@@ -26,7 +26,7 @@ import os
 #Importaciones de otras librerias
 from braces.views import LoginRequiredMixin
 
-class habilidadesListView(LoginRequiredMixin, ListView):
+class bienesServiciosListView(LoginRequiredMixin, ListView):
 	login_required = True
 	model = bienesServiciosModel
 	template_name = 'habilidades.html'
@@ -46,10 +46,10 @@ class habilidadesListView(LoginRequiredMixin, ListView):
 		return queryset
 
 	def get(self, request, *args, **kwargs):
-		return super(habilidadesListView, self).get(request, *args, **kwargs)
+		return super(bienesServiciosListView, self).get(request, *args, **kwargs)
 
 	def get_context_data(self, **kwargs):
-		context = super(habilidadesListView, self).get_context_data(**kwargs)
+		context = super(bienesServiciosListView, self).get_context_data(**kwargs)
 		context['form'] = self.form
 		context['inactivas'] = self.getHabilidadesInactivas()
 		context['cantidadInactivas'] = context['inactivas'].count()
@@ -57,7 +57,7 @@ class habilidadesListView(LoginRequiredMixin, ListView):
 		return context
 
 @login_required()
-def crearNuevaHabilidad(request):	
+def crearNuevoBienServicio(request):
 	if request.is_ajax():
 		form = nuevoBienServicioForm(request.POST)
 		response_data = {}
@@ -102,9 +102,9 @@ def detalle(request, slug, pk):
 		return render(request,templateRespuesta, contexto)
 	return render(request,templateRespuesta)
 
-#[editarHabilidad] View encargada editar una habilidad
+#[editarBienServicio] View encargada editar una habilidad
 @login_required()
-def editarHabilidad(request):
+def editarBienServicio(request):
 	if request.method == "POST":
 		form = nuevoBienServicioForm(request.POST)
 		if form.is_valid():
@@ -130,9 +130,9 @@ def editarHabilidad(request):
 				content_type="application/json"
 			)
 
-#[desactivarHabilidad] View encargada desactivar una habilidad
+#[desactivarBienServicio] View encargada desactivar una habilidad
 @login_required()
-def desactivarHabilidad(request):
+def desactivarBienServicio(request):
 	if request.is_ajax() and request.method == "POST":
 		habilidad_id = request.POST['habilidad_id']
 		habilidadPorDesactivar = get_object_or_404 (bienesServiciosModel,id = habilidad_id)
@@ -154,7 +154,7 @@ def desactivarHabilidad(request):
 		return render(request,'no_permitido.html')
 
 @login_required()
-def activarHabilidad(request):
+def activarBienServicio(request):
 	if request.is_ajax() and request.method == "POST":
 		habilidad_id = request.POST['habilidad_id']
 		habilidadPorActivar = get_object_or_404 (bienesServiciosModel,id = habilidad_id)
@@ -176,7 +176,7 @@ def activarHabilidad(request):
 
 @csrf_exempt
 @login_required
-def cambiarFotoHabilidad(request):
+def cambiarFotoBienServicio(request):
 
 	#Obtener Parametros
 	habilidadCambioImagen = bienesServiciosModel.objects.get(id=request.POST['habilidad'])

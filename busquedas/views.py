@@ -15,7 +15,7 @@ from usuarios.models import perfilUsuarioModel
 #Importaciones desde Python
 import json
 
-class detalleHabilidadBuscada(DetailView):
+class detalleBienServicioBuscada(DetailView):
 	model = bienesServiciosModel
 	context_object_name = 'habilidad'
 	template_name = 'busqueda_detalle.html'
@@ -32,7 +32,7 @@ class detalleHabilidadBuscada(DetailView):
 
 	#incluye elementos dentro del contexto y los retorna
 	def get_context_data(self, **kwargs):
-		context = super(detalleHabilidadBuscada, self).get_context_data(**kwargs)
+		context = super(detalleBienServicioBuscada, self).get_context_data(**kwargs)
 		recomendados = self.getRecomendados(context['object'])
 		preguntas = self.getPreguntas(context['object'])
 		context['recomendados'] = recomendados
