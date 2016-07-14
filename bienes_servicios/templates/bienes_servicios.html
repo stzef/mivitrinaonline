@@ -1,0 +1,304 @@
+{% extends "base_mvv.html" %}
+{% load staticfiles %}
+{% load humanize %}
+
+
+{% block head %}
+<title>Biens/Servicios | Mi Vitrina Online </title>
+{% endblock %}
+{% block content %}
+<div class="page-header">
+	<h2 class="hbl-t">Biens/Servicios <a href="#" class="btn btn-primary" id="hbl">Nueva</a></h2>
+</div>
+<div>
+		<div class="panel" id="partialAdd" style="display:none">
+			<form id="nuevo-bien-servicio-form" method="post" enctype='multipart/form-data'>
+				<h4>Nuevo Bien/Servicio</h4>
+				<div class="form-group">
+					{{ form.as_p }}
+				</div>
+				<div class="text-right">
+					<a href="" class="btn btn-danger" id="cancel">Cancelar</a>
+					<input type="submit" value="Agregar + " class="btn btn-primary">
+				</div>
+				<ul class="list-inline">
+				</ul>
+			</form>
+		</div>
+</div>
+<div class="space-tab">
+	<ul class="nav nav-tabs" id="tabs" data-tabs="tabs">
+		<li role="presentation" class="active">
+			<a href="#activas" data-toggle="tab">
+				Activos
+				<span id="cantidad-activas" data-cactiva="{{cantidadActivas}}" class="n-red badge">
+					{{ cantidadActivas }}
+				</span>
+			</a>
+		</li>
+		<li role="presentation" class="">
+			<a href="#inactivas" data-toggle="tab">
+				Inactivos
+				<span class="n-red badge">
+					{{ cantidadInactivas }}
+				</span>
+			</a>
+		</li>
+	</ul>
+</div>
+<ul id="listul">
+</ul>
+<p id="foo"></p>
+<div>
+	<div class="tab-content">
+		<div class="tab-pane active" id="activas">
+			{% if bienes_servicios %}
+				{% for bienServicio in bienes_servicios %}
+					<div class="col-md-12">
+						<div class="label-category label-description text-center">
+							<strong class="desc3">{{ bienServicio.categoria }}</strong>
+						</div>
+					</div>
+					<div>
+						<div className="col-sm-12">
+							<a href="/bienes-servicios/{{ bienServicio.slug }}/{{ bienServicio.pk }}" class="normal">	
+								<div class=" row panel panel-default">
+									<div class="col-sm-12 col-md-4 div-align">
+										<img src="{{ bienServicio.foto.url }}" class="img-responsive center-block img-thumbnail" alt="{{ bienServicio.nBienServicio }}">
+									</div>
+									<div class="col-sm-12 col-md-5 div-align">
+										<h3>
+											<strong>{{ bienServicio.nBienServicio | capfirst}}</strong>
+										</h3>
+										<p class="textJustify">{{ bienServicio.descripcion | capfirst}}</p>
+										<ul class="list-inline">
+											<li class="label label-app label-warning">
+												<i class="glyphicon glyphicon-star desc3"></i>
+												{% if bienServicio.val_promedio %}
+													<span>Puntuacion: </span>
+													<strong>
+														{{ bienServicio.val_promedio }}
+													</strong>
+												{% else %}
+													<strong class="desc3">Ninguno</strong>
+												{% endif %}
+											</li>
+
+											<li class="label label-app label-success">
+												<i class="glyphicon glyphicon-th-list desc3"></i>
+												{% if  bienServicio.num_solicitudes%}
+													<span>Solicitudes: </span>
+													<strong>
+														{{ bienServicio.num_solicitudes }}
+													</strong>
+												{% else %}
+													<strong class="desc3">Ninguno</strong>
+												{% endif %}
+											</li>
+
+											<li class="label label-app label-danger">
+												{% if bienServicio.precio %}
+													<i class="glyphicon glyphicon-usd desc3"></i>
+													<span>Precio: </span>
+													<strong>
+														{{ bienServicio.precio | intcomma}}
+													</strong>
+												{% else %}
+													<span><b>Ninguno</b></span>
+												{% endif %}
+											</li>
+										</ul>
+									</div>
+								</div>
+							</a>
+						</div>
+					</div>
+				{% endfor %}
+			{% else %}
+			<div class="row text-center">
+				<img src="/static/img/not-found.png" class="desc-img">
+				<p>Aún no has creado tu primer Bienes/Servicios, oprime click en nueva y llena el formulario</p>
+			</div>
+			{% endif %}
+		</div>
+		<div class="tab-pane" id="inactivas">
+			{% if inactivas %}
+			{% for inactiva in inactivas %}
+			<div class="col-md-12">
+				<div class="label-category label-description text-center">
+					<strong class="desc3">{{ inactiva.categoria }}</strong>
+				</div>
+			</div>
+			<div>
+				<div className="col-sm-12">
+					<a href="/bienes-servicios/{{ inactiva.slug }}/{{ inactiva.pk }}" class="normal">
+						<div class="row panel panel-default">
+							<div class="col-sm-12 col-md-4 div-align">
+								<img src="{{ inactiva.foto.url }}" class="img-responsive center-block img-thumbnail" alt="{{ inactiva.nBienServicio }}">
+							</div>
+							<div class="col-sm-12 col-md-5 div-align">
+								<h3>{{ inactiva.nBienServicio | capfirst}}</h3>
+								<p class="textJustify">{{ inactiva.descripcion | capfirst}}</p>
+								<ul class="list-inline">
+									<li class="label label-app label-warning">
+										<i class="glyphicon glyphicon-star"></i>
+										{% if inactiva.val_promedio %}
+										<span>Puntuacion: </span>
+										<strong>{{ inactiva.val_promedio }}</strong>
+										{% else %}
+										<strong>Ninguno</strong>
+										{% endif %}
+									</li>
+
+									<li class="label label-app label-success">
+										<i class="glyphicon glyphicon-th-list"></i>
+										{% if  inactiva.num_solicitudes%}
+										<span class="desc">Solicitudes: </span>
+										<strong>{{ inactiva.num_solicitudes }}</strong>
+										{% else %}
+										<strong>Ninguno</strong>
+										{% endif %}
+									</li>
+
+									<li class="label label-app label-danger">
+										{% if inactiva.precio %}
+										<i class="glyphicon glyphicon-usd"></i>
+										<span>Precio: </span>
+										<strong>{{ inactiva.precio | intcomma}}</strong>
+										{% else %}
+										<span><b>Ninguno</b></span>
+										{% endif %}
+									</li>
+								</ul>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+			{% endfor %}
+			{% else %}
+			<div class="row text-center">
+				<img src="/static/img/not-found.png" class="desc-img">
+				<p>No tienes Bienes/Servicios inactivos.</p>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+	{% verbatim %}
+	<script id="bien-servicio-item-template" type="text/x-handlebars-template">
+		<div class="col-md-12">
+			<div class="label-category label-description text-center">
+				<strong class="desc3">{{ this.categoria }}</strong>
+			</div>
+		</div>
+		<div>
+			<div className="col-sm-12">
+				<a href="/bienes-servicios/{{ this.slug }}/{{ this.pk }}">
+					<div class=" row panel panel-default">
+						<div class="col-sm-12 col-md-4 div-align">
+							<img src="{{ this.foto }}" class="desc-img img-thumbnail" alt="{{ this.nBienServicio }}">
+						</div>
+						<div class="col-sm-12 col-md-5 div-align">
+							<h3>
+								<strong>{{ this.nBienServicio }}</strong>
+							</h3>
+							<p class="textJustify">{{ this.descripcion }}</p>
+						</div>
+						<div class="col-sm-12 col-md-3">
+							<ul>
+								<li class="label label-app label-warning">
+									<i class="glyphicon glyphicon-star desc3"></i>
+									{{#if this.val_promedio}}
+										<span class="desc">Puntuacion: </span>
+										<strong class="desc3">
+											{{ this.val_promedio }}
+										</strong>
+									{{else}
+										<strong class="desc3">Ninguno</strong>
+									{{/endif}}
+								</li>
+								<li class="label label-app label-success">
+									<i class="glyphicon glyphicon-th-list desc3"></i>
+									{{#if  this.num_solicitudes }}
+										<span class="desc">Solicitudes: </span>
+										<strong class="desc3">
+											{{ this.num_solicitudes }}
+										</strong>
+									{{else}}
+										<strong class="desc3">Ninguno</strong>
+									}
+									}
+									{{/endif}}
+								</li>
+								<li class="label label-app label-danger">
+									{{#if this.precio }}
+										<i class="glyphicon glyphicon-usd desc3"></i>
+										<span class="desc">Precio: </span>
+										<strong class="desc3">
+											{{ this.precio }}
+										</strong>
+									{{else}}
+										<span><b>Ninguno</b></span>
+									}
+									}
+									{{/endif}}
+								</li>
+							</ul>
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+	</script>
+	{% endverbatim %}
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'jsapp/csrf_load.js' %}"></script>
+<script>
+	$(function() {
+		var TIME = 200
+		$('#nuevo-bien-servicio-form').on('submit', function(event){
+			event.preventDefault();
+			$.ajax({
+				url: '{% url 'nuevo-bien-servicio' %}',
+				type: "POST",
+				dataType: 'json',
+				data: {
+					categoria: $('#id_categoria').val(),
+					nBienServicio: $('#id_nBienServicio').val(),
+					descripcion: $('#id_descripcion').val(),
+					precio: $('#id_precio').val(),
+				},
+				success: function(json){
+					var source   = $("#bien-servicio-item-template").html();
+					var template = Handlebars.compile(source);
+					t = template(json);
+					$("#nuevo-bien-servicio-form").trigger('reset');
+					$('#partialAdd').hide(TIME);
+					$('#hbl').show(TIME);
+					$('#activas').prepend(t);
+					setTimeout(function(){
+						var activas = $('#cantidad-activas').attr('data-cactiva');
+						$('#cantidad-activas').attr('data-cactiva',parseInt(activas)+1);
+						$('#cantidad-activas').text(parseInt(activas)+1);
+					},1000);
+				},
+			});
+		});
+
+		$('#partialAdd').hide();
+		$('#hbl').click(function(event){
+			$('#partialAdd').show(TIME);
+			$('#hbl').hide(TIME);
+			event.preventDefault();
+		});
+		$('#cancel').click(function(event){
+			$("#nuevo-bien-servicio-form").trigger('reset');
+			$('#partialAdd').hide(TIME);
+			$('#hbl').show(TIME);
+			event.preventDefault();
+		});
+	});
+</script>
+{% endblock %}

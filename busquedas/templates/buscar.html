@@ -21,7 +21,7 @@
 			<h2 class="text-left"><b>Categorias</b></h2>
 			<ul class="list-inline">
 				{% for categoria in categorias %}
-				<li class=" label label-success">
+				<li class=" label label-success label-app">
 					<a href="{% url 'busqueda' categoria.slug %}" class="normal">
 						{{ categoria.categoria }}
 					</a>

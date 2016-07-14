@@ -53,8 +53,8 @@
 				<ul class="list-unstyled">
 					{% if  busqueda %}
 					<li>
-						búsqueda
-						<a href="#">"{{busqueda}}"</a>
+						busqueda
+						<span class="label label-app label-info">{{busqueda}}</span>
 					</li>
 					{% endif %}
 				</ul>
@@ -163,8 +163,7 @@
 
 						{% endfor %}
 						{% else %}
-						<p>No hay resultados</p>
-						<p>Quieres sugerir un Bienes/Servicios</p>
+						<h1>No hay resultados</h1>
 						{% endif %}
 					</div>
 				</div>

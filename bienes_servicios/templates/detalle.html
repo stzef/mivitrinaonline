@@ -155,7 +155,7 @@
 					<div class="content-modal">
 						<form id="editar-form" method="post">
 							<div class="form-group">
-								<input id="id_habilidad" type="hidden" name="id" value="{{bienServicio.id}}">
+								<input id="id-bien-servicio" type="hidden" name="id" value="{{bienServicio.id}}">
 								<input id="{{form.categoria.id_for_label}}" type="hidden" name="{{form.categoria.id_for_label}}" value="{{form.categoria.value}}">
 								{% csrf_token %}
 								<p>
@@ -237,7 +237,7 @@
 				$.ajax({
 					url: '{% url 'desactivar-bien-servicio' %}',
 					type: 'POST',
-					data: { habilidad_id : '{{ bienServicio.id }}'},
+					data: { id : '{{ bienServicio.id }}'},
 					success: function (json) {
 						location.reload();
 					},
@@ -248,7 +248,7 @@
 				$.ajax({
 					url : '{% url 'activar-bien-servicio' %}',
 					type : 'POST',
-					data : {habilidad_id : '{{bienServicio.id}}'},
+					data : {id : '{{bienServicio.id}}'},
 					success:function(json){
 						location.reload();
 					}
@@ -262,7 +262,7 @@
 					type: "POST",
 					dataType: 'json',
 					data : {
-						id : $('#id_habilidad').val(),
+						id : $('#id-bien-servicio').val(),
 						categoria: $('#id_categoria').val(),
 						nBienServicio: $('#id_nBienServicio').val(),
 						descripcion: $('#id_descripcion').val(),
@@ -282,7 +282,7 @@
 				var archivo = archivoSeleccionado.files[0];
 				var formData = new FormData();
 
-				formData.append('habilidad', {{bienServicio.id}});
+				formData.append('id', {{bienServicio.id}});
 
 				if (archivo.type.match('image.*'))
 				{

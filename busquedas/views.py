@@ -20,9 +20,9 @@ class detalleBienServicioBuscada(DetailView):
 	context_object_name = 'bienServicio'
 	template_name = 'busqueda_detalle.html'
 
-	#retorna elementos recomendados del modelo 'habilidades'
-	def getRecomendados(self, habilidad):
-		recomendados = bienesServiciosModel.objects.filter(categoria=habilidad.categoria,estado=True).exclude(id=habilidad.id).order_by('-val_promedio')[:3]
+	#retorna elementos recomendados del modelo 'bienesServiciosModel'
+	def getRecomendados(self, BienServicio):
+		recomendados = bienesServiciosModel.objects.filter(categoria=BienServicio.categoria,estado=True).exclude(id=BienServicio.id).order_by('-val_promedio')[:3]
 		return recomendados
 
 	#incluye elementos dentro del contexto y los retorna
@@ -93,7 +93,7 @@ class busquedasCategoriaLista(ListView):
 				#queryset = categoriasModel.objects.none()
 		return queryset
 
-	#retorna los elementos  del modelo 'habilidades' segun la consulta
+	#retorna los elementos  del modelo 'bienesServiciosModel' segun la consulta
 	def get_queryset(self):
 		categoria = categoriasModel.objects.get(slug=self.kwargs['slug'])
 		queryset = self.model.objects.filter(estado=True,categoria=categoria)

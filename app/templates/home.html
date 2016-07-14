@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% block content %}
-	<div>
+	<section class="container">
 		<div class="panel">
 			<div class="input-group">
 				<input id="findSpeed" name="findSpeed" type="text" class="form-control" placeholder="¿Buscas algo?" autocomplete="off">
@@ -21,8 +21,6 @@
 				</span>
 			</div>
 		</div>
-	</div>
-	<div class="panel">
 		<div class="owl-carousel owl-theme owl-rtl owl-loaded">
 			
 		{% for recomendado in recomendados %}
@@ -35,9 +33,7 @@
 			</a>
 		{% endfor %}
 		</div>
-	</div>
 
-	<section class="container">
 		<article>
 
 			<h2 class="text-center">Como Funciona</h2>

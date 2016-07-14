@@ -9,7 +9,7 @@ from django.shortcuts import render
 from django.core import serializers
 from django.shortcuts import get_object_or_404
 
-#Importaciones desde Aplicacion [Oportunidad]
+#Importaciones desde Aplicacion
 from models import bienesServiciosModel, categoriasModel
 from forms import nuevoBienServicioForm
 from usuarios.models import perfilUsuarioModel
@@ -28,7 +28,7 @@ from braces.views import LoginRequiredMixin
 class bienesServiciosListView(LoginRequiredMixin, ListView):
 	login_required = True
 	model = bienesServiciosModel
-	template_name = 'habilidades.html'
+	template_name = 'bienes_servicios.html'
 	context_object_name = 'bienes_servicios'
 	form = nuevoBienServicioForm
 
@@ -36,7 +36,7 @@ class bienesServiciosListView(LoginRequiredMixin, ListView):
 		cantidadActivas = bienesServiciosModel.objects.filter(usuario=self.request.user, estado=True).count()
 		return cantidadActivas
 
-	def getHabilidadesInactivas(self):
+	def getInactivos(self):
 		inactivas = bienesServiciosModel.objects.filter(usuario=self.request.user,estado=False).order_by('-fecha_creacion')
 		return inactivas
 
@@ -50,7 +50,7 @@ class bienesServiciosListView(LoginRequiredMixin, ListView):
 	def get_context_data(self, **kwargs):
 		context = super(bienesServiciosListView, self).get_context_data(**kwargs)
 		context['form'] = self.form
-		context['inactivas'] = self.getHabilidadesInactivas()
+		context['inactivas'] = self.getInactivos()
 		context['cantidadInactivas'] = context['inactivas'].count()
 		context['cantidadActivas'] = self.getCantidadActivas()
 		return context
@@ -80,7 +80,7 @@ def crearNuevoBienServicio(request):
 		else:
 			return JsonResponse(form.errors.as_json(), safe=False)
 
-#[detalleHabilidadView] View encargada de retornar template del detalle de una habilidad
+#V iew encargada de retornar template del detalle de un Bien/Servicio
 @login_required()
 def detalle(request, slug, pk):
 
@@ -101,7 +101,7 @@ def detalle(request, slug, pk):
 		return render(request,templateRespuesta, contexto)
 	return render(request,templateRespuesta)
 
-#[editarBienServicio] View encargada editar una habilidad
+# View encargada editar una Bien/Servicio
 @login_required()
 def editarBienServicio(request):
 	if request.method == "POST":
@@ -130,11 +130,11 @@ def editarBienServicio(request):
 				content_type="application/json"
 			)
 
-#[desactivarBienServicio] View encargada desactivar una habilidad
+# View encargada desactivar un Bien/Servicio
 @login_required()
 def desactivarBienServicio(request):
 	if request.is_ajax() and request.method == "POST":
-		bienServicio_id = request.POST['habilidad_id']
+		bienServicio_id = request.POST['id']
 		bienServicioDesactivar = get_object_or_404 (bienesServiciosModel,id = bienServicio_id)
 		response_data = {}
 
@@ -142,7 +142,7 @@ def desactivarBienServicio(request):
 			bienServicioDesactivar.estado = False
 			bienServicioDesactivar.save(update_fields=["estado"])
 
-			response_data['message'] = 'Habilidad activada'
+			response_data['message'] = 'Bien/Servicio activada'
 
 			return HttpResponse(
 				json.dumps(response_data),
@@ -156,14 +156,14 @@ def desactivarBienServicio(request):
 @login_required()
 def activarBienServicio(request):
 	if request.is_ajax() and request.method == "POST":
-		bienServicio_id = request.POST['habilidad_id']
+		bienServicio_id = request.POST['id']
 		bienServicioActivar = get_object_or_404 (bienesServiciosModel,id = bienServicio_id)
 		if bienServicioActivar.usuario_id == request.user.id:
 			response_data = {}
 			bienServicioActivar.estado = True
 			bienServicioActivar.save(update_fields=["estado"])
 
-			response_data['message'] = 'Habilidad activada'
+			response_data['message'] = 'Bien/Servicio activada'
 			return HttpResponse(
 				json.dumps(response_data),
 				content_type="application/json"
@@ -179,7 +179,7 @@ def activarBienServicio(request):
 def cambiarFotoBienServicio(request):
 
 	#Obtener Parametros
-	bienServicioCambiarFoto = bienesServiciosModel.objects.get(id=request.POST['habilidad'])
+	bienServicioCambiarFoto = bienesServiciosModel.objects.get(id=request.POST['id'])
 	imagenRecibida = request.FILES['foto']
 	imagenRecibida.name = bienServicioCambiarFoto.nBienServicio.replace(' ','_')+str(bienServicioCambiarFoto.id)
 	response_data = {}
@@ -195,17 +195,17 @@ def cambiarFotoBienServicio(request):
 		content_type="application/json"
 	)
 
-#Borra la foto actual en Disco
+# Borra la foto actual en Disco
 def borrarFotoActual(bienServicio):
 	archivoPath = BASE_DIR+bienServicio.foto.url
-	imgPorDefecto = '/media/habilidades/img/no_image.png'
+	imgPorDefecto = '/media/bienes_servicios/img/no_image.png'
 	if bienServicio.foto.url != imgPorDefecto and os.path.isfile(archivoPath):
 		os.remove(archivoPath)
 
-#Responde en json los datos de contacto de la persona para una habilidad especifica
+# Responde en json los datos de contacto de la persona para un Bien/Servicio especifica
 def obtener_datos_de_contacto(request):
 	if request.is_ajax():
-		bienServicio_id = request.GET.get('habilidad',None)
+		bienServicio_id = request.GET.get('id',None)
 		bienServicio = get_or_none(bienesServiciosModel,id=bienServicio_id)
 		if bienServicio is not None:
 			response_data = {}

@@ -24,16 +24,13 @@
 		</div>
 		<div class="row controles">
 			<div class="col-md-8">
-				<ul class="breadcrumbs">
+				<ul>
 					<li>
-						<a href="{% url 'buscar' %}">Categorias</a>
-					</li>
-					<li>
-						Caterogia Actual: <a href="{% url 'busqueda' categoria.slug %}">{{categoria.categoria}} </a>
+						Caterogia Actual: <span class="label label-app label-info">{{categoria.categoria}} </span>
 					</li>
 					{% if  busqueda %}
 					<li>
-						Busqueda: <a href="/buscar/{{categoria.slug}}/?q={{busqueda}}"> {{busqueda}}</a>
+						Busqueda: <span class="label label-app label-info"> {{busqueda}}</span>
 					</li>
 					{% endif %}
 				</ul>
@@ -87,7 +84,7 @@
 		<div>
 			<div class="col-md-3">
 				<div class="filtros">
-					<label for="orden">Categoria</label>
+					<label for="orden">Categorias</label>
 					<ul>
 						{% if todasCategorias %}
 							{% for categoria  in todasCategorias %}
@@ -174,8 +171,7 @@
 
 						{% endfor %}
 						{% else %}
-						<p>No hay resultados</p>
-						<p>Quieres sugerir un Bienes/Servicios</p>
+						<h1>No hay resultados</h1>
 						{% endif %}
 					</div>
 				</div>
