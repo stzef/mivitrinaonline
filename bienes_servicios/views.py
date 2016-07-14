@@ -8,6 +8,7 @@ from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.core import serializers
 from django.shortcuts import get_object_or_404
+from django.template import defaultfilters
 
 #Importaciones desde Aplicacion
 from models import bienesServiciosModel, categoriasModel
@@ -64,18 +65,28 @@ def crearNuevoBienServicio(request):
 			bienServicioNuevo = form.save(commit=False)
 			usuario = perfilUsuarioModel.objects.get(pk=request.user.id)
 			bienServicioNuevo.usuario = usuario
-			bienServicioNuevo.save()
 
-			response_data['id'] = bienServicioNuevo.pk
-			response_data['nBienServicio'] = bienServicioNuevo.nBienServicio
-			response_data['slug'] = bienServicioNuevo.slug
-			response_data['descripcion'] = bienServicioNuevo.descripcion
-			response_data['categoria'] = bienServicioNuevo.categoria.categoria
-			response_data['val_promedio'] = bienServicioNuevo.val_promedio
-			response_data['num_solicitudes'] = bienServicioNuevo.num_solicitudes
-			response_data['precio'] = bienServicioNuevo.precio
-			response_data['foto'] = bienServicioNuevo.foto.url
-			return JsonResponse(response_data, safe=False)
+			slugFind = bienesServiciosModel.objects.filter(slug=defaultfilters.slugify(bienServicioNuevo.slug))
+
+			print(slugFind)
+			
+			try:
+				bienServicioNuevo.save()
+				response_data['id'] = bienServicioNuevo.pk
+				response_data['nBienServicio'] = bienServicioNuevo.nBienServicio
+				response_data['slug'] = bienServicioNuevo.slug
+				response_data['descripcion'] = bienServicioNuevo.descripcion
+				response_data['categoria'] = bienServicioNuevo.categoria.categoria
+				response_data['val_promedio'] = bienServicioNuevo.val_promedio
+				response_data['num_solicitudes'] = bienServicioNuevo.num_solicitudes
+				response_data['precio'] = bienServicioNuevo.precio
+				response_data['foto'] = bienServicioNuevo.foto.url
+				return JsonResponse(response_data, safe=False)
+			except Exception, e:
+				print(type(e))
+				response_data['error'] = e.message
+				return JsonResponse(response_data, safe=False)
+
 
 		else:
 			return JsonResponse(form.errors.as_json(), safe=False)

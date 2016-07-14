@@ -23,6 +23,7 @@
 				</div>
 				<ul class="list-inline">
 				</ul>
+				<div id="errors"></div>
 			</form>
 		</div>
 </div>
@@ -213,22 +214,20 @@
 										<strong class="desc3">
 											{{ this.val_promedio }}
 										</strong>
-									{{else}
+									{{else}}
 										<strong class="desc3">Ninguno</strong>
-									{{/endif}}
+									{{/if}}
 								</li>
 								<li class="label label-app label-success">
 									<i class="glyphicon glyphicon-th-list desc3"></i>
-									{{#if  this.num_solicitudes }}
+									{{#if this.num_solicitudes }}
 										<span class="desc">Solicitudes: </span>
 										<strong class="desc3">
 											{{ this.num_solicitudes }}
 										</strong>
 									{{else}}
 										<strong class="desc3">Ninguno</strong>
-									}
-									}
-									{{/endif}}
+									{{/if}}
 								</li>
 								<li class="label label-app label-danger">
 									{{#if this.precio }}
@@ -239,9 +238,7 @@
 										</strong>
 									{{else}}
 										<span><b>Ninguno</b></span>
-									}
-									}
-									{{/endif}}
+									{{/if}}
 								</li>
 							</ul>
 						</div>
@@ -271,6 +268,13 @@
 					precio: $('#id_precio').val(),
 				},
 				success: function(json){
+					if(json.error) {
+						var templateError = '<div class="alert alert-danger fade in"> <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>-message</div>'
+						var templeComplete = templateError.replace("-message","Ha Ocurrido un error, Si esto Persiste comunicarse con el administrador.")
+						console.log(templeComplete)
+						$("#errors").html(templeComplete)
+						return
+					}
 					var source   = $("#bien-servicio-item-template").html();
 					var template = Handlebars.compile(source);
 					t = template(json);
