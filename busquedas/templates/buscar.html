@@ -8,7 +8,7 @@
 	<div class="panel col-md-12">
 		<h2 class="text-center">Encuentra el Bien/Servicio que buscas</h2>
 
-		<form id="formBusquedaHabilidad" class="input-group">
+		<form id="findBienServicio" class="input-group">
 			<input id="busqueda" name="busqueda" type="search" class="form-control" placeholder="¿Que Estas Buscando?" autocomplete="off" required />
 			<span class="input-group-btn">
 				<input class="btn btn-success btn-find" id="buscar" type="submit" value="Buscar" />
@@ -37,7 +37,7 @@
 <script>
 	$(function(){
 
-		$('#formBusquedaHabilidad').submit(function(e) {
+		$('#findBienServicio').submit(function(e) {
 			e.preventDefault()
 			palabraBuscada = $('#busqueda').get(0);
 

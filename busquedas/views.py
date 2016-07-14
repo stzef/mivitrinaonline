@@ -17,7 +17,7 @@ import json
 
 class detalleBienServicioBuscada(DetailView):
 	model = bienesServiciosModel
-	context_object_name = 'habilidad'
+	context_object_name = 'bienServicio'
 	template_name = 'busqueda_detalle.html'
 
 	#retorna elementos recomendados del modelo 'habilidades'
@@ -38,7 +38,7 @@ class busquedasCategoriaLista(ListView):
 	model = bienesServiciosModel
 	paginate_by = 10
 	template_name = 'busqueda.html'
-	context_object_name = 'habilidades'
+	context_object_name = 'bienes_servicios'
 	ordering = '-val_promedio'
 
 	#lista guarda los tipos de ordenamiento que se implementan para las busquedas
@@ -135,7 +135,7 @@ class busquedasCategoriaLista(ListView):
 class busquedasPorPalabraLista(ListView):
 	model = bienesServiciosModel
 	paginate_by = 10
-	context_object_name = 'habilidades'
+	context_object_name = 'bienes_servicios'
 	template_name = 'busqueda_palabras.html'
 	ordering = '-val_promedio'
 

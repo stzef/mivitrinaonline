@@ -46,8 +46,8 @@
 					<div class="form-control">
 						<input type="file" id="archivo-foto" name="foto"/>
 					</div>
-						<div class="preview-foto-habilidad text-center">
-							<img id="preview-img-habilidad" src="">
+						<div class="text-center">
+							<img id="preview-img" src="">
 						</div>
 						<div class="btn-group">
 							<input type="submit" value="Guardar" class="btn btn-success">
@@ -66,7 +66,7 @@
 		if (input.files && input.files[0]) {
 			var reader = new FileReader();
 			reader.onload = function (e) {
-				$('#preview-img-habilidad').attr('src', e.target.result);
+				$('#preview-img').attr('src', e.target.result);
 			}
 			reader.readAsDataURL(input.files[0]);
 		}

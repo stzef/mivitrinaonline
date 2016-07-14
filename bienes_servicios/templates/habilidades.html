@@ -13,7 +13,7 @@
 <div>
 	<div class="col-sm-12">
 		<div class="well" style="display:none">
-			<form id="nueva-habilidad-form" method="post" enctype='multipart/form-data'>
+			<form id="nuevo-bien-servicio-form" method="post" enctype='multipart/form-data'>
 				<h4>Nuevo Bien/Servicio</h4>
 				<div class="form-group">
 					{{ form.as_p }}
@@ -30,7 +30,7 @@
 </div>
 <div class="space-tab">
 	<ul class="nav nav-tabs" id="tabs" data-tabs="tabs">
-		<li role="presentation" class="active" id="btn-habilidades-activas">
+		<li role="presentation" class="active">
 			<a href="#activas" data-toggle="tab">
 				Activos
 				<span id="cantidad-activas" data-cactiva="{{cantidadActivas}}" class="n-red badge">
@@ -38,7 +38,7 @@
 				</span>
 			</a>
 		</li>
-		<li role="presentation" class="" id="btn-habilidades-noActivas">
+		<li role="presentation" class="">
 			<a href="#inactivas" data-toggle="tab">
 				Inactivos
 				<span class="n-red badge">
@@ -54,32 +54,32 @@
 <div>
 	<div class="tab-content">
 		<div class="tab-pane active" id="activas">
-			{% if habilidades %}
-				{% for habilidad in habilidades %}
+			{% if bienes_servicios %}
+				{% for bienServicio in bienes_servicios %}
 					<div class="col-md-12">
 						<div class="label-category label-description text-center">
-							<strong class="desc3">{{ habilidad.categoria }}</strong>
+							<strong class="desc3">{{ bienServicio.categoria }}</strong>
 						</div>
 					</div>
-					<div class="habilidad-item">
+					<div>
 						<div className="col-sm-12">
-							<a href="/bienes-servicios/{{ habilidad.slug }}/{{ habilidad.pk }}" class="normal">	
+							<a href="/bienes-servicios/{{ bienServicio.slug }}/{{ bienServicio.pk }}" class="normal">	
 								<div class=" row panel panel-default">
 									<div class="col-sm-12 col-md-4 div-align">
-										<img src="{{ habilidad.foto.url }}" class="img-responsive center-block img-thumbnail" alt="{{ habilidad.nBienServicio }}">
+										<img src="{{ bienServicio.foto.url }}" class="img-responsive center-block img-thumbnail" alt="{{ bienServicio.nBienServicio }}">
 									</div>
 									<div class="col-sm-12 col-md-5 div-align">
 										<h3>
-											<strong>{{ habilidad.nBienServicio | capfirst}}</strong>
+											<strong>{{ bienServicio.nBienServicio | capfirst}}</strong>
 										</h3>
-										<p class="textJustify">{{ habilidad.descripcion | capfirst}}</p>
+										<p class="textJustify">{{ bienServicio.descripcion | capfirst}}</p>
 										<ul class="list-inline">
 											<li class="label label-app label-warning">
 												<i class="glyphicon glyphicon-star desc3"></i>
-												{% if habilidad.val_promedio %}
+												{% if bienServicio.val_promedio %}
 													<span>Puntuacion: </span>
 													<strong>
-														{{ habilidad.val_promedio }}
+														{{ bienServicio.val_promedio }}
 													</strong>
 												{% else %}
 													<strong class="desc3">Ninguno</strong>
@@ -88,10 +88,10 @@
 
 											<li class="label label-app label-success">
 												<i class="glyphicon glyphicon-th-list desc3"></i>
-												{% if  habilidad.num_solicitudes%}
+												{% if  bienServicio.num_solicitudes%}
 													<span>Solicitudes: </span>
 													<strong>
-														{{ habilidad.num_solicitudes }}
+														{{ bienServicio.num_solicitudes }}
 													</strong>
 												{% else %}
 													<strong class="desc3">Ninguno</strong>
@@ -99,11 +99,11 @@
 											</li>
 
 											<li class="label label-app label-danger">
-												{% if habilidad.precio %}
+												{% if bienServicio.precio %}
 													<i class="glyphicon glyphicon-usd desc3"></i>
 													<span>Precio: </span>
 													<strong>
-														{{ habilidad.precio | intcomma}}
+														{{ bienServicio.precio | intcomma}}
 													</strong>
 												{% else %}
 													<span><b>Ninguno</b></span>
@@ -131,7 +131,7 @@
 					<strong class="desc3">{{ inactiva.categoria }}</strong>
 				</div>
 			</div>
-			<div class="habilidad-item">
+			<div>
 				<div className="col-sm-12">
 					<a href="/bienes-servicios/{{ inactiva.slug }}/{{ inactiva.pk }}" class="normal">
 						<div class="row panel panel-default">
@@ -193,7 +193,7 @@
 				<strong class="desc3">{{ this.categoria }}</strong>
 			</div>
 		</div>
-		<div class="habilidad-item">
+		<div>
 			<div className="col-sm-12">
 				<a href="/bienes-servicios/{{ this.slug }}/{{ this.pk }}">
 					<div class=" row panel panel-default">
@@ -260,7 +260,7 @@
 <script>
 	$(function() {
 		var TIME = 200
-		$('#nueva-habilidad-form').on('submit', function(event){
+		$('#nuevo-bien-servicio-form').on('submit', function(event){
 			event.preventDefault();
 			$.ajax({
 				url: '{% url 'nuevo-bien-servicio' %}',
@@ -276,7 +276,7 @@
 					var source   = $("#habilidad-item-template").html();
 					var template = Handlebars.compile(source);
 					t = template(json);
-					$("#nueva-habilidad-form").trigger('reset');
+					$("#nuevo-bien-servicio-form").trigger('reset');
 					$('.well').hide(TIME);
 					$('#hbl').show(TIME);
 					$('#activas').prepend(t);
@@ -296,7 +296,7 @@
 			event.preventDefault();
 		});
 		$('#cancel').click(function(event){
-			$("#nueva-habilidad-form").trigger('reset');
+			$("#nuevo-bien-servicio-form").trigger('reset');
 			$('.well').hide(TIME);
 			$('#hbl').show(TIME);
 			event.preventDefault();

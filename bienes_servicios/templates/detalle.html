@@ -17,8 +17,8 @@
 		<div class="col-md-12 label-category label-description text-center">
 			<p>
 				<strong>
-					{{ habilidad.categoria }} -
-					{% if habilidad.estado %}
+					{{ bienServicio.categoria }} -
+					{% if bienServicio.estado %}
 					<span class="text-success">Activo</span>
 					{% else %}
 					<span class="text-danger">Inactivo</span>
@@ -30,40 +30,40 @@
 			<div class="imgDetalleEdit relative">
 
 				<a class="link-user linkCambiarFoto" data-toggle="modal" data-target="#editarFotoModal">
-					<img src="/media/{{ habilidad.foto }}" class="img-responsive center-block img-thumbnail">
+					<img src="/media/{{ bienServicio.foto }}" class="img-responsive center-block img-thumbnail">
 				</a>
 			</div>
-			<ul class="contenedorOpcionesHabilidad list-unstyled">
-				{% if habilidad.estado %}
+			<ul class="list-unstyled">
+				{% if bienServicio.estado %}
 				<li >
-					<a class="inactivarHabilidad link-user" data-toggle="modal" data-target="#desactivarHabilidadModal">
-						<span class=" iconoOpcionesHabilidad glyphicon glyphicon-stop"></span><span>Inactivar</span>
+					<a class="link-user" data-toggle="modal" data-target="#desactivarModal">
+						<span class="glyphicon glyphicon-stop"></span><span>Inactivar</span>
 					</a>
 				</li>
 				{% else %}
 				<li >
-					<a class="activarHabilidad link-user" data-toggle="modal" data-target="#activarHabilidadModal">
-						<span class=" iconoOpcionesHabilidad glyphicon glyphicon-play"></span><span>Activar</span>
+					<a class="link-user" data-toggle="modal" data-target="#activarModal">
+						<span class="glyphicon glyphicon-play"></span><span>Activar</span>
 					</a>
 				</li>
 				{% endif %}
 				<li>
-					<a class="link-user" data-toggle="modal" data-target="#editarHabilidadModal">
-						<span class="iconoOpcionesHabilidad glyphicon glyphicon-pencil"></span><span>Editar</span>
+					<a class="link-user" data-toggle="modal" data-target="#editarModal">
+						<span class="glyphicon glyphicon-pencil"></span><span>Editar</span>
 					</a>
 				</li>
 			</ul>
 
 			<div class="col-md-12">
-				<h3>{{ habilidad.nBienServicio | capfirst}}</h3>
-				<p>{{ habilidad.descripcion | capfirst}}</p>
+				<h3>{{ bienServicio.nBienServicio | capfirst}}</h3>
+				<p>{{ bienServicio.descripcion | capfirst}}</p>
 			</div>
 			<ul class="col-md-12 list-unstyled">
 				<li class="col-xs-4 col-md-4 label label-app label-warning" data-toggle="tooltip" data-placement="top" title="Puntos">
 					<i class="glyphicon glyphicon-star desc3"></i>
-					{% if habilidad.val_promedio %}
+					{% if bienServicio.val_promedio %}
 					<span class="desc">Puntuacion: </span>
-					<strong class="desc3">{{ habilidad.val_promedio}}</strong>
+					<strong class="desc3">{{ bienServicio.val_promedio}}</strong>
 					{% else %}
 					<strong class="desc3">ninguno</strong>
 					{% endif %}
@@ -71,9 +71,9 @@
 				<li class="col-xs-4 col-md-4 label label-app label-success" data-toggle="tooltip" data-placement="top" title="Solicitudes">
 
 					<i class="glyphicon glyphicon-th-list desc3"></i>
-					{% if habilidad.val_promedio %}
+					{% if bienServicio.val_promedio %}
 					<span class="desc">Solicitudes: </span>
-					<strong class="desc3">{{ habilidad.num_solicitudes }}</strong>
+					<strong class="desc3">{{ bienServicio.num_solicitudes }}</strong>
 					{% else %}
 					<strong class="desc3">ninguno</strong>
 					{% endif %}
@@ -81,9 +81,9 @@
 				<li class="col-xs-4 col-md-4 label label-app label-danger" data-toggle="tooltip" data-placement="top" title="Precio">
 
 					<i class="glyphicon glyphicon-usd desc3"></i>
-					{% if habilidad.precio %}
+					{% if bienServicio.precio %}
 					<span class="desc">Precio: </span>
-					<strong class="desc3">{{ habilidad.precio | intcomma}}</strong>
+					<strong class="desc3">{{ bienServicio.precio | intcomma}}</strong>
 					{% else %}
 					<strong class="desc3">ninguno</strong>
 					{% endif %}
@@ -91,8 +91,8 @@
 			</ul>
 		</div>
 	</div>
-	{% if habilidad.estado %}
-	<div class="modal fade" id="desactivarHabilidadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	{% if bienServicio.estado %}
+	<div class="modal fade" id="desactivarModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -104,11 +104,11 @@
 				<div class="modal-body">
 					<div class="content-modal">
 						<p>
-							Seguro quieres desactivar el Bien/Servicio: <b><h4>"{{ habilidad.nBienServicio }}" ?</h4></b>
+							Seguro quieres desactivar el Bien/Servicio: <b><h4>"{{ bienServicio.nBienServicio }}" ?</h4></b>
 							Esto significa que las personas no podrán encontrarte si buscan un bien/servicio como este o similar.
 						</p>
 						<div class="accept">
-							<button id="btn-desactivar-habilidad" class="btn btn-success">Si, seguro</button>
+							<button id="btn-desactivar" class="btn btn-success">Si, seguro</button>
 							<button class="btn btn-danger" data-dismiss="modal">No, Salir</button>
 						</div>
 					</div>
@@ -117,22 +117,22 @@
 		</div>
 	</div>
 	{% else %}
-	<div class="modal fade" id="activarHabilidadModal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal fade" id="activarModal" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 					<h4 class="modal-title" id="myModalLabel">
-						<b>Activar Habilidad</b>
+						<b>Activar Bien/Servicios</b>
 					</h4>
 				</div>
 				<div class="modal-body">
 					<div class="content-modal">
 						<p>
-							Al activar el Bien/Servicio: <b><h4>"{{ habilidad.nBienServicio }}"</h4></b> permitiras que otras personas te encuentren si buscan un bien/servicio como este o similar.
+							Al activar el Bien/Servicio: <b><h4>"{{ bienServicio.nBienServicio }}"</h4></b> permitiras que otras personas te encuentren si buscan un bien/servicio como este o similar.
 						</p>
 						<div class="accept">
-							<button id="btn-activar-habilidad" class="btn btn-success">Si, seguro</button>
+							<button id="btn-activar" class="btn btn-success">Si, seguro</button>
 							<button href="#" class="btn btn-danger" data-dismiss="modal">No, Salir</button>
 						</div>
 					</div>
@@ -142,7 +142,7 @@
 		</div>
 	</div>
 	{% endif %}
-	<div class="modal fade" id="editarHabilidadModal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal fade" id="editarModal" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -153,9 +153,9 @@
 				</div>
 				<div class="modal-body">
 					<div class="content-modal">
-						<form id="editar-habilidad-form" method="post">
+						<form id="editar-form" method="post">
 							<div class="form-group">
-								<input id="id_habilidad" type="hidden" name="id" value="{{habilidad.id}}">
+								<input id="id_habilidad" type="hidden" name="id" value="{{bienServicio.id}}">
 								<input id="{{form.categoria.id_for_label}}" type="hidden" name="{{form.categoria.id_for_label}}" value="{{form.categoria.value}}">
 								{% csrf_token %}
 								<p>
@@ -204,9 +204,9 @@
 								<p>
 									<input type="file" id="archivo-foto" name="foto" onchange="mostrarFoto(event)" />
 								</p>
-								<div class="preview-foto-habilidad">
+								<div>
 									<figure >
-										<img id="preview-img-habilidad" src="">
+										<img id="preview-img" src="">
 									</figure>
 								</div>
 								<p>
@@ -226,36 +226,36 @@
 	<script src="{% static 'jsapp/csrf_load.js' %}"></script>
 	<script>
 		var mostrarFoto = function(event) {
-			var preview = document.getElementById('preview-img-habilidad');
+			var preview = document.getElementById('preview-img');
 			preview.src = URL.createObjectURL(event.target.files[0]);
 		};
 
 		$(function () {
 			$('[data-toggle="tooltip"]').tooltip();
 
-			$('#btn-desactivar-habilidad').click(function () {
+			$('#btn-desactivar').click(function () {
 				$.ajax({
 					url: '{% url 'desactivar-bien-servicio' %}',
 					type: 'POST',
-					data: { habilidad_id : '{{ habilidad.id }}'},
+					data: { habilidad_id : '{{ bienServicio.id }}'},
 					success: function (json) {
 						location.reload();
 					},
 				});
 			});
 
-			$('#btn-activar-habilidad').click(function(){
+			$('#btn-activar').click(function(){
 				$.ajax({
 					url : '{% url 'activar-bien-servicio' %}',
 					type : 'POST',
-					data : {habilidad_id : '{{habilidad.id}}'},
+					data : {habilidad_id : '{{bienServicio.id}}'},
 					success:function(json){
 						location.reload();
 					}
 				});
 			})
 
-			$('#editar-habilidad-form').on('submit', function(event){
+			$('#editar-form').on('submit', function(event){
 				event.preventDefault();
 				$.ajax({
 					url: '{% url 'editar-bien-servicio' %}',
@@ -282,7 +282,7 @@
 				var archivo = archivoSeleccionado.files[0];
 				var formData = new FormData();
 
-				formData.append('habilidad', {{habilidad.id}});
+				formData.append('habilidad', {{bienServicio.id}});
 
 				if (archivo.type.match('image.*'))
 				{

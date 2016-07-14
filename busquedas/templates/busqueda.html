@@ -121,23 +121,23 @@
 
 				<div class="row">
 					<div id = "resultados">
-						{% if habilidades %}
-						{% for habilidad in habilidades %}
+						{% if bienes_servicios %}
+						{% for bienSevicio in bienes_servicios %}
 						<div>
-							<a class="normal" href="{% url 'detallebusqueda' slug=habilidad.slug %}">
+							<a class="normal" href="{% url 'detallebusqueda' slug=bienSevicio.slug %}">
 
 								<div class="textJustify row panel panel-default">
 
 									<div class="col-sm-12 col-md-4 div-align">
-										<img src="{{ habilidad.foto.url }}" class="img-responsive center-block img-thumbnail" alt="Responsive image">
+										<img src="{{ bienSevicio.foto.url }}" class="img-responsive center-block img-thumbnail" alt="Responsive image">
 									</div>
 
 									<div class="col-sm-12 col-md-5 div-align">
 										<h3>
-											<strong>{{ habilidad.nBienServicio }}</strong>
+											<strong>{{ bienSevicio.nBienServicio }}</strong>
 										</h3>
 										<p>
-											{{ habilidad.descripcion|truncatechars:150  }}
+											{{ bienSevicio.descripcion|truncatechars:150  }}
 										</p>
 									</div>
 
@@ -147,8 +147,8 @@
 
 												<i class="glyphicon glyphicon-star desc3"></i>
 												<strong class="desc3">
-													{% if habilidad.val_promedio %}
-													{{ habilidad.val_promedio }}
+													{% if bienSevicio.val_promedio %}
+													{{ bienSevicio.val_promedio }}
 													{% else %}
 													<span>Ninguno</span>
 													{% endif %}
@@ -158,8 +158,8 @@
 											<li class="label label-app label-danger" data-toggle="tooltip" data-placement="top" title="Precio">
 												<i class="glyphicon glyphicon-usd desc3"></i>
 												<strong class="desc3">
-													{% if habilidad.precio %}
-													{{ habilidad.precio | intcomma}}
+													{% if bienSevicio.precio %}
+													{{ bienSevicio.precio | intcomma}}
 													{% else %}
 													<span>por acordar</span>
 													{% endif %}

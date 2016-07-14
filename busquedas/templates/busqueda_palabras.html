@@ -114,20 +114,20 @@
 			<div class="col-md-9">
 				<div class="row">
 					<div id = "resultados">
-						{% if habilidades %}
-						{% for habilidad in habilidades %}
+						{% if bienes_servicios %}
+						{% for bienServicio in bienes_servicios %}
 						<div>
-							<a class="normal" href="{% url 'detallebusqueda' slug=habilidad.slug %}">
+							<a class="normal" href="{% url 'detallebusqueda' slug=bienServicio.slug %}">
 								<div class="textJustify row panel panel-default">
 									<div class="col-sm-12 col-md-4 div-align">
-										<img src="{{ habilidad.foto.url }}" class="img-responsive center-block img-thumbnail" alt="Responsive image">
+										<img src="{{ bienServicio.foto.url }}" class="img-responsive center-block img-thumbnail" alt="Responsive image">
 									</div>
 									<div class="col-sm-12 col-md-5 div-align">
 										<h3>
-											<strong>{{ habilidad.nBienServicio }}</strong>
+											<strong>{{ bienServicio.nBienServicio }}</strong>
 										</h3>
 										<p>
-											{{ habilidad.descripcion|truncatechars:150  }}
+											{{ bienServicio.descripcion|truncatechars:150  }}
 										</p>
 									</div>
 									<div class="col-sm-12 col-md-3">
@@ -136,8 +136,8 @@
 
 												<i class="glyphicon glyphicon-star desc3"></i>
 												<strong class="desc3">
-													{% if habilidad.val_promedio %}
-													{{ habilidad.val_promedio }}
+													{% if bienServicio.val_promedio %}
+													{{ bienServicio.val_promedio }}
 													{% else %}
 													<span>Ninguno</span>
 													{% endif %}
@@ -147,8 +147,8 @@
 											<li class="label label-app label-danger" data-toggle="tooltip" data-placement="top" title="Precio">
 												<i class="glyphicon glyphicon-usd desc3"></i>
 												<strong class="desc3">
-													{% if habilidad.precio %}
-													{{ habilidad.precio | intcomma}}
+													{% if bienServicio.precio %}
+													{{ bienServicio.precio | intcomma}}
 													{% else %}
 													<span>por acordar</span>
 													{% endif %}

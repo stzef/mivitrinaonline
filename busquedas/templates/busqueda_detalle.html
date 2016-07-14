@@ -6,33 +6,33 @@
 {% endblock %}
 {% block content %}
 <div class="container content-info">
-	<div class="row habilidad">
+	<div class="row">
 		<div class="row">
 			<div class="col-xs-12">
-				<h3 class="habilidad-titulo">
-					{{habilidad.nBienServicio}}
+				<h3>
+					{{bienServicio.nBienServicio}}
 				</h3>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-6 habilidad-foto">
-				<figure class="habilidad-foto-content">
-					<img src="{{habilidad.foto.url}}" alt="{{habilidad.nBienServicio}}" class="desc-img img-thumbnail" >
+			<div class="col-xs-6">
+				<figure>
+					<img src="{{bienServicio.foto.url}}" alt="{{bienServicio.nBienServicio}}" class="desc-img img-thumbnail" >
 				</figure>
 			</div>
-			<div class="col-xs-6 habilidad-descripcion">
-				<div class="row habilidad-info">
+			<div class="col-xs-6">
+				<div class="row">
 					<div class="col-xs-12 ">
 						<h4><b>Descripción:</b></h4>
-						<p align="justify">{{habilidad.descripcion}}</p>
+						<p align="justify">{{bienServicio.descripcion}}</p>
 					</div>
 
 					<ul class="col-xs-12 list-unstyled">
 						<li class="label label-app label-warning col-xs-6 col-md-6 text-center separador-label" data-toggle="tooltip" data-placement="top" title="Calificación">
 							<i class="glyphicon glyphicon-star desc3"></i>
 							<strong class="desc3">
-								{% if habilidad.val_promedio %}
-								{{ habilidad.val_promedio }}
+								{% if bienServicio.val_promedio %}
+								{{ bienServicio.val_promedio }}
 								{% else %}
 								<span>Ninguno</span>
 								{% endif %}
@@ -41,8 +41,8 @@
 						<li class="label label-app label-danger col-xs-6 col-md-6 text-center separador-label " data-toggle="tooltip" data-placement="top" title="Precio">
 							<i class="glyphicon glyphicon-usd desc3"></i>
 							<strong class="desc3">
-								{% if habilidad.precio %}
-								{{ habilidad.precio | intcomma }}
+								{% if bienServicio.precio %}
+								{{ bienServicio.precio | intcomma }}
 								{% else %}
 								<span>por acordar</span>
 								{% endif %}
@@ -54,8 +54,8 @@
 					<div class="col-xs-12 ofertante-info text-center ">
 						<h4><b>Información del ofertante:</b></h4>
 						<div class="ofertante-nombre">
-							<img class="fotoOfertante" src="{{habilidad.usuario.foto.url}}" alt="{{habilidad.usuario.}}" width="40" />
-							{{habilidad.usuario.usuario.first_name}} {{habilidad.usuario.usuario.last_name}}
+							<img class="fotoOfertante" src="{{bienServicio.usuario.foto.url}}" alt="{{bienServicio.usuario.}}" width="40" />
+							{{bienServicio.usuario.usuario.first_name}} {{bienServicio.usuario.usuario.last_name}}
 						</div>
 						<button class="btn btn-success" id="js_btnVermasDatos">Ver datos de contacto</button>
 						<section class="verMasDatos" id="js_verMasDatos">
@@ -143,7 +143,7 @@
 				type: 'GET' ,
 				dataType: 'json',
 				data:{
-					habilidad: {{habilidad.id}},
+					habilidad: {{bienServicio.id}},
 				},
 				success : function(json)
 				{

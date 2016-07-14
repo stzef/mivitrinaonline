@@ -29,7 +29,7 @@ class bienesServiciosListView(LoginRequiredMixin, ListView):
 	login_required = True
 	model = bienesServiciosModel
 	template_name = 'habilidades.html'
-	context_object_name = 'habilidades'
+	context_object_name = 'bienes_servicios'
 	form = nuevoBienServicioForm
 
 	def getCantidadActivas(self):
@@ -95,7 +95,7 @@ def detalle(request, slug, pk):
 	if bienServicioBuscado.usuario_id == request.user.id:
 		templateRespuesta = 'detalle.html'
 		contexto = {
-			'habilidad': bienServicioBuscado,
+			'bienServicio': bienServicioBuscado,
 			'form' : form,
 		}
 		return render(request,templateRespuesta, contexto)
@@ -219,7 +219,6 @@ def obtener_datos_de_contacto(request):
 			if request.user.is_authenticated():
 				usuario = perfilUsuarioModel.objects.get(pk=request.user.id)
 				hs.usuario = usuario
-			response_data.hs = hs
 
 			hs.save()
 
