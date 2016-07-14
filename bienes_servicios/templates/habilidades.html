@@ -74,7 +74,7 @@
 										</h3>
 										<p class="textJustify">{{ habilidad.descripcion | capfirst}}</p>
 										<ul class="list-inline">
-											<li class="label label-warning">
+											<li class="label label-app label-warning">
 												<i class="glyphicon glyphicon-star desc3"></i>
 												{% if habilidad.val_promedio %}
 													<span>Puntuacion: </span>
@@ -82,11 +82,11 @@
 														{{ habilidad.val_promedio }}
 													</strong>
 												{% else %}
-													<strong class="desc3">ninguno</strong>
+													<strong class="desc3">Ninguno</strong>
 												{% endif %}
 											</li>
 
-											<li class="label label-success">
+											<li class="label label-app label-success">
 												<i class="glyphicon glyphicon-th-list desc3"></i>
 												{% if  habilidad.num_solicitudes%}
 													<span>Solicitudes: </span>
@@ -94,11 +94,11 @@
 														{{ habilidad.num_solicitudes }}
 													</strong>
 												{% else %}
-													<strong class="desc3">ninguno</strong>
+													<strong class="desc3">Ninguno</strong>
 												{% endif %}
 											</li>
 
-											<li class="label label-danger">
+											<li class="label label-app label-danger">
 												{% if habilidad.precio %}
 													<i class="glyphicon glyphicon-usd desc3"></i>
 													<span>Precio: </span>
@@ -106,7 +106,7 @@
 														{{ habilidad.precio | intcomma}}
 													</strong>
 												{% else %}
-													<span><b>ninguno</b></span>
+													<span><b>Ninguno</b></span>
 												{% endif %}
 											</li>
 										</ul>
@@ -139,13 +139,10 @@
 								<img src="{{ inactiva.foto.url }}" class="img-responsive center-block img-thumbnail" alt="{{ inactiva.nBienServicio }}">
 							</div>
 							<div class="col-sm-12 col-md-5 div-align">
-								<h3>
-									{{ inactiva.nBienServicio | capfirst}}
-								</h3>
+								<h3>{{ inactiva.nBienServicio | capfirst}}</h3>
 								<p class="textJustify">{{ inactiva.descripcion | capfirst}}</p>
 								<ul class="list-inline">
-
-									<li class="label label-warning">
+									<li class="label label-app label-warning">
 										<i class="glyphicon glyphicon-star"></i>
 										{% if inactiva.val_promedio %}
 										<span>Puntuacion: </span>
@@ -153,10 +150,9 @@
 										{% else %}
 										<strong>Ninguno</strong>
 										{% endif %}
-
 									</li>
 
-									<li class="label label-success">
+									<li class="label label-app label-success">
 										<i class="glyphicon glyphicon-th-list"></i>
 										{% if  inactiva.num_solicitudes%}
 										<span class="desc">Solicitudes: </span>
@@ -164,10 +160,9 @@
 										{% else %}
 										<strong>Ninguno</strong>
 										{% endif %}
-
 									</li>
 
-									<li class="label label-danger">
+									<li class="label label-app label-danger">
 										{% if inactiva.precio %}
 										<i class="glyphicon glyphicon-usd"></i>
 										<span>Precio: </span>
@@ -213,7 +208,7 @@
 						</div>
 						<div class="col-sm-12 col-md-3">
 							<ul>
-								<li class="label-descp label-warning">
+								<li class="label label-app label-warning">
 									<i class="glyphicon glyphicon-star desc3"></i>
 									{{#if this.val_promedio}}
 										<span class="desc">Puntuacion: </span>
@@ -221,10 +216,10 @@
 											{{ this.val_promedio }}
 										</strong>
 									{{else}
-										<strong class="desc3">ninguno</strong>
+										<strong class="desc3">Ninguno</strong>
 									{{/endif}}
 								</li>
-								<li class="label-descp label-success">
+								<li class="label label-app label-success">
 									<i class="glyphicon glyphicon-th-list desc3"></i>
 									{{#if  this.num_solicitudes }}
 										<span class="desc">Solicitudes: </span>
@@ -232,12 +227,12 @@
 											{{ this.num_solicitudes }}
 										</strong>
 									{{else}}
-										<strong class="desc3">ninguno</strong>
+										<strong class="desc3">Ninguno</strong>
 									}
 									}
 									{{/endif}}
 								</li>
-								<li class="label-descp label-danger">
+								<li class="label label-app label-danger">
 									{{#if habilidad.precio }}
 										<i class="glyphicon glyphicon-usd desc3"></i>
 										<span class="desc">Precio: </span>
@@ -245,7 +240,7 @@
 											{{ this.precio }}
 										</strong>
 									{{else}}
-										<span><b>ninguno</b></span>
+										<span><b>Ninguno</b></span>
 									}
 									}
 									{{/endif}}

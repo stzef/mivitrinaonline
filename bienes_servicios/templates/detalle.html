@@ -14,7 +14,7 @@
 		</div>
 	</div>
 	<div class="row second">
-		<div class="col-md-4 label-category label-description text-center">
+		<div class="col-md-12 label-category label-description text-center">
 			<p>
 				<strong>
 					{{ habilidad.categoria }} -
@@ -59,7 +59,7 @@
 				<p>{{ habilidad.descripcion | capfirst}}</p>
 			</div>
 			<ul class="col-md-12 list-unstyled">
-				<li class="text-top text-center col-xs-4 col-md-4 label-descp-detalle label-warning" data-toggle="tooltip" data-placement="top" title="Puntos">
+				<li class="col-xs-4 col-md-4 label label-app label-warning" data-toggle="tooltip" data-placement="top" title="Puntos">
 					<i class="glyphicon glyphicon-star desc3"></i>
 					{% if habilidad.val_promedio %}
 					<span class="desc">Puntuacion: </span>
@@ -68,7 +68,7 @@
 					<strong class="desc3">ninguno</strong>
 					{% endif %}
 				</li>
-				<li class="text-top text-center col-xs-4 col-md-4 label-descp-detalle label-success" data-toggle="tooltip" data-placement="top" title="Solicitudes">
+				<li class="col-xs-4 col-md-4 label label-app label-success" data-toggle="tooltip" data-placement="top" title="Solicitudes">
 
 					<i class="glyphicon glyphicon-th-list desc3"></i>
 					{% if habilidad.val_promedio %}
@@ -78,7 +78,7 @@
 					<strong class="desc3">ninguno</strong>
 					{% endif %}
 				</li>
-				<li class="text-top text-center col-xs-4 col-md-4 label-descp-detalle label-danger" data-toggle="tooltip" data-placement="top" title="Precio">
+				<li class="col-xs-4 col-md-4 label label-app label-danger" data-toggle="tooltip" data-placement="top" title="Precio">
 
 					<i class="glyphicon glyphicon-usd desc3"></i>
 					{% if habilidad.precio %}

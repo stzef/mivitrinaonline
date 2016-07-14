@@ -12,10 +12,10 @@
 					{% csrf_token %}
 					{{ form.non_field_errors.as_ul|cut:"*" }}
 					{{ form.username.errors.as_ul|cut:"*" }}
-					<div class="form-group col-md-6">
+					<div class="form-group col-md-12">
 						{{ form.username }}
 					</div>
-					<div class="form-group col-md-6">
+					<div class="form-group col-md-12">
 						{{ form.password }}
 					</div>
 					{{ form.password.errors.as_ul|cut:"*" }}

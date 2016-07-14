@@ -8,8 +8,9 @@
 		{% block head %}{% endblock %}
 		<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;" />
 		<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
-		<link href="{% static 'css/style.css' %}" rel="stylesheet" />
 		<link href="{% static 'css/style_mvo.css' %}" rel="stylesheet" />
+		<link href="{% static 'css/owl.carousel.css' %}" rel="stylesheet" />
+		<link href="{% static 'css/owl.theme.default.min.css' %}" rel="stylesheet" />
 		<script src="{% static 'jslibraries/handlebars.js' %}"></script>
 		<script src="{% static 'jslibraries/spin.js' %}"></script>
 		<script src="{% static 'jslibraries/jquery-1.11.3.min.js' %}"></script>
@@ -68,8 +69,6 @@
 										<li><a class="link-user" href="{% url 'miCuenta' %}">Mi Cuenta</a></li>
 										<li><a class="link-user" href="{% url 'profile' %}">Perfil</a></li>
 										<li role="separator" class="divider"></li>
-										<li><a href="{% url 'bienes-servicios' %}">Bienes/Servicios</a></li>
-										<li role="separator" class="divider"></li>
 										<li><a class="link-user" href="{% url 'salir' %}">Salir</a></li>
 									</ul>
 								</li>
@@ -77,13 +76,23 @@
 						</div>
 					{% else %}
 						<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+							<ul class="nav navbar-nav navbar-left">
+								<li>
+									<a class="" href="{% url 'buscar' %}">
+										<strong>
+											<span class="glyphicon glyphicon-search"></span>
+											<span class="desc">Busqueda</span>
+										</strong>
+									</a>
+								</li>
+							</ul>
 							<ul class="pull-right nav navbar-nav">
 								<div class="btn-group" role="group" aria-label="...">
 									<button role="group" class="btn btn-group btn-success">
-										<a href="{% url 'ingresar' %}">Ingresar</span></a>
+										<a class="normal" href="{% url 'ingresar' %}">Ingresar</span></a>
 									</button>
 									<button role="group" class="btn btn-group btn-warning">
-										<a href="{% url 'registro' %}">Registrarse</a>
+										<a class="normal" href="{% url 'registro' %}">Registrarse</a>
 									</button>
 								</div>
 							</ul>
@@ -97,15 +106,49 @@
 				{% endblock %}
 			</section>
 
-			<footer>
-				<p>Desarrollado por <a href="http://sistematizar.co/" target="_blank" class="link">SistematizarEF</a></p>
+			<!--<div class="navbar navbar-fixed-bottom">
+				<div class="container">
+					<p class="nav navbar-nav navbar-right footer">
+					</p>
+				</div>
+			</div>-->
+			<footer class="footer">
+				<div class="container">
+					<p>
+						Desarrollado por 
+						<span><a href="http://sistematizar.co/" target="_blank" class="link">SistematizarEF</a></span>
+					</p>
+				</div>
 			</footer>
+
 			{% block scripts %}
 			{% endblock %}
 
 			<script src="{% static 'jslibraries/jquery.min.js' %}"></script>
 			<script src="{% static 'jslibraries/video.js' %}"></script>
 			<script src="{% static 'jslibraries/flat-ui.min.js' %}"></script>
+			<script src="{% static 'jslibraries/owl.carousel.min.js' %}"></script>
+			<script>
+				$('.owl-carousel').owlCarousel({
+					rtl:true,
+					loop:true,
+					margin:10,
+					nav:true,
+					center:true,
+					navText:["<",">"],
+					responsive:{
+						0:{
+							items:1
+						},
+						600:{
+							items:3
+						},
+						1000:{
+							items:5
+						}
+					}
+				})
+			</script>
 		</section>
 	</body>
 </html>

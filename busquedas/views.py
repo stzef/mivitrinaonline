@@ -25,18 +25,11 @@ class detalleBienServicioBuscada(DetailView):
 		recomendados = bienesServiciosModel.objects.filter(categoria=habilidad.categoria,estado=True).exclude(id=habilidad.id).order_by('-val_promedio')[:3]
 		return recomendados
 
-	#retorna las preguntas de la habilidad
-	def getPreguntas(self, habilidad):
-		preguntas = preguntasModel.objects.filter(habilidad=habilidad).order_by('-fecha')
-		return preguntas
-
 	#incluye elementos dentro del contexto y los retorna
 	def get_context_data(self, **kwargs):
 		context = super(detalleBienServicioBuscada, self).get_context_data(**kwargs)
 		recomendados = self.getRecomendados(context['object'])
-		preguntas = self.getPreguntas(context['object'])
 		context['recomendados'] = recomendados
-		context['preguntas'] = preguntas
 		return context
 
 class busquedasCategoriaLista(ListView):

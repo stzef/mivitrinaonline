@@ -12,18 +12,28 @@
 {% endblock %}
 
 {% block content %}
-
-	<div class="img-back">
-		<div class="container first-content">
-			<div class="row text-center">
-				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-					<section>
-						<img src="{% static 'img/logo.png' %}"/>
-						<h3 class="h3-align">Mi Vitrina Online</h3>
-					</section>
-				</div>
-				
+	<div>
+		<div class="panel">
+			<div class="input-group">
+				<input id="findSpeed" name="findSpeed" type="text" class="form-control" placeholder="¿Buscas algo?" autocomplete="off">
+				<span class="input-group-btn">
+					<button id="btnFindSpeed" class="btn btn-group btn-success">Buscar</button>
+				</span>
 			</div>
+		</div>
+	</div>
+	<div class="panel">
+		<div class="owl-carousel owl-theme owl-rtl owl-loaded">
+			
+		{% for recomendado in recomendados %}
+			<a class="normal" href="{% url 'detallebusqueda' slug=recomendado.slug %}">
+				<div class="recomendado">
+					<strong><p class="text-center">{{recomendado.nBienServicio}}</p></strong>
+					<img src="media/{{recomendado.foto}}" alt="">
+					<span class="label label-app label-success">{{recomendado.categoria}}</span>
+				</div>
+			</a>
+		{% endfor %}
 		</div>
 	</div>
 
@@ -36,5 +46,10 @@
 
 		</article>
 	</section>
-
+	<script>
+		$("#btnFindSpeed").click(function(){
+			if(!$("#findSpeed").val()) return
+			window.location = "/b/pl/" + $("#findSpeed").val()
+		})
+	</script>
 {% endblock %}

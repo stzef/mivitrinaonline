@@ -214,12 +214,15 @@ def obtener_datos_de_contacto(request):
 			response_data['celular3'] = bienServicio.usuario.celular3
 			response_data['email'] = bienServicio.usuario.usuario.email
 
-			hs = bienesServiciosSolicitadosModel(bien_servicio=bienServicio)
+			hs = bienesServiciosSolicitadosModel()
+			hs.bien_servicio = bienServicio
 			if request.user.is_authenticated():
 				usuario = perfilUsuarioModel.objects.get(pk=request.user.id)
 				hs.usuario = usuario
+			response_data.hs = hs
 
 			hs.save()
+
 
 			return JsonResponse(
 				response_data,

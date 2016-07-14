@@ -17,7 +17,7 @@
 				<div class="input-group">
 					<input id="busqueda" name="busqueda" type="text" class="form-control" placeholder="¿Buscas algo mas?" autocomplete="off">
 					<span class="input-group-btn">
-						<button class="btn btn-block btn-find" id="buscar" type="button">Buscar</button>
+						<button class="btn btn-success" id="buscar" type="button">Buscar</button>
 					</span>
 				</div>
 			</div>
@@ -48,9 +48,9 @@
 			</div>
 		</div>
 		<!-- Modal -->
-		<div class="row controles">
+		<div class="row col-md-12">
 			<div class="col-md-8">
-				<ul class="breadcrumbs">
+				<ul class="list-unstyled">
 					{% if  busqueda %}
 					<li>
 						búsqueda
@@ -76,23 +76,21 @@
 			</div>
 		</div>
 	</div>
+
 	<div class="container div-result">
 		<div>
 			<div class="col-md-3">
 				<div class="filtros">
-					<h3>Filtros</h3>
-					<label for="orden">Categoria</label><br>
-					{% if algunasCategorias %}
-					{% for categoria in  algunasCategorias %}
+					<label for="orden">Categoria</label>
 					<ul>
-						<li>
-							-> {{categoria}}
-						</li>
+						{% if todasCategorias %}
+							{% for categoria  in todasCategorias %}
+								<li><a href="/buscar/{{categoria.slug}}/"><p>{{ categoria }}</p></a></li>
+							{% endfor %}
+						{% endif %}
 					</ul>
-					{% endfor %}
-					{% endif %}
-					<a href="#" class="label label-info" data-toggle="modal" data-target="#modalCategorias">otras categorias</a>
-					<br><br>
+				</div>
+				<div>
 					<label for="orden">Orden</label><br>
 					<li>
 						<a id="drop2" href="#"  data-toggle="dropdown">
@@ -119,14 +117,14 @@
 						{% if habilidades %}
 						{% for habilidad in habilidades %}
 						<div>
-							<a class="habilidad__hover" href="{% url 'detallebusqueda' slug=habilidad.slug %}">
+							<a class="normal" href="{% url 'detallebusqueda' slug=habilidad.slug %}">
 								<div class="textJustify row panel panel-default">
 									<div class="col-sm-12 col-md-4 div-align">
 										<img src="{{ habilidad.foto.url }}" class="img-responsive center-block img-thumbnail" alt="Responsive image">
 									</div>
 									<div class="col-sm-12 col-md-5 div-align">
 										<h3>
-											<strong>{{ habilidad.nhabilidad }}</strong>
+											<strong>{{ habilidad.nBienServicio }}</strong>
 										</h3>
 										<p>
 											{{ habilidad.descripcion|truncatechars:150  }}
@@ -134,19 +132,19 @@
 									</div>
 									<div class="col-sm-12 col-md-3">
 										<ul class="list-inline">
-											<li class="label-descp label-warning" data-toggle="tooltip" data-placement="top" title="Calificación">
+											<li class="label label-app label-warning" data-toggle="tooltip" data-placement="top" title="Calificación">
 
 												<i class="glyphicon glyphicon-star desc3"></i>
 												<strong class="desc3">
 													{% if habilidad.val_promedio %}
 													{{ habilidad.val_promedio }}
 													{% else %}
-													<span>ninguno</span>
+													<span>Ninguno</span>
 													{% endif %}
 												</strong>
 											</li>
 
-											<li class="label-descp label-danger" data-toggle="tooltip" data-placement="top" title="Precio">
+											<li class="label label-app label-danger" data-toggle="tooltip" data-placement="top" title="Precio">
 												<i class="glyphicon glyphicon-usd desc3"></i>
 												<strong class="desc3">
 													{% if habilidad.precio %}

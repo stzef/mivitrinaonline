@@ -22,7 +22,11 @@ class miCuentaView(LoginRequiredMixin, TemplateView):
 		return context
 
 def inicio(request):
-	return render(request,'home.html')
+	context = {
+		'recomendados' : bienesServiciosModel.objects.all()[:10]
+		}
+	print(context)
+	return render(request,'home.html',context)
 
 def view_404(request):
 	return render(request,'404.html')
