@@ -9,6 +9,7 @@ from django.shortcuts import render
 from django.core import serializers
 from django.shortcuts import get_object_or_404
 from django.template import defaultfilters
+from django.utils import timezone
 
 #Importaciones desde Aplicacion
 from models import bienesServiciosModel, categoriasModel
@@ -124,7 +125,9 @@ def editarBienServicio(request):
 				bienServicioEditar.nBienServicio = request.POST['nBienServicio']
 				bienServicioEditar.descripcion = request.POST['descripcion']
 				bienServicioEditar.precio = request.POST['precio']
-				bienServicioEditar.save(update_fields=['nBienServicio','descripcion','precio'])
+				print timezone.now()
+				bienServicioEditar.fecha_actualizacion = timezone.now()
+				bienServicioEditar.save(update_fields=['nBienServicio','descripcion','precio','fecha_actualizacion'])
 
 				response_data['message'] = 'Edición exitosa'
 				return HttpResponse(
@@ -197,7 +200,8 @@ def cambiarFotoBienServicio(request):
 	if bienServicioCambiarFoto.usuario_id == request.user.id:
 		borrarFotoActual(bienServicioCambiarFoto)
 		bienServicioCambiarFoto.foto = imagenRecibida
-		bienServicioCambiarFoto.save(update_fields=["foto"])
+		bienServicioCambiarFoto.fecha_actualizacion = timezone.now()
+		bienServicioCambiarFoto.save(update_fields=["foto","fecha_actualizacion"])
 	else:
 		response_data['error'] = "No tiene permitido cambiar imagen de otros."
 

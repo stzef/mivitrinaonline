@@ -22,8 +22,10 @@ class miCuentaView(LoginRequiredMixin, TemplateView):
 		return context
 
 def inicio(request):
+	cantidad_last_update = 5
 	context = {
-		'recomendados' : bienesServiciosModel.objects.all()[:10]
+		'last_update' : bienesServiciosModel.objects.all().order_by('-fecha_actualizacion')[:cantidad_last_update],
+		'more' : bienesServiciosModel.objects.all().order_by('-fecha_actualizacion')[cantidad_last_update:]
 		}
 	print(context)
 	return render(request,'home.html',context)

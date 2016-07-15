@@ -4,11 +4,6 @@
 
 {% block head %}
 	<title>Inicio | Mi Vitrina Online</title>
-	<style>
-		.menuItemInicio{
-			background-color: #729C34;
-		}
-	</style>
 {% endblock %}
 
 {% block content %}
@@ -21,25 +16,41 @@
 				</span>
 			</div>
 		</div>
-		<div class="owl-carousel owl-theme owl-rtl owl-loaded">
-			
-		{% for recomendado in recomendados %}
-			<a class="normal" href="{% url 'detallebusqueda' slug=recomendado.slug %}">
-				<div class="recomendado">
-					<strong><p class="text-center">{{recomendado.nBienServicio}}</p></strong>
-					<img src="media/{{recomendado.foto}}" alt="">
-					<span class="label label-app label-success">{{recomendado.categoria}}</span>
-				</div>
-			</a>
-		{% endfor %}
+
+		<h2>Novedades</h2>
+		<div class="owl-carousel owl-theme owl-rtl owl-loaded row">
+			{% for bienServicio in last_update %}
+				<a class="normal" href="{% url 'detallebusqueda' slug=bienServicio.slug %}">
+					<div class="last_update">
+						<strong><p class="text-center">{{bienServicio.nBienServicio}} <span class="label label-success">Nuevo</span></p></strong>
+						<img class="img-responsive center-block" src="media/{{bienServicio.foto}}" alt="">
+						<span class="label category label-app label-primary">{{bienServicio.categoria}}</span>
+					</div>
+				</a>
+			{% endfor %}
 		</div>
+		<h2>Mas Bienes/Servicios</h2>
+		<section id="more-bienes-servicios">
+		
+			<ul class="row col-md-12 list list-unstyled" >
+				{% for bienServicio in more %}
+					<li class="col-md-2 col-sm-3 col-xs-3">
+						<a class="normal" href="{% url 'detallebusqueda' slug=bienServicio.slug %}">
+							<div class="more">
+								<strong><p class="text-center">{{bienServicio.nBienServicio}}</p></strong>
+								<img class="img-responsive center-block" src="media/{{bienServicio.foto}}" alt="">
+								<span class="label category label-app label-success">{{bienServicio.categoria}}</span>
+							</div>
+						</a>
+					</li>
+				{% endfor %}
+			</ul>
+			<ul class="pagination"></ul>
+		</section>
 
 		<article>
-
 			<h2 class="text-center">Como Funciona</h2>
-
 			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet sit distinctio, veniam deleniti incidunt nulla officia esse vero delectus asperiores velit veritatis eius atque aliquid. Beatae, similique labore illo facere.</p>
-
 		</article>
 	</section>
 	<script>
@@ -47,5 +58,15 @@
 			if(!$("#findSpeed").val()) return
 			window.location = "/b/pl/" + $("#findSpeed").val()
 		})
+
+
+		var options = {
+			page: 8,
+			plugins: [
+				ListPagination({})
+			]
+		};
+
+		var listObj = new List('more-bienes-servicios', options);
 	</script>
 {% endblock %}
