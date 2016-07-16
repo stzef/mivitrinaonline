@@ -14,7 +14,7 @@
 		</div>
 	</div>
 	<div class="row second">
-		<div class="col-md-12 label-category label-description text-center">
+		<div class="col-md-12 label-category text-center">
 			<p>
 				<strong>
 					{{ bienServicio.categoria }} -
@@ -36,19 +36,19 @@
 			<ul class="list-unstyled">
 				{% if bienServicio.estado %}
 				<li >
-					<a class="link-user" data-toggle="modal" data-target="#desactivarModal">
+					<a data-toggle="modal" data-target="#desactivarModal">
 						<span class="glyphicon glyphicon-stop"></span><span>Inactivar</span>
 					</a>
 				</li>
 				{% else %}
 				<li >
-					<a class="link-user" data-toggle="modal" data-target="#activarModal">
+					<a data-toggle="modal" data-target="#activarModal">
 						<span class="glyphicon glyphicon-play"></span><span>Activar</span>
 					</a>
 				</li>
 				{% endif %}
 				<li>
-					<a class="link-user" data-toggle="modal" data-target="#editarModal">
+					<a data-toggle="modal" data-target="#editarModal">
 						<span class="glyphicon glyphicon-pencil"></span><span>Editar</span>
 					</a>
 				</li>
@@ -60,32 +60,32 @@
 			</div>
 			<ul class="col-md-12 list-unstyled">
 				<li class="col-xs-4 col-md-4 label label-app label-warning" data-toggle="tooltip" data-placement="top" title="Puntos">
-					<i class="glyphicon glyphicon-star desc3"></i>
+					<i class="glyphicon glyphicon-star "></i>
 					{% if bienServicio.val_promedio %}
-					<span class="desc">Puntuacion: </span>
-					<strong class="desc3">{{ bienServicio.val_promedio}}</strong>
+					<span >Puntuacion: </span>
+					<strong >{{ bienServicio.val_promedio}}</strong>
 					{% else %}
-					<strong class="desc3">ninguno</strong>
+					<strong >ninguno</strong>
 					{% endif %}
 				</li>
 				<li class="col-xs-4 col-md-4 label label-app label-success" data-toggle="tooltip" data-placement="top" title="Solicitudes">
 
-					<i class="glyphicon glyphicon-th-list desc3"></i>
+					<i class="glyphicon glyphicon-th-list "></i>
 					{% if bienServicio.val_promedio %}
-					<span class="desc">Solicitudes: </span>
-					<strong class="desc3">{{ bienServicio.num_solicitudes }}</strong>
+					<span >Solicitudes: </span>
+					<strong >{{ bienServicio.num_solicitudes }}</strong>
 					{% else %}
-					<strong class="desc3">ninguno</strong>
+					<strong >ninguno</strong>
 					{% endif %}
 				</li>
 				<li class="col-xs-4 col-md-4 label label-app label-danger" data-toggle="tooltip" data-placement="top" title="Precio">
 
-					<i class="glyphicon glyphicon-usd desc3"></i>
+					<i class="glyphicon glyphicon-usd "></i>
 					{% if bienServicio.precio %}
-					<span class="desc">Precio: </span>
-					<strong class="desc3">{{ bienServicio.precio | intcomma}}</strong>
+					<span >Precio: </span>
+					<strong >{{ bienServicio.precio | intcomma}}</strong>
 					{% else %}
-					<strong class="desc3">ninguno</strong>
+					<strong >ninguno</strong>
 					{% endif %}
 				</li>
 			</ul>

@@ -32,15 +32,15 @@
 		<li role="presentation" class="active">
 			<a href="#activas" data-toggle="tab">
 				Activos
-				<span id="cantidad-activas" data-cactiva="{{cantidadActivas}}" class="n-red badge">
+				<span id="cantidad-activas" data-cactiva="{{cantidadActivas}}" class="badge">
 					{{ cantidadActivas }}
 				</span>
 			</a>
 		</li>
-		<li role="presentation" class="">
+		<li role="presentation" >
 			<a href="#inactivas" data-toggle="tab">
 				Inactivos
-				<span class="n-red badge">
+				<span class="badge">
 					{{ cantidadInactivas }}
 				</span>
 			</a>
@@ -57,7 +57,7 @@
 				{% for bienServicio in bienes_servicios %}
 					<div class="col-md-12">
 						<div class="label-category label-description text-center">
-							<strong class="desc3">{{ bienServicio.categoria }}</strong>
+							<strong >{{ bienServicio.categoria }}</strong>
 						</div>
 					</div>
 					<div>
@@ -71,35 +71,35 @@
 										<h3>
 											<strong>{{ bienServicio.nBienServicio | capfirst}}</strong>
 										</h3>
-										<p class="textJustify">{{ bienServicio.descripcion | capfirst}}</p>
+										<p>{{ bienServicio.descripcion | capfirst}}</p>
 										<ul class="list-inline">
 											<li class="label label-app label-warning">
-												<i class="glyphicon glyphicon-star desc3"></i>
+												<i class="glyphicon glyphicon-star "></i>
 												{% if bienServicio.val_promedio %}
 													<span>Puntuacion: </span>
 													<strong>
 														{{ bienServicio.val_promedio }}
 													</strong>
 												{% else %}
-													<strong class="desc3">Ninguno</strong>
+													<strong >Ninguno</strong>
 												{% endif %}
 											</li>
 
 											<li class="label label-app label-success">
-												<i class="glyphicon glyphicon-th-list desc3"></i>
+												<i class="glyphicon glyphicon-th-list "></i>
 												{% if  bienServicio.num_solicitudes%}
 													<span>Solicitudes: </span>
 													<strong>
 														{{ bienServicio.num_solicitudes }}
 													</strong>
 												{% else %}
-													<strong class="desc3">Ninguno</strong>
+													<strong >Ninguno</strong>
 												{% endif %}
 											</li>
 
 											<li class="label label-app label-danger">
 												{% if bienServicio.precio %}
-													<i class="glyphicon glyphicon-usd desc3"></i>
+													<i class="glyphicon glyphicon-usd "></i>
 													<span>Precio: </span>
 													<strong>
 														{{ bienServicio.precio | intcomma}}
@@ -117,7 +117,7 @@
 				{% endfor %}
 			{% else %}
 			<div class="row text-center">
-				<img src="/static/img/not-found.png" class="desc-img">
+				<img src="/static/img/not-found.png">
 				<p>Aún no has creado tu primer Bienes/Servicios, oprime click en nueva y llena el formulario</p>
 			</div>
 			{% endif %}
@@ -126,8 +126,8 @@
 			{% if inactivas %}
 			{% for inactiva in inactivas %}
 			<div class="col-md-12">
-				<div class="label-category label-description text-center">
-					<strong class="desc3">{{ inactiva.categoria }}</strong>
+				<div class="label-category text-center">
+					<strong >{{ inactiva.categoria }}</strong>
 				</div>
 			</div>
 			<div>
@@ -154,7 +154,7 @@
 									<li class="label label-app label-success">
 										<i class="glyphicon glyphicon-th-list"></i>
 										{% if  inactiva.num_solicitudes%}
-										<span class="desc">Solicitudes: </span>
+										<span>Solicitudes: </span>
 										<strong>{{ inactiva.num_solicitudes }}</strong>
 										{% else %}
 										<strong>Ninguno</strong>
@@ -179,7 +179,7 @@
 			{% endfor %}
 			{% else %}
 			<div class="row text-center">
-				<img src="/static/img/not-found.png" class="desc-img">
+				<img src="/static/img/not-found.png">
 				<p>No tienes Bienes/Servicios inactivos.</p>
 			</div>
 			{% endif %}
@@ -188,8 +188,8 @@
 	{% verbatim %}
 	<script id="bien-servicio-item-template" type="text/x-handlebars-template">
 		<div class="col-md-12">
-			<div class="label-category label-description text-center">
-				<strong class="desc3">{{ this.categoria }}</strong>
+			<div class="label-category text-center">
+				<strong >{{ this.categoria }}</strong>
 			</div>
 		</div>
 		<div>
@@ -197,7 +197,7 @@
 				<a href="/bienes-servicios/{{ this.slug }}/{{ this.pk }}">
 					<div class=" row panel panel-default">
 						<div class="col-sm-12 col-md-4 div-align">
-							<img src="{{ this.foto }}" class="desc-img img-thumbnail" alt="{{ this.nBienServicio }}">
+							<img src="{{ this.foto }}" class="img-thumbnail" alt="{{ this.nBienServicio }}">
 						</div>
 						<div class="col-sm-12 col-md-5 div-align">
 							<h3>
@@ -208,32 +208,32 @@
 						<div class="col-sm-12 col-md-3">
 							<ul>
 								<li class="label label-app label-warning">
-									<i class="glyphicon glyphicon-star desc3"></i>
+									<i class="glyphicon glyphicon-star "></i>
 									{{#if this.val_promedio}}
-										<span class="desc">Puntuacion: </span>
-										<strong class="desc3">
+										<span>Puntuacion: </span>
+										<strong >
 											{{ this.val_promedio }}
 										</strong>
 									{{else}}
-										<strong class="desc3">Ninguno</strong>
+										<strong >Ninguno</strong>
 									{{/if}}
 								</li>
 								<li class="label label-app label-success">
-									<i class="glyphicon glyphicon-th-list desc3"></i>
+									<i class="glyphicon glyphicon-th-list "></i>
 									{{#if this.num_solicitudes }}
-										<span class="desc">Solicitudes: </span>
-										<strong class="desc3">
+										<span>Solicitudes: </span>
+										<strong >
 											{{ this.num_solicitudes }}
 										</strong>
 									{{else}}
-										<strong class="desc3">Ninguno</strong>
+										<strong >Ninguno</strong>
 									{{/if}}
 								</li>
 								<li class="label label-app label-danger">
 									{{#if this.precio }}
-										<i class="glyphicon glyphicon-usd desc3"></i>
-										<span class="desc">Precio: </span>
-										<strong class="desc3">
+										<i class="glyphicon glyphicon-usd "></i>
+										<span>Precio: </span>
+										<strong >
 											{{ this.precio }}
 										</strong>
 									{{else}}

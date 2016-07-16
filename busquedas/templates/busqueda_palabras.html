@@ -60,7 +60,7 @@
 				</ul>
 			</div>
 			<div class="col-md-4 controles-paginador">
-				<span class="page-links">
+				<span >
 					{% if is_paginated %}
 					{% if page_obj.has_previous %}
 					<a href="/b/pl/{{busqueda}}/?{%if orden%}orden={{orden}}&{%endif%}page={{ page_obj.previous_page_number }}">atrás</a>
@@ -134,8 +134,8 @@
 										<ul class="list-inline">
 											<li class="label label-app label-warning" data-toggle="tooltip" data-placement="top" title="Calificación">
 
-												<i class="glyphicon glyphicon-star desc3"></i>
-												<strong class="desc3">
+												<i class="glyphicon glyphicon-star "></i>
+												<strong >
 													{% if bienServicio.val_promedio %}
 													{{ bienServicio.val_promedio }}
 													{% else %}
@@ -145,8 +145,8 @@
 											</li>
 
 											<li class="label label-app label-danger" data-toggle="tooltip" data-placement="top" title="Precio">
-												<i class="glyphicon glyphicon-usd desc3"></i>
-												<strong class="desc3">
+												<i class="glyphicon glyphicon-usd "></i>
+												<strong >
 													{% if bienServicio.precio %}
 													{{ bienServicio.precio | intcomma}}
 													{% else %}
@@ -170,7 +170,7 @@
 				<div class="row paginador">
 					{% if is_paginated %}
 					<div class="pagination">
-						<span class="page-links">
+						<span >
 							{% if page_obj.has_previous %}
 							<a href="/b/pl/{{busqueda}}/?{%if orden%}orden={{orden}}&{%endif%}page={{ page_obj.previous_page_number }}">atrás</a>
 							{% endif %}
