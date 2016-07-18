@@ -89,6 +89,12 @@ class registroForm(forms.Form):
 			attrs = {'required': 'required', 'placeholder':'Contraseña', 'class':'form-control col-md-11'}
 		),
 	)
+	cedula = forms.IntegerField(
+		required = True,
+		widget = forms.TextInput(
+			attrs = {'required': 'required', 'placeholder':'Numero Identificacion', 'class':'form-control col-md-11'}
+		),
+	)
 	password_confirm = forms.CharField(
 		max_length = 20,
 		required = True,
@@ -137,12 +143,13 @@ class registroForm(forms.Form):
 		fnacimiento = self.cleaned_data.get("fnacimiento")
 		genero = self.cleaned_data.get("genero")
 		celular = self.cleaned_data.get("celular")
+		cedula = self.cleaned_data.get("cedula")
 		user = User.objects.create_user(username, email, password)
 		user.first_name = name
 		user.last_name = lastname
 		user.save()
 
-		perfil = perfilUsuarioModel(usuario= user,fnacimiento=fnacimiento,genero=genero,celular1=celular)
+		perfil = perfilUsuarioModel(cedula= cedula,usuario= user,fnacimiento=fnacimiento,genero=genero,celular1=celular)
 		perfil.save()
 
 class userForm(forms.ModelForm):

@@ -20,9 +20,9 @@
 		<h2>Novedades</h2>
 		<div class="owl-carousel owl-theme owl-rtl owl-loaded row">
 			{% for bienServicio in last_update %}
-				<a class="normal" href="{% url 'detallebusqueda' slug=bienServicio.slug %}">
+				<a class="normal" href="{% url 'detallebusqueda' slug=bienServicio.slug %}" title="{{bienServicio.nBienServicio}}">
 					<div class="last_update">
-						<strong><p class="text-center">{{bienServicio.nBienServicio}} <span class="label label-success">Nuevo</span></p></strong>
+						<strong><p class="text-center">{{bienServicio.nBienServicio|slice:"15"}}... <span class="label label-success">Nuevo</span></p></strong>
 						<img class="img-responsive center-block" src="media/{{bienServicio.foto}}" alt="">
 						<span class="label category label-app label-primary">{{bienServicio.categoria}}</span>
 					</div>
@@ -35,9 +35,9 @@
 			<ul class="row col-md-12 list list-unstyled" >
 				{% for bienServicio in more %}
 					<li class="col-md-2 col-sm-3 col-xs-3">
-						<a class="normal" href="{% url 'detallebusqueda' slug=bienServicio.slug %}">
+						<a class="normal" href="{% url 'detallebusqueda' slug=bienServicio.slug %}" title="{{bienServicio.nBienServicio}}">
 							<div class="more">
-								<strong><p class="text-center">{{bienServicio.nBienServicio}}</p></strong>
+								<strong><p class="text-center">{{bienServicio.nBienServicio|slice:"15"}}...</p></strong>
 								<img class="img-responsive center-block" src="media/{{bienServicio.foto}}" alt="">
 								<span class="label category label-app label-success">{{bienServicio.categoria}}</span>
 							</div>

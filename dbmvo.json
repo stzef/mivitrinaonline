@@ -1,0 +1,809 @@
+[
+{
+    "fields": {
+        "model": "logentry",
+        "name": "log entry",
+        "app_label": "admin"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 1
+},
+{
+    "fields": {
+        "model": "permission",
+        "name": "permission",
+        "app_label": "auth"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 2
+},
+{
+    "fields": {
+        "model": "group",
+        "name": "group",
+        "app_label": "auth"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 3
+},
+{
+    "fields": {
+        "model": "user",
+        "name": "user",
+        "app_label": "auth"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 4
+},
+{
+    "fields": {
+        "model": "contenttype",
+        "name": "content type",
+        "app_label": "contenttypes"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 5
+},
+{
+    "fields": {
+        "model": "session",
+        "name": "session",
+        "app_label": "sessions"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 6
+},
+{
+    "fields": {
+        "model": "bienesserviciossolicitadosmodel",
+        "name": "bienes servicios solicitados model",
+        "app_label": "estadisticas"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 7
+},
+{
+    "fields": {
+        "model": "categoriasmodel",
+        "name": "categorias model",
+        "app_label": "bienes_servicios"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 8
+},
+{
+    "fields": {
+        "model": "bienesserviciosmodel",
+        "name": "bienes servicios model",
+        "app_label": "bienes_servicios"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 9
+},
+{
+    "fields": {
+        "model": "perfilusuariomodel",
+        "name": "perfil usuario model",
+        "app_label": "usuarios"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 10
+},
+{
+    "fields": {
+        "expire_date": "2016-08-01T13:28:31.438Z",
+        "session_data": "ZjJkYmU1ZWRhMmI3NzdjZjJlMzg0YTEyN2M2MGU5MTVjNjQ4ZmQ3NDp7fQ=="
+    },
+    "model": "sessions.session",
+    "pk": "41rng4h96m0akxkrjnnrxq99yizfij6s"
+},
+{
+    "fields": {
+        "fecha": "2016-07-18T13:40:17.576Z",
+        "bien_servicio": 5,
+        "usuario": null
+    },
+    "model": "estadisticas.bienesserviciossolicitadosmodel",
+    "pk": 1
+},
+{
+    "fields": {
+        "categoria": "Tecnolog\u00eda",
+        "slug": "tecnologia"
+    },
+    "model": "bienes_servicios.categoriasmodel",
+    "pk": 1
+},
+{
+    "fields": {
+        "categoria": "Decoraci\u00f3n",
+        "slug": "decoracion"
+    },
+    "model": "bienes_servicios.categoriasmodel",
+    "pk": 2
+},
+{
+    "fields": {
+        "categoria": "Comidas",
+        "slug": "comidas"
+    },
+    "model": "bienes_servicios.categoriasmodel",
+    "pk": 3
+},
+{
+    "fields": {
+        "categoria": "Floristeria",
+        "slug": "floristeria"
+    },
+    "model": "bienes_servicios.categoriasmodel",
+    "pk": 4
+},
+{
+    "fields": {
+        "categoria": 4,
+        "nBienServicio": "Venta de Flores",
+        "foto": "bienes_servicios/img/Venta_de_Flores1",
+        "num_solicitudes": 0,
+        "usuario": 2,
+        "fecha_creacion": "2016-07-18T13:16:57.519Z",
+        "precio": "10000.00",
+        "val_promedio": null,
+        "descripcion": "Venta de Flores con gran variedad, servicio a domicilio.",
+        "fecha_actualizacion": "2016-07-18T13:28:19.567Z",
+        "estado": true,
+        "slug": "venta-de-flores"
+    },
+    "model": "bienes_servicios.bienesserviciosmodel",
+    "pk": 1
+},
+{
+    "fields": {
+        "categoria": 2,
+        "nBienServicio": "Decoraci\u00f3n de Fiestas",
+        "foto": "bienes_servicios/img/Decoraci\u00f3n_de_Fiestas2",
+        "num_solicitudes": 0,
+        "usuario": 2,
+        "fecha_creacion": "2016-07-18T13:18:08.755Z",
+        "precio": "200000.00",
+        "val_promedio": null,
+        "descripcion": "Alquiler y Decoraci\u00f3n de fiestas",
+        "fecha_actualizacion": "2016-07-18T13:28:00.654Z",
+        "estado": true,
+        "slug": "decoracion-de-fiestas"
+    },
+    "model": "bienes_servicios.bienesserviciosmodel",
+    "pk": 2
+},
+{
+    "fields": {
+        "categoria": 1,
+        "nBienServicio": "Desarrollo de Apps Desktop",
+        "foto": "bienes_servicios/img/Desarrollo_de_Apps_Desktop3",
+        "num_solicitudes": 0,
+        "usuario": 3,
+        "fecha_creacion": "2016-07-18T13:19:04.093Z",
+        "precio": "800000.00",
+        "val_promedio": null,
+        "descripcion": "Desarrollo de Apps Desktop A la medida",
+        "fecha_actualizacion": "2016-07-18T13:27:09.802Z",
+        "estado": true,
+        "slug": "desarrollo-de-apps-desktop"
+    },
+    "model": "bienes_servicios.bienesserviciosmodel",
+    "pk": 3
+},
+{
+    "fields": {
+        "categoria": 1,
+        "nBienServicio": "Dise\u00f1os Publicitarios",
+        "foto": "bienes_servicios/img/Dise\u00f1os_Publicitarios4",
+        "num_solicitudes": 0,
+        "usuario": 3,
+        "fecha_creacion": "2016-07-18T13:19:29.112Z",
+        "precio": "50000.00",
+        "val_promedio": null,
+        "descripcion": "Dise\u00f1os publicitarios para su negocio",
+        "fecha_actualizacion": "2016-07-18T13:26:50.897Z",
+        "estado": true,
+        "slug": "disenos-publicitarios"
+    },
+    "model": "bienes_servicios.bienesserviciosmodel",
+    "pk": 4
+},
+{
+    "fields": {
+        "categoria": 3,
+        "nBienServicio": "Venta de Comidas Rapidas",
+        "foto": "bienes_servicios/img/Venta_de_Comidas_Rapidas5",
+        "num_solicitudes": 0,
+        "usuario": 4,
+        "fecha_creacion": "2016-07-18T13:20:56.892Z",
+        "precio": "50000.00",
+        "val_promedio": null,
+        "descripcion": "Venta de Comidas R\u00e1pidas en Local y a Domicilio",
+        "fecha_actualizacion": "2016-07-18T13:26:07.281Z",
+        "estado": true,
+        "slug": "venta-de-comidas-rapidas"
+    },
+    "model": "bienes_servicios.bienesserviciosmodel",
+    "pk": 5
+},
+{
+    "fields": {
+        "categoria": 1,
+        "nBienServicio": "Dise\u00f1o de Mockups",
+        "foto": "bienes_servicios/img/Dise\u00f1o_de_Mockups6",
+        "num_solicitudes": 0,
+        "usuario": 6,
+        "fecha_creacion": "2016-07-18T13:23:34.450Z",
+        "precio": "50000.00",
+        "val_promedio": null,
+        "descripcion": "Dise\u00f1o de Mockups Para el dise\u00f1o de Paginas Web",
+        "fecha_actualizacion": "2016-07-18T13:25:26.370Z",
+        "estado": true,
+        "slug": "diseno-de-mockups"
+    },
+    "model": "bienes_servicios.bienesserviciosmodel",
+    "pk": 6
+},
+{
+    "fields": {
+        "categoria": 1,
+        "nBienServicio": "Servicio T\u00e9cnico",
+        "foto": "bienes_servicios/img/Servicio_T\u00e9cnico7",
+        "num_solicitudes": 0,
+        "usuario": 6,
+        "fecha_creacion": "2016-07-18T13:24:08.724Z",
+        "precio": "40000.00",
+        "val_promedio": null,
+        "descripcion": "Servicio T\u00e9cnico Preventivo y Correctivo",
+        "fecha_actualizacion": "2016-07-18T13:25:02.964Z",
+        "estado": true,
+        "slug": "servicio-tecnico"
+    },
+    "model": "bienes_servicios.bienesserviciosmodel",
+    "pk": 7
+},
+{
+    "fields": {
+        "codename": "add_logentry",
+        "name": "Can add log entry",
+        "content_type": 1
+    },
+    "model": "auth.permission",
+    "pk": 1
+},
+{
+    "fields": {
+        "codename": "change_logentry",
+        "name": "Can change log entry",
+        "content_type": 1
+    },
+    "model": "auth.permission",
+    "pk": 2
+},
+{
+    "fields": {
+        "codename": "delete_logentry",
+        "name": "Can delete log entry",
+        "content_type": 1
+    },
+    "model": "auth.permission",
+    "pk": 3
+},
+{
+    "fields": {
+        "codename": "add_permission",
+        "name": "Can add permission",
+        "content_type": 2
+    },
+    "model": "auth.permission",
+    "pk": 4
+},
+{
+    "fields": {
+        "codename": "change_permission",
+        "name": "Can change permission",
+        "content_type": 2
+    },
+    "model": "auth.permission",
+    "pk": 5
+},
+{
+    "fields": {
+        "codename": "delete_permission",
+        "name": "Can delete permission",
+        "content_type": 2
+    },
+    "model": "auth.permission",
+    "pk": 6
+},
+{
+    "fields": {
+        "codename": "add_group",
+        "name": "Can add group",
+        "content_type": 3
+    },
+    "model": "auth.permission",
+    "pk": 7
+},
+{
+    "fields": {
+        "codename": "change_group",
+        "name": "Can change group",
+        "content_type": 3
+    },
+    "model": "auth.permission",
+    "pk": 8
+},
+{
+    "fields": {
+        "codename": "delete_group",
+        "name": "Can delete group",
+        "content_type": 3
+    },
+    "model": "auth.permission",
+    "pk": 9
+},
+{
+    "fields": {
+        "codename": "add_user",
+        "name": "Can add user",
+        "content_type": 4
+    },
+    "model": "auth.permission",
+    "pk": 10
+},
+{
+    "fields": {
+        "codename": "change_user",
+        "name": "Can change user",
+        "content_type": 4
+    },
+    "model": "auth.permission",
+    "pk": 11
+},
+{
+    "fields": {
+        "codename": "delete_user",
+        "name": "Can delete user",
+        "content_type": 4
+    },
+    "model": "auth.permission",
+    "pk": 12
+},
+{
+    "fields": {
+        "codename": "add_contenttype",
+        "name": "Can add content type",
+        "content_type": 5
+    },
+    "model": "auth.permission",
+    "pk": 13
+},
+{
+    "fields": {
+        "codename": "change_contenttype",
+        "name": "Can change content type",
+        "content_type": 5
+    },
+    "model": "auth.permission",
+    "pk": 14
+},
+{
+    "fields": {
+        "codename": "delete_contenttype",
+        "name": "Can delete content type",
+        "content_type": 5
+    },
+    "model": "auth.permission",
+    "pk": 15
+},
+{
+    "fields": {
+        "codename": "add_session",
+        "name": "Can add session",
+        "content_type": 6
+    },
+    "model": "auth.permission",
+    "pk": 16
+},
+{
+    "fields": {
+        "codename": "change_session",
+        "name": "Can change session",
+        "content_type": 6
+    },
+    "model": "auth.permission",
+    "pk": 17
+},
+{
+    "fields": {
+        "codename": "delete_session",
+        "name": "Can delete session",
+        "content_type": 6
+    },
+    "model": "auth.permission",
+    "pk": 18
+},
+{
+    "fields": {
+        "codename": "add_bienesserviciossolicitadosmodel",
+        "name": "Can add bienes servicios solicitados model",
+        "content_type": 7
+    },
+    "model": "auth.permission",
+    "pk": 19
+},
+{
+    "fields": {
+        "codename": "change_bienesserviciossolicitadosmodel",
+        "name": "Can change bienes servicios solicitados model",
+        "content_type": 7
+    },
+    "model": "auth.permission",
+    "pk": 20
+},
+{
+    "fields": {
+        "codename": "delete_bienesserviciossolicitadosmodel",
+        "name": "Can delete bienes servicios solicitados model",
+        "content_type": 7
+    },
+    "model": "auth.permission",
+    "pk": 21
+},
+{
+    "fields": {
+        "codename": "add_categoriasmodel",
+        "name": "Can add categorias model",
+        "content_type": 8
+    },
+    "model": "auth.permission",
+    "pk": 22
+},
+{
+    "fields": {
+        "codename": "change_categoriasmodel",
+        "name": "Can change categorias model",
+        "content_type": 8
+    },
+    "model": "auth.permission",
+    "pk": 23
+},
+{
+    "fields": {
+        "codename": "delete_categoriasmodel",
+        "name": "Can delete categorias model",
+        "content_type": 8
+    },
+    "model": "auth.permission",
+    "pk": 24
+},
+{
+    "fields": {
+        "codename": "add_bienesserviciosmodel",
+        "name": "Can add bienes servicios model",
+        "content_type": 9
+    },
+    "model": "auth.permission",
+    "pk": 25
+},
+{
+    "fields": {
+        "codename": "change_bienesserviciosmodel",
+        "name": "Can change bienes servicios model",
+        "content_type": 9
+    },
+    "model": "auth.permission",
+    "pk": 26
+},
+{
+    "fields": {
+        "codename": "delete_bienesserviciosmodel",
+        "name": "Can delete bienes servicios model",
+        "content_type": 9
+    },
+    "model": "auth.permission",
+    "pk": 27
+},
+{
+    "fields": {
+        "codename": "add_perfilusuariomodel",
+        "name": "Can add perfil usuario model",
+        "content_type": 10
+    },
+    "model": "auth.permission",
+    "pk": 28
+},
+{
+    "fields": {
+        "codename": "change_perfilusuariomodel",
+        "name": "Can change perfil usuario model",
+        "content_type": 10
+    },
+    "model": "auth.permission",
+    "pk": 29
+},
+{
+    "fields": {
+        "codename": "delete_perfilusuariomodel",
+        "name": "Can delete perfil usuario model",
+        "content_type": 10
+    },
+    "model": "auth.permission",
+    "pk": 30
+},
+{
+    "fields": {
+        "username": "midas",
+        "first_name": "",
+        "last_name": "",
+        "is_active": true,
+        "is_superuser": true,
+        "is_staff": true,
+        "last_login": "2016-07-18T13:21:50.425Z",
+        "groups": [],
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$12000$Sny1EnIasfC8$gJ1PwvUPlkL3lInqQ9IEBf3wUy4gZGgRU6640/qUymY=",
+        "email": "sistematizaref.programador5@gmail.com",
+        "date_joined": "2016-07-18T13:02:38.155Z"
+    },
+    "model": "auth.user",
+    "pk": 1
+},
+{
+    "fields": {
+        "username": "JuanRincon",
+        "first_name": "Juan",
+        "last_name": "Rincon",
+        "is_active": true,
+        "is_superuser": false,
+        "is_staff": false,
+        "last_login": "2016-07-18T13:27:27.303Z",
+        "groups": [],
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$12000$jCYa7M9zzzga$icUJjBSHE3hsd91BRhcVbDkPCCFsCHhXLsWPzAa8+vc=",
+        "email": "JuanRincon@gmail.com",
+        "date_joined": "2016-07-18T13:04:28.981Z"
+    },
+    "model": "auth.user",
+    "pk": 2
+},
+{
+    "fields": {
+        "username": "MariaLopez",
+        "first_name": "Maria",
+        "last_name": "Lopez",
+        "is_active": true,
+        "is_superuser": false,
+        "is_staff": false,
+        "last_login": "2016-07-18T13:26:22.021Z",
+        "groups": [],
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$12000$2mNeWakL0rLB$EugnoM+pRPBLLQ0vrBvD4BGkTb+KX0k07mGdyQHtHKM=",
+        "email": "MariaLopez@gmail.com",
+        "date_joined": "2016-07-18T13:05:16.654Z"
+    },
+    "model": "auth.user",
+    "pk": 3
+},
+{
+    "fields": {
+        "username": "MarcelaCarvajal",
+        "first_name": "Marcela",
+        "last_name": "Carvajal",
+        "is_active": true,
+        "is_superuser": false,
+        "is_staff": false,
+        "last_login": "2016-07-18T13:25:47.434Z",
+        "groups": [],
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$12000$bmvYC23nV8sa$MZRkPW3OW6rwP+z1Ge4WoM+AG1RQTBONoHuS0a7UwyY=",
+        "email": "MarcelaCarvajal@gmail.com",
+        "date_joined": "2016-07-18T13:05:54.410Z"
+    },
+    "model": "auth.user",
+    "pk": 4
+},
+{
+    "fields": {
+        "username": "SebastianRojas",
+        "first_name": "Sebastian",
+        "last_name": "Rojas",
+        "is_active": true,
+        "is_superuser": false,
+        "is_staff": false,
+        "last_login": "2016-07-18T13:22:58.532Z",
+        "groups": [],
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$12000$C19TziNVbJJf$M410PNDzF7hQljoPZn6Mw++12tl2ZrXyX+XFqr9EAfU=",
+        "email": "SebastianRojas@gmail.com",
+        "date_joined": "2016-07-18T13:14:25.540Z"
+    },
+    "model": "auth.user",
+    "pk": 6
+},
+{
+    "fields": {
+        "foto": "usuarios/avatar/user.jpg",
+        "genero": "M",
+        "celular2": "",
+        "celular3": "",
+        "fnacimiento": "1996-08-10",
+        "celular1": "321567421",
+        "cedula": 95412315
+    },
+    "model": "usuarios.perfilusuariomodel",
+    "pk": 2
+},
+{
+    "fields": {
+        "foto": "usuarios/avatar/user.jpg",
+        "genero": "F",
+        "celular2": "",
+        "celular3": "",
+        "fnacimiento": "1995-08-12",
+        "celular1": "3218657965",
+        "cedula": 65214895
+    },
+    "model": "usuarios.perfilusuariomodel",
+    "pk": 3
+},
+{
+    "fields": {
+        "foto": "usuarios/avatar/user.jpg",
+        "genero": "F",
+        "celular2": "",
+        "celular3": "",
+        "fnacimiento": "1991-09-08",
+        "celular1": "561354456",
+        "cedula": 3159456
+    },
+    "model": "usuarios.perfilusuariomodel",
+    "pk": 4
+},
+{
+    "fields": {
+        "foto": "usuarios/avatar/user.jpg",
+        "genero": "M",
+        "celular2": null,
+        "celular3": null,
+        "fnacimiento": "2000-01-05",
+        "celular1": "3549851325",
+        "cedula": 111111111
+    },
+    "model": "usuarios.perfilusuariomodel",
+    "pk": 6
+},
+{
+    "fields": {
+        "action_flag": 2,
+        "action_time": "2016-07-18T13:06:37.772Z",
+        "object_repr": "MariaLopez",
+        "object_id": "3",
+        "change_message": "Modificado/a cedula y genero.",
+        "user": 1,
+        "content_type": 10
+    },
+    "model": "admin.logentry",
+    "pk": 1
+},
+{
+    "fields": {
+        "action_flag": 2,
+        "action_time": "2016-07-18T13:06:45.337Z",
+        "object_repr": "JuanRincon",
+        "object_id": "2",
+        "change_message": "Modificado/a cedula.",
+        "user": 1,
+        "content_type": 10
+    },
+    "model": "admin.logentry",
+    "pk": 2
+},
+{
+    "fields": {
+        "action_flag": 2,
+        "action_time": "2016-07-18T13:06:52.280Z",
+        "object_repr": "MarcelaCarvajal",
+        "object_id": "4",
+        "change_message": "Modificado/a cedula.",
+        "user": 1,
+        "content_type": 10
+    },
+    "model": "admin.logentry",
+    "pk": 3
+},
+{
+    "fields": {
+        "action_flag": 3,
+        "action_time": "2016-07-18T13:13:30.098Z",
+        "object_repr": "SebastianRojas",
+        "object_id": "5",
+        "change_message": "",
+        "user": 1,
+        "content_type": 10
+    },
+    "model": "admin.logentry",
+    "pk": 4
+},
+{
+    "fields": {
+        "action_flag": 3,
+        "action_time": "2016-07-18T13:13:43.213Z",
+        "object_repr": "SebastianRojas",
+        "object_id": "5",
+        "change_message": "",
+        "user": 1,
+        "content_type": 4
+    },
+    "model": "admin.logentry",
+    "pk": 5
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2016-07-18T13:15:18.841Z",
+        "object_repr": "Tecnolog\u00eda",
+        "object_id": "1",
+        "change_message": "",
+        "user": 1,
+        "content_type": 8
+    },
+    "model": "admin.logentry",
+    "pk": 6
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2016-07-18T13:15:36.448Z",
+        "object_repr": "Decoraci\u00f3n",
+        "object_id": "2",
+        "change_message": "",
+        "user": 1,
+        "content_type": 8
+    },
+    "model": "admin.logentry",
+    "pk": 7
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2016-07-18T13:15:49.380Z",
+        "object_repr": "Comidas",
+        "object_id": "3",
+        "change_message": "",
+        "user": 1,
+        "content_type": 8
+    },
+    "model": "admin.logentry",
+    "pk": 8
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2016-07-18T13:16:09.769Z",
+        "object_repr": "Floristeria",
+        "object_id": "4",
+        "change_message": "",
+        "user": 1,
+        "content_type": 8
+    },
+    "model": "admin.logentry",
+    "pk": 9
+},
+{
+    "fields": {
+        "action_flag": 2,
+        "action_time": "2016-07-18T13:22:18.166Z",
+        "object_repr": "SebastianRojas",
+        "object_id": "6",
+        "change_message": "Modificado/a password.",
+        "user": 1,
+        "content_type": 4
+    },
+    "model": "admin.logentry",
+    "pk": 10
+}
+]

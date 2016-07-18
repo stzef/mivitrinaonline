@@ -6,7 +6,7 @@
 	<head>
 		<meta charset="utf-8" />
 		{% block head %}{% endblock %}
-		<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;" />
+		<meta name="viewport" content="width=device-width, user-scalable=no">
 		<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
 		<link href="{% static 'css/style_mvo.css' %}" rel="stylesheet" />
 		<link href="{% static 'css/owl.carousel.css' %}" rel="stylesheet" />
@@ -121,7 +121,7 @@
 			{% endblock %}
 
 			<script src="{% static 'jslibraries/jquery.min.js' %}"></script>
-			<script src="{% static 'jslibraries/video.js' %}"></script>
+			<script src={% comment %}"{% static 'jslibraries/video.js' %}"{% endcomment %}></script>
 			<script src="{% static 'jslibraries/flat-ui.min.js' %}"></script>
 			<script src="{% static 'jslibraries/owl.carousel.min.js' %}"></script>
 			<script>

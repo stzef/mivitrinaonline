@@ -73,9 +73,9 @@
 			<div class="panel">
 				<div class="owl-carousel owl-theme owl-rtl owl-loaded">
 					{% for  recomendado in recomendados %}
-						<a class="normal" href="{% url 'detallebusqueda' slug=recomendado.slug %}">
+						<a class="normal" href="{% url 'detallebusqueda' slug=recomendado.slug %}" title="{{bienServicio.nBienServicio}}">
 							<div class="recomendado">
-								<strong><p class="text-center">{{recomendado.nBienServicio}}</p></strong>
+								<strong><p class="text-center">...{{recomendado.nBienServicio|slice:"15"}}</p></strong>
 								<img src="{{recomendado.foto.url}}" alt="">
 								<span class="label label-app label-success">{{recomendado.categoria}}</span>
 							</div>

@@ -46,6 +46,13 @@
 							{{  form.lastname }}
 						</div>
 						<div class="form-group col-md-6">
+							<label>Numero Identificacion:</label>
+							{% if form.email.errors %}
+							{{ form.email.errors }}
+							{% endif%}
+							{{  form.cedula }}
+						</div>
+						<div class="form-group col-md-6">
 							<label>Usuario:</label>
 							{% if form.username.errors %}
 							{{ form.username.errors }}
