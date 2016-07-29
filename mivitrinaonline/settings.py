@@ -69,16 +69,29 @@ USE_L10N = True
 
 USE_TZ = True
 
+#DATABASES = {
+#	'default': {
+#		'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#		'NAME': 'da6sp8fv4gmdmq',
+#		'USER': 'kpmzagniuviqmk',
+#		'PASSWORD': 'lwU3nDRM25wik5-ItShIWmHThd',
+#		'HOST':'ec2-54-243-210-223.compute-1.amazonaws.com',
+#		'PORT':'5432',
+#	}
+#}
+
 DATABASES = {
 	'default': {
 		'ENGINE': 'django.db.backends.postgresql_psycopg2',
-		'NAME': 'da6sp8fv4gmdmq',
-		'USER': 'kpmzagniuviqmk',
-		'PASSWORD': 'lwU3nDRM25wik5-ItShIWmHThd',
-		'HOST':'ec2-54-243-210-223.compute-1.amazonaws.com',
+		'NAME': 'dbtest_mvo',
+		'USER': 'stzEF',
+		'PASSWORD': 'stzEF3435',
+		'HOST':'dbtestaws.ccnfozp09ddt.us-west-2.rds.amazonaws.com',
 		'PORT':'5432',
 	}
 }
+
+
 #DATABASES['default'] =  dj_database_url.config()
 
 # Enable Connection Pooling (if desired)
