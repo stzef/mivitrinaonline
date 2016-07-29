@@ -84,7 +84,7 @@ def crearNuevoBienServicio(request):
 				response_data['foto'] = bienServicioNuevo.foto.url
 				return JsonResponse(response_data, safe=False)
 			except Exception, e:
-				print(type(e))
+				#print(type(e))
 				response_data['error'] = e.message
 				return JsonResponse(response_data, safe=False)
 
