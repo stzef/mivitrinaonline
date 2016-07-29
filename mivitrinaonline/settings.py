@@ -80,16 +80,28 @@ USE_TZ = True
 #	}
 #}
 
-DATABASES = {
-	'default': {
-		'ENGINE': 'django.db.backends.postgresql_psycopg2',
-		'NAME': 'dbtest_mvo',
-		'USER': 'stzEF',
-		'PASSWORD': 'stzEF3435',
-		'HOST':'dbtestaws.ccnfozp09ddt.us-west-2.rds.amazonaws.com',
-		'PORT':'5432',
+if 'RDS_DB_NAME' in os.environ:
+	DATABASES = {
+		'default': {
+			'ENGINE': 'django.db.backends.postgresql_psycopg2',
+			'NAME': os.environ['RDS_DB_NAME'],
+			'USER': os.environ['RDS_USERNAME'],
+			'PASSWORD': os.environ['RDS_PASSWORD'],
+			'HOST': os.environ['RDS_HOSTNAME'],
+			'PORT': os.environ['RDS_PORT'],
+		}
 	}
-}
+else:
+	DATABASES = {
+		'default': {
+			'ENGINE': 'django.db.backends.postgresql_psycopg2',
+			'NAME': 'iotd',
+			'USER': 'iotd',
+			'PASSWORD': 'iotd',
+			'HOST': 'localhost',
+			'PORT': '5432',
+		}
+	}
 
 
 #DATABASES['default'] =  dj_database_url.config()
