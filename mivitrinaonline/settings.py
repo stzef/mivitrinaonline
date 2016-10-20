@@ -80,8 +80,7 @@ USE_TZ = True
 #	}
 #}
 
-#if 'RDS_DB_NAME' in os.environ:
-if 'DATABASE_URL' in os.environ:
+if 'RDS_DB_NAME' in os.environ:
 	DATABASES = {
 		'default': {
 			'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -90,6 +89,17 @@ if 'DATABASE_URL' in os.environ:
 			'PASSWORD': os.environ['RDS_PASSWORD'],
 			'HOST': os.environ['RDS_HOSTNAME'],
 			'PORT': os.environ['RDS_PORT'],
+		}
+	}
+elif 'DATABASE_URL' in os.environ:
+	DATABASES = {
+		'default': {
+			'ENGINE': 'django.db.backends.postgresql_psycopg2',
+			'NAME': "d7mdn7kdestlqe",
+			'USER': "hfwhmwwjryutol",
+			'PASSWORD': "Eg7BeDEBX_kzFaa43DtTsv-eov",
+			'HOST': "ec2-54-163-248-14.compute-1.amazonaws.com",
+			'PORT': "5432",
 		}
 	}
 else:
