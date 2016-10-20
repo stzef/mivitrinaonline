@@ -95,9 +95,9 @@ else:
 	DATABASES = {
 		'default': {
 			'ENGINE': 'django.db.backends.postgresql_psycopg2',
-			'NAME': 'iotd',
-			'USER': 'iotd',
-			'PASSWORD': 'iotd',
+			'NAME': 'mivitrinaonline',
+			'USER': 'postgres',
+			'PASSWORD': '123456',
 			'HOST': 'localhost',
 			'PORT': '5432',
 		}
@@ -113,7 +113,7 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 ALLOWED_HOSTS = ['*']
 
-LOGIN_URL = '/ingresar'
+"""LOGIN_URL = '/ingresar'
 
 LOGOUT_URL = '/salir'
 
@@ -126,6 +126,22 @@ STATIC_URL = '/static/'
 #STATICFILES_DIRS = (
 	#os.path.join(BASE_DIR, 'static'),
 #)
+
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+
+MEDIA_URL = '/media/'"""
+
+LOGIN_URL = '/ingresar'
+
+LOGOUT_URL = '/salir'
+
+STATIC_URL = '/static/'
+
+STATIC_ROOT = 'staticfiles'
+
+STATICFILES_DIRS = (
+	os.path.join(BASE_DIR, 'static'),
+)
 
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 

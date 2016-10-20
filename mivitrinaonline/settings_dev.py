@@ -72,7 +72,7 @@ DATABASES = {
 		'ENGINE': 'django.db.backends.postgresql_psycopg2',
 		'NAME': 'mivitrinaonline',
 		'USER': 'postgres',
-		'PASSWORD': '1234',
+		'PASSWORD': '123456',
 		'HOST':'127.0.0.1',
 		#'HOST':'192.168.20.107',
 		'PORT':'5432',
