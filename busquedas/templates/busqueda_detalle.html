@@ -67,6 +67,28 @@
 	</div>
 
 	<div class="row sugerencias">
+		<h3 class="sugerencias-titulo">Otros Bienes/Servicios de {{bienServicio.usuario.usuario.first_name}} {{bienServicio.usuario.usuario.last_name}}</h3>
+		<div class="row">
+			{% if bienesServicioUsuario %}
+			<div class="panel">
+				<div class="owl-carousel owl-theme owl-rtl owl-loaded">
+					{% for  bieneServicioUsuario in bienesServicioUsuario %}
+						<a class="normal" href="{% url 'detallebusqueda' slug=bieneServicioUsuario.slug %}" title="{{bienServicio.nBienServicio}}">
+							<div class="recomendado">
+								<strong><p class="text-center">...{{bieneServicioUsuario.nBienServicio|slice:"15"}}</p></strong>
+								<img src="{{bieneServicioUsuario.foto.url}}" alt="">
+								<span class="label label-app label-success">{{bieneServicioUsuario.categoria}}</span>
+							</div>
+						</a>
+					{% endfor %}
+				</div>
+			</div>
+			{% else %}
+			<p>No hay otros Bienes/Servicionde de este ofertante.</p>
+			{% endif %}
+		</div>
+	</div>
+	<div class="row sugerencias">
 		<h3 class="sugerencias-titulo">Sugerencias de Búsqueda</h3>
 		<div class="row">
 			{% if recomendados %}
