@@ -69,7 +69,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-DATABASES = {
+"""DATABASES = {
 	'default': {
 		'ENGINE': 'django.db.backends.postgresql_psycopg2',
 		'NAME': 'da6sp8fv4gmdmq',
@@ -78,7 +78,19 @@ DATABASES = {
 		'HOST':'ec2-54-243-210-223.compute-1.amazonaws.com',
 		'PORT':'5432',
 	}
+}"""
+
+DATABASES = {
+	'default': {
+		'ENGINE': 'django.db.backends.postgresql_psycopg2',
+		'NAME': 'mivitrinaonline',
+		'USER': 'postgres',
+		'PASSWORD': '123456',
+		'HOST': 'localhost',
+		'PORT': '5432',
+	}
 }
+
 
 """if 'RDS_DB_NAME' in os.environ:
 	DATABASES = {

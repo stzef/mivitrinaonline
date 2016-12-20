@@ -19,6 +19,7 @@ class perfilUsuarioModel(models.Model):
 	celular1 = models.CharField(max_length=15,blank=True,null=True)
 	celular2 = models.CharField(max_length=15,blank=True,null=True)
 	celular3 = models.CharField(max_length=15,blank=True,null=True)
+	coordenadas = models.CharField(max_length=20,blank=True,null=True)
 
 	def __str__(self):
 		return u'%s' % (self.usuario)

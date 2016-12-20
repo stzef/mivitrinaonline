@@ -5,6 +5,13 @@
 <title>Buscar | Mi Vitrina Online</title>
 {% endblock %}
 {% block content %}
+
+<style type="text/css">
+	        #map {
+            height: 300px;
+          }
+</style>
+
 <div class="container content-info">
 	<div class="row">
 		<div class="row">
@@ -149,6 +156,10 @@
 				<span>Email:</span>
 				<span class="strong">{{ this.email }}</span>
 			</li>
+			<li>
+				<div id="map"></div>
+
+			</li>
 		</ul>
 	</ul>
 </script>
@@ -169,16 +180,26 @@
 				},
 				success : function(json)
 				{
+					console.log(json)
 					var source = $("#datos-contacto-template").html();
 					var template = Handlebars.compile(source);
 					t = template(json);
 					console.log($('#js_verMasDatos'))
 					$('#js_verMasDatos').html(t);
 					$("#js_btnVermasDatos").toggle()
+
+					var map = new google.maps.Map(document.getElementById('map'), {
+						center: {lat: json.coordenadas.lat, lng: json.coordenadas.lng },
+						scrollwheel: true,
+						zoom: 17
+					});
 				}
 			})
 		})
 
 	})
 </script>
+
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKSeKDQqN8p8bZfQJL98WqTtNrAHZumcg"async defer></script>
 {% endblock scripts %}
