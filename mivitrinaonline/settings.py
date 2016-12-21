@@ -69,6 +69,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+# Produccion
 """DATABASES = {
 	'default': {
 		'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -80,6 +81,7 @@ USE_TZ = True
 	}
 }"""
 
+# Desarrollo
 DATABASES = {
 	'default': {
 		'ENGINE': 'django.db.backends.postgresql_psycopg2',
