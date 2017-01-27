@@ -69,7 +69,44 @@ USE_L10N = True
 
 USE_TZ = True
 
-# Produccion
+if os.getenv('SERVER_SOFTWARE', '').startswith('Google App Engine'):
+	# Running on production App Engine, so use a Google Cloud SQL database.
+	DATABASES = {
+		'default': {
+			'ENGINE': 'django.db.backends.mysql',
+			'HOST': '/cloudsql/your-project-id:your-instance-name',
+			'NAME': 'django_test',
+			'USER': 'root',
+		}
+	}
+elif os.getenv('SETTINGS_MODE') == 'prod':
+	# Running in development, but want to access the Google Cloud SQL instance
+	# in production.
+	DATABASES = {
+		'default': {
+			'ENGINE': 'django.db.backends.mysql',
+			'HOST': 'your-instance-ip-address',
+			'NAME': 'django_test',
+			'USER': 'root',
+			'PASSWORD': 'password',
+		}
+	}
+else:
+	# Running in development, so use a local MySQL database.
+	DATABASES = {
+		'default': {
+			#'ENGINE': 'django.db.backends.postgresql_psycopg2',
+			'ENGINE': 'django.db.backends.mysql',
+			'NAME': 'mivitrinaonline',
+			'USER': 'root',
+			'PASSWORD': 'stzEF0987',
+			'HOST': 'localhost',
+			'PORT': '5432',
+		}
+	}
+
+"""
+# Produccion Heroku
 DATABASES = {
 	'default': {
 		'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -80,21 +117,26 @@ DATABASES = {
 		'PORT':'5432',
 	}
 }
+"""
 
+"""
 # Desarrollo
-"""DATABASES = {
+DATABASES = {
 	'default': {
 		'ENGINE': 'django.db.backends.postgresql_psycopg2',
 		'NAME': 'mivitrinaonline',
-		'USER': 'postgres',
-		'PASSWORD': '123456',
+		'USER': 'root',
+		'PASSWORD': 'stzEF0987',
 		'HOST': 'localhost',
 		'PORT': '5432',
 	}
-}"""
+}
+"""
 
 
-"""if 'RDS_DB_NAME' in os.environ:
+"""
+# Amazon Web Service
+if 'RDS_DB_NAME' in os.environ:
 	DATABASES = {
 		'default': {
 			'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -110,15 +152,13 @@ else:
 		'default': {
 			'ENGINE': 'django.db.backends.postgresql_psycopg2',
 			'NAME': 'mivitrinaonline',
-			'USER': 'postgres',
-			'PASSWORD': '123456',
+			'USER': 'root',
+			'PASSWORD': 'stzEF0987',
 			'HOST': 'localhost',
 			'PORT': '5432',
 		}
 	}
 """
-
-#DATABASES['default'] =  dj_database_url.config()
 
 # Enable Connection Pooling (if desired)
 #DATABASES['default']['ENGINE'] = 'django_postgrespool'

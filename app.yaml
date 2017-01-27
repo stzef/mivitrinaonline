@@ -1,0 +1,23 @@
+entrypoint: python manage.py runserver
+#env: flex
+#runtime: python
+
+runtime: python27
+api_version: 1
+threadsafe: true
+
+libraries:
+- name: django
+  version: "1.7"
+
+- name: MySQLdb
+  version: "latest"
+
+builtins:
+- django_wsgi: on
+
+
+#env_variables:
+#    CLOUDSQL_CONNECTION_NAME: your-connection-name
+#    CLOUDSQL_USER: root
+#    CLOUDSQL_PASSWORD: your-cloudsql-user-password
