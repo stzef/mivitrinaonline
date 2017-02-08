@@ -69,6 +69,24 @@ USE_L10N = True
 
 USE_TZ = True
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'sql_server.pyodbc',
+        'NAME': 'db_MiVitrinaOnLine',
+        'USER': 'admin_mvo',
+        'PASSWORD': 'stzEF1970',
+        'HOST': 'mivitrinaonline.database.windows.net',
+        'PORT': '1433',
+        'OPTIONS': {
+            'driver': 'ODBC Driver 13 for SQL Server',
+            'MARS_Connection': 'True',
+        }
+    }
+}
+
+
+"""
+# Google App Engine
 if os.getenv('SERVER_SOFTWARE', '').startswith('Google App Engine'):
 	# Running on production App Engine, so use a Google Cloud SQL database.
 	DATABASES = {
@@ -104,6 +122,7 @@ else:
 			'PORT': '5432',
 		}
 	}
+"""
 
 """
 # Produccion Heroku
