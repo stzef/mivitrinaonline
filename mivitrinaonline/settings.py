@@ -84,7 +84,6 @@ DATABASES = {
     }
 }
 
-
 """
 # Google App Engine
 if os.getenv('SERVER_SOFTWARE', '').startswith('Google App Engine'):

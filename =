@@ -1,0 +1,27 @@
+Leyendo lista de paquetes...
+Creando árbol de dependencias...
+Leyendo la información de estado...
+apache2-bin ya está en su versión más reciente.
+fijado apache2-bin como instalado manualmente.
+libc6 ya está en su versión más reciente.
+php5-common ya está en su versión más reciente.
+fijado php5-common como instalado manualmente.
+Se instalarán los siguientes paquetes extras:
+  ghc ghc-prof libbsd-dev libffi-dev libfontconfig1-dev libfreetype6-dev
+  libgd-dev libgd2-xpm-dev libgmp-dev libgmpxx4ldbl libjbig-dev libjpeg-dev
+  libjpeg-turbo8-dev libjpeg8-dev liblzma-dev libpng12-dev libtiff5-dev
+  libtiffxx5 libvpx-dev libxpm-dev
+Paquetes sugeridos:
+  ghc-doc haskell-doc llvm libghc-boolean-doc libghc-gd-doc libgmp10-doc
+  libmpfr-dev liblzma-doc
+Se instalarán los siguientes paquetes NUEVOS:
+  ghc ghc-prof libbsd-dev libffi-dev libfontconfig1-dev libfreetype6-dev
+  libgd-dev libgd2-xpm-dev libghc-boolean-dev libghc-boolean-prof
+  libghc-gd-dev libghc-gd-prof libgmp-dev libgmpxx4ldbl libjbig-dev
+  libjpeg-dev libjpeg-turbo8-dev libjpeg8-dev liblzma-dev libpng12-dev
+  libtiff5-dev libtiffxx5 libvpx-dev libwine-gecko-2.21 libwine-gecko-dbg-2.21
+  libxpm-dev wine-gecko2.21
+0 actualizados, 27 se instalarán, 0 para eliminar y 32 no actualizados.
+Necesito descargar 450 MB de archivos.
+Se utilizarán 1.019 MB de espacio de disco adicional después de esta operación.
+¿Desea continuar? [S/n] 
