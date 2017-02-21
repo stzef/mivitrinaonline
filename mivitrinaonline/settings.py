@@ -83,6 +83,8 @@ DATABASES = {
     }
 }
 
+DATABASE_CONNECTION_POOLING = False
+
 """
 # Google App Engine
 if os.getenv('SERVER_SOFTWARE', '').startswith('Google App Engine'):
