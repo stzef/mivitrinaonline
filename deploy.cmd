@@ -120,8 +120,8 @@ IF NOT EXIST "%DEPLOYMENT_TARGET%\env\azure.env.%PYTHON_RUNTIME%.txt" (
 
 :: 4. Install packages
 echo Pip install requirements.
-env\scripts\pip install wheel
-env\scripts\pip wheel pyodbc==4.0.3
+::env\scripts\pip install wheel
+::env\scripts\pip wheel pyodbc==4.0.3
 env\scripts\pip install -r requirements.txt
 IF !ERRORLEVEL! NEQ 0 goto error
 
