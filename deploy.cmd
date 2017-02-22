@@ -123,8 +123,8 @@ echo Pip install requirements.
 env\scripts\pip2 install -r requirements.txt
 IF !ERRORLEVEL! NEQ 0 goto error
 
-env\scripts\pip install wheel
-env\scripts\pip wheel pyodbc==4.0.3
+::env\scripts\pip install wheel
+::env\scripts\pip wheel pyodbc==4.0.3
 
 REM Add additional package installation here
 REM -- Example --
