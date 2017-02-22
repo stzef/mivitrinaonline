@@ -1,5 +1,6 @@
 appdirs==1.4.0
 Django==1.9.12
+pyodbc==4.0.3
 django-braces==1.11.0
 django-pyodbc==1.1.0
 django-pyodbc-azure==1.9.12.0
