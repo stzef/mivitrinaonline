@@ -1,3 +1,4 @@
+--find-links wheelhouse
 appdirs==1.4.0
 Django==1.9.12
 pyodbc==4.0.3
