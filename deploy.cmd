@@ -120,8 +120,10 @@ IF NOT EXIST "%DEPLOYMENT_TARGET%\env\azure.env.%PYTHON_RUNTIME%.txt" (
 
 :: 4. Install packages
 echo Pip install requirements.
-::env\scripts\pip install wheel
-::env\scripts\pip wheel pyodbc==4.0.3 -w wheelhouse
+env\scripts\pip install wheel
+env\scripts\pip wheel pyodbc==4.0.3 -w wheelhouse
+env\scripts\pip wheel django-pyodbc==1.1.0 -w wheelhouse
+env\scripts\pip wheel django-pyodbc-azure==1.9.12.0 -w wheelhouse
 env\scripts\pip install -r requirements.txt
 
 ::env\scripts\pip install --upgrade -r requirements.txt
