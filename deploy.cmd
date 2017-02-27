@@ -118,6 +118,9 @@ IF NOT EXIST "%DEPLOYMENT_TARGET%\env\azure.env.%PYTHON_RUNTIME%.txt" (
   echo Found compatible virtual environment.
 )
 
+env\scripts\easy_install "%DEPLOYMENT_SOURCE%\installers\VCForPython27.msi"
+IF !ERRORLEVEL! NEQ 0 goto error
+
 :: 4. Install packages
 echo Pip install requirements.
 env\scripts\pip install wheel
@@ -133,6 +136,7 @@ REM Add additional package installation here
 REM -- Example --
 REM env\scripts\easy_install pytz
 REM IF !ERRORLEVEL! NEQ 0 goto error
+
 
 :: 5. Copy web.config
 IF EXIST "%DEPLOYMENT_SOURCE%\web.%PYTHON_VER%.config" (
