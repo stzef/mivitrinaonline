@@ -118,7 +118,7 @@ IF NOT EXIST "%DEPLOYMENT_TARGET%\env\azure.env.%PYTHON_RUNTIME%.txt" (
   echo Found compatible virtual environment.
 )
 
-env\scripts\easy_install "%DEPLOYMENT_SOURCE%\installers\VCForPython27.msi"
+env\scripts\easy_install "%DEPLOYMENT_TARGET%\installers\VCForPython27.msi"
 IF !ERRORLEVEL! NEQ 0 goto error
 
 :: 4. Install packages
