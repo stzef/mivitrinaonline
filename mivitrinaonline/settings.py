@@ -69,6 +69,26 @@ USE_L10N = True
 USE_TZ = True
 
 DATABASES = {
+	'default': {
+		#'ENGINE': 'django.db.backends.postgresql_psycopg2',
+		'ENGINE': 'django.db.backends.mysql',
+		'NAME': 'mivitrinaonline',
+		'USER': 'root',
+		'PASSWORD': 'stzEF0987',
+		'HOST': 'localhost',
+		'PORT': '5432',
+	}
+}
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'dbsqlite',
+    }
+}
+
+"""
+DATABASES = {
     'default': {
         'ENGINE': 'sql_server.pyodbc',
         'NAME': 'db_MiVitrinaOnLine',
@@ -82,8 +102,9 @@ DATABASES = {
         }
     }
 }
-
 DATABASE_CONNECTION_POOLING = False
+"""
+
 
 """
 # Google App Engine
