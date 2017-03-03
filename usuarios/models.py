@@ -26,3 +26,11 @@ class perfilUsuarioModel(models.Model):
 
 	def __unicode__(self):
 		return u'%s' % (self.usuario)
+
+class AuditoriaUser(models.Model):
+	usuario = models.ForeignKey(User)
+	accion = models.CharField(max_length=45)
+	fecha_accion = models.DateTimeField(auto_now = True)
+
+	def __str__(self):
+		return self.usuario.email+' - '+self.accion+' - '+str(self.fecha_accion)

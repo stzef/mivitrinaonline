@@ -1,4 +1,5 @@
 from django.contrib import admin
-from usuarios.models import perfilUsuarioModel
+from .models import *
 
 admin.site.register(perfilUsuarioModel)
+admin.site.register(AuditoriaUser)

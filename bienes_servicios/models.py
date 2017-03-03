@@ -39,6 +39,7 @@ class bienesServiciosModel(models.Model):
 	precio = models.DecimalField(max_digits=12,decimal_places=2,blank=True,null=True)
 	fecha_creacion = models.DateTimeField(auto_now=True,null=False,blank=True)
 	fecha_actualizacion = models.DateTimeField(auto_now=True,null=False,blank=True)
+	numero_visita = models.IntegerField(default = 0)
 
 	def __str__(self):
 		return u'%s' % (self.nBienServicio)
