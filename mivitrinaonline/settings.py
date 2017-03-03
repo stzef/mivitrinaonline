@@ -31,6 +31,14 @@ THIRTY_PARTY_APPS = (
 	'djrill',
 )
 
+#https://mvostorage.blob.core.windows.net/mvofiles
+#http://azure_account_name.blob.core.windows.net/
+
+DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
+AZURE_ACCOUNT_NAME = os.environ.get("AZURE_ACCOUNT_NAME")
+AZURE_ACCOUNT_KEY = os.environ.get("AZURE_ACCOUNT_KEY")
+AZURE_CONTAINER = os.environ.get("AZURE_CONTAINER")
+
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + THIRTY_PARTY_APPS
 
 MIDDLEWARE_CLASSES = (
