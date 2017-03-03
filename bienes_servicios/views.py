@@ -35,15 +35,15 @@ class bienesServiciosListView(LoginRequiredMixin, ListView):
 	form = nuevoBienServicioForm
 
 	def getCantidadActivas(self):
-		cantidadActivas = bienesServiciosModel.objects.filter(usuario=self.request.user.pk, estado=True).count()
+		cantidadActivas = bienesServiciosModel.objects.filter(usuario__usuario__username=self.request.user.username, estado=True).count()
 		return cantidadActivas
 
 	def getInactivos(self):
-		inactivas = bienesServiciosModel.objects.filter(usuario=self.request.user.pk,estado=False).order_by('-fecha_creacion')
+		inactivas = bienesServiciosModel.objects.filter(usuario__usuario__username=self.request.user.username,estado=False).order_by('-fecha_creacion')
 		return inactivas
 
 	def get_queryset(self):
-		queryset = bienesServiciosModel.objects.filter(usuario=self.request.user.pk, estado=True).order_by('-fecha_creacion')
+		queryset = bienesServiciosModel.objects.filter(usuario__usuario__username=self.request.user.username, estado=True).order_by('-fecha_creacion')
 		return queryset
 
 	def get(self, request, *args, **kwargs):
@@ -70,7 +70,7 @@ def crearNuevoBienServicio(request):
 			slugFind = bienesServiciosModel.objects.filter(slug=defaultfilters.slugify(bienServicioNuevo.slug))
 
 			print(slugFind)
-			
+
 			try:
 				bienServicioNuevo.save()
 				response_data['id'] = bienServicioNuevo.pk

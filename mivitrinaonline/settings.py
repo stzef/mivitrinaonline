@@ -1,3 +1,4 @@
+from config.db import DATABASES as dbconfig
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -29,6 +30,14 @@ PROJECT_APPS = (
 THIRTY_PARTY_APPS = (
 	'djrill',
 )
+
+#https://mvostorage.blob.core.windows.net/mvofiles
+#http://azure_account_name.blob.core.windows.net/
+
+DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
+AZURE_ACCOUNT_NAME = os.environ.get("AZURE_ACCOUNT_NAME")
+AZURE_ACCOUNT_KEY = os.environ.get("AZURE_ACCOUNT_KEY")
+AZURE_CONTAINER = os.environ.get("AZURE_CONTAINER")
 
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + THIRTY_PARTY_APPS
 
@@ -68,131 +77,32 @@ USE_L10N = True
 
 USE_TZ = True
 
-DATABASES = {
-	'default': {
-		'ENGINE': 'django.db.backends.sqlite3',
-		'NAME': os.path.join(BASE_DIR, 'database.db'),
-	}
-}
-DATABASE_CONNECTION_POOLING = False
-
-"""
-# Google App Engine
-if os.getenv('SERVER_SOFTWARE', '').startswith('Google App Engine'):
-	# Running on production App Engine, so use a Google Cloud SQL database.
-	DATABASES = {
-		'default': {
-			'ENGINE': 'django.db.backends.mysql',
-			'HOST': '/cloudsql/your-project-id:your-instance-name',
-			'NAME': 'django_test',
-			'USER': 'root',
-		}
-	}
-elif os.getenv('SETTINGS_MODE') == 'prod':
-	# Running in development, but want to access the Google Cloud SQL instance
-	# in production.
-	DATABASES = {
-		'default': {
-			'ENGINE': 'django.db.backends.mysql',
-			'HOST': 'your-instance-ip-address',
-			'NAME': 'django_test',
-			'USER': 'root',
-			'PASSWORD': 'password',
-		}
-	}
-else:
-	# Running in development, so use a local MySQL database.
-	DATABASES = {
-		'default': {
-			#'ENGINE': 'django.db.backends.postgresql_psycopg2',
-			'ENGINE': 'django.db.backends.mysql',
-			'NAME': 'mivitrinaonline',
-			'USER': 'root',
-			'PASSWORD': 'stzEF0987',
-			'HOST': 'localhost',
-			'PORT': '5432',
-		}
-	}
-"""
-
-"""
-# Produccion Heroku
-DATABASES = {
-	'default': {
-		'ENGINE': 'django.db.backends.postgresql_psycopg2',
-		'NAME': 'da6sp8fv4gmdmq',
-		'USER': 'kpmzagniuviqmk',
-		'PASSWORD': 'lwU3nDRM25wik5-ItShIWmHThd',
-		'HOST':'ec2-54-243-210-223.compute-1.amazonaws.com',
-		'PORT':'5432',
-	}
-}
-"""
-
-"""
-# Desarrollo
-DATABASES = {
-	'default': {
-		'ENGINE': 'django.db.backends.postgresql_psycopg2',
-		'NAME': 'mivitrinaonline',
-		'USER': 'root',
-		'PASSWORD': 'stzEF0987',
-		'HOST': 'localhost',
-		'PORT': '5432',
-	}
-}
-"""
-
-
-"""
-# Amazon Web Service
-if 'RDS_DB_NAME' in os.environ:
-	DATABASES = {
-		'default': {
-			'ENGINE': 'django.db.backends.postgresql_psycopg2',
-			'NAME': os.environ['RDS_DB_NAME'],
-			'USER': os.environ['RDS_USERNAME'],
-			'PASSWORD': os.environ['RDS_PASSWORD'],
-			'HOST': os.environ['RDS_HOSTNAME'],
-			'PORT': os.environ['RDS_PORT'],
-		}
-	}
+if dbconfig:
+	DATABASES = dbconfig
+	print "Si"
 else:
 	DATABASES = {
 		'default': {
-			'ENGINE': 'django.db.backends.postgresql_psycopg2',
-			'NAME': 'mivitrinaonline',
-			'USER': 'root',
-			'PASSWORD': 'stzEF0987',
-			'HOST': 'localhost',
-			'PORT': '5432',
+			'ENGINE': 'django.db.backends.sqlite3',
+			'NAME': 'dbsqlite',
 		}
 	}
-"""
-
-# Enable Connection Pooling (if desired)
-#DATABASES['default']['ENGINE'] = 'django_postgrespool'
+	print "No"
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 ALLOWED_HOSTS = ['*']
 
 """LOGIN_URL = '/ingresar'
-
 LOGOUT_URL = '/salir'
-
 #STATIC_ROOT = 'staticfiles'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
 #STATIC_URL = '/static/'
 STATIC_URL = '/static/'
-
 #STATICFILES_DIRS = (
 	#os.path.join(BASE_DIR, 'static'),
 #)
-
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
-
 MEDIA_URL = '/media/'"""
 
 LOGIN_URL = '/ingresar'
