@@ -1,4 +1,5 @@
 from config.db import DATABASES as dbconfig
+from config.credentials import CREDENTIALS
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -35,9 +36,9 @@ THIRTY_PARTY_APPS = (
 #http://azure_account_name.blob.core.windows.net/
 
 DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
-AZURE_ACCOUNT_NAME = os.environ.get("AZURE_ACCOUNT_NAME")
-AZURE_ACCOUNT_KEY = os.environ.get("AZURE_ACCOUNT_KEY")
-AZURE_CONTAINER = os.environ.get("AZURE_CONTAINER")
+AZURE_ACCOUNT_NAME = os.environ.get("AZURE_ACCOUNT_NAME") if os.environ.get("AZURE_ACCOUNT_NAME") else CREDENTIALS["AZURE_ACCOUNT_NAME"]
+AZURE_ACCOUNT_KEY = os.environ.get("AZURE_ACCOUNT_KEY") if os.environ.get("AZURE_ACCOUNT_KEY") else CREDENTIALS["AZURE_ACCOUNT_KEY"]
+AZURE_CONTAINER = os.environ.get("AZURE_CONTAINER") if os.environ.get("AZURE_CONTAINER") else CREDENTIALS["AZURE_CONTAINER"]
 
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + THIRTY_PARTY_APPS
 

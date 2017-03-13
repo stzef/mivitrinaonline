@@ -8,3 +8,4 @@ venv
 env/*
 .env
 config/db.py
+config/credentials.py
