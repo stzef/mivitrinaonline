@@ -1,6 +1,8 @@
-from config.db import DATABASES as dbconfig
-from config.credentials import CREDENTIALS
+#from config.db import DATABASES as dbconfig
+#from config.credentials import CREDENTIALS
 import os
+import dj_database_url
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
@@ -35,10 +37,10 @@ THIRTY_PARTY_APPS = (
 #https://mvostorage.blob.core.windows.net/mvofiles
 #http://azure_account_name.blob.core.windows.net/
 
-DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
-AZURE_ACCOUNT_NAME = os.environ.get("AZURE_ACCOUNT_NAME") if os.environ.get("AZURE_ACCOUNT_NAME",False) else CREDENTIALS["AZURE_ACCOUNT_NAME"]
-AZURE_ACCOUNT_KEY = os.environ.get("AZURE_ACCOUNT_KEY") if os.environ.get("AZURE_ACCOUNT_KEY",False) else CREDENTIALS["AZURE_ACCOUNT_KEY"]
-AZURE_CONTAINER = os.environ.get("AZURE_CONTAINER") if os.environ.get("AZURE_CONTAINER",False) else CREDENTIALS["AZURE_CONTAINER"]
+#DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
+#AZURE_ACCOUNT_NAME = os.environ.get("AZURE_ACCOUNT_NAME") if os.environ.get("AZURE_ACCOUNT_NAME",False) else CREDENTIALS["AZURE_ACCOUNT_NAME"]
+#AZURE_ACCOUNT_KEY = os.environ.get("AZURE_ACCOUNT_KEY") if os.environ.get("AZURE_ACCOUNT_KEY",False) else CREDENTIALS["AZURE_ACCOUNT_KEY"]
+#AZURE_CONTAINER = os.environ.get("AZURE_CONTAINER") if os.environ.get("AZURE_CONTAINER",False) else CREDENTIALS["AZURE_CONTAINER"]
 
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + THIRTY_PARTY_APPS
 
@@ -78,8 +80,12 @@ USE_L10N = True
 
 USE_TZ = True
 
-if dbconfig:
-	DATABASES = dbconfig
+if "DATABASE_URL" in os.environ:
+	#DATABASES = dbconfig
+	DATABASES = {
+		'default' : dj_database_url.parse(os.environ.get("DATABASE_URL"), conn_max_age=600)
+	}
+
 	print "Si"
 else:
 	DATABASES = {
