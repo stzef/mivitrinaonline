@@ -20,6 +20,7 @@ DJANGO_APPS = (
 	'django.contrib.sessions',
 	'django.contrib.staticfiles',
 	'django.contrib.humanize',
+	'storages',
 )
 
 PROJECT_APPS = (
@@ -34,14 +35,6 @@ THIRTY_PARTY_APPS = (
 	'djrill',
 )
 
-#https://mvostorage.blob.core.windows.net/mvofiles
-#http://azure_account_name.blob.core.windows.net/
-
-#DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
-#AZURE_ACCOUNT_NAME = os.environ.get("AZURE_ACCOUNT_NAME") if os.environ.get("AZURE_ACCOUNT_NAME",False) else CREDENTIALS["AZURE_ACCOUNT_NAME"]
-#AZURE_ACCOUNT_KEY = os.environ.get("AZURE_ACCOUNT_KEY") if os.environ.get("AZURE_ACCOUNT_KEY",False) else CREDENTIALS["AZURE_ACCOUNT_KEY"]
-#AZURE_CONTAINER = os.environ.get("AZURE_CONTAINER") if os.environ.get("AZURE_CONTAINER",False) else CREDENTIALS["AZURE_CONTAINER"]
-
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + THIRTY_PARTY_APPS
 
 MIDDLEWARE_CLASSES = (
@@ -54,6 +47,29 @@ MIDDLEWARE_CLASSES = (
 	'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
+AWS_STORAGE_BUCKET_NAME = os.getenv("MVO_AWS_STORAGE_BUCKET_NAME","")
+print AWS_STORAGE_BUCKET_NAME
+AWS_ACCESS_KEY_ID = os.getenv("MVO_AWS_ACCESS_KEY_ID","")
+print AWS_ACCESS_KEY_ID
+AWS_SECRET_ACCESS_KEY = os.getenv("MVO_AWS_SECRET_ACCESS_KEY","")
+print AWS_SECRET_ACCESS_KEY
+
+# Tell django-storages that when coming up with the URL for an item in S3 storage, keep
+# it simple - just use this domain plus the path. (If this isn't set, things get complicated).
+# This controls how the `static` template tag from `staticfiles` gets expanded, if you're using it.
+# We also use it in the next setting.
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+
+# This is used by the `static` template tag from `static`, if you're using that. Or if anything else
+# refers directly to STATIC_URL. So it's safest to always set it.
+#STATIC_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
+
+# Tell the staticfiles app to use S3Boto storage when writing the collected static files (when
+# you run `collectstatic`).
+#STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+
+MEDIA_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 # SMTP Settings Backend
 EMAIL_BACKEND = 'djrill.mail.backends.djrill.DjrillBackend'
@@ -100,18 +116,6 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 ALLOWED_HOSTS = ['*']
 
-"""LOGIN_URL = '/ingresar'
-LOGOUT_URL = '/salir'
-#STATIC_ROOT = 'staticfiles'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-#STATIC_URL = '/static/'
-STATIC_URL = '/static/'
-#STATICFILES_DIRS = (
-	#os.path.join(BASE_DIR, 'static'),
-#)
-MEDIA_ROOT = os.path.join(BASE_DIR,'media')
-MEDIA_URL = '/media/'"""
-
 LOGIN_URL = '/ingresar'
 
 LOGOUT_URL = '/salir'
@@ -126,4 +130,4 @@ STATICFILES_DIRS = (
 
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
-MEDIA_URL = '/media/'
+#MEDIA_URL = '/media/'
