@@ -32,5 +32,8 @@ class AuditoriaUser(models.Model):
 	accion = models.CharField(max_length=45)
 	fecha_accion = models.DateTimeField(auto_now = True)
 
+	def __unicode__(self):
+		return self.usuario.email+' - '+self.accion+' - '+str(self.fecha_accion)
+
 	def __str__(self):
 		return self.usuario.email+' - '+self.accion+' - '+str(self.fecha_accion)
