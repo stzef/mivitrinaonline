@@ -22,8 +22,8 @@
 			{% for bienServicio in last_update %}
 				<a class="normal" href="{% url 'detallebusqueda' slug=bienServicio.slug %}" title="{{bienServicio.nBienServicio}}">
 					<div class="last_update">
-						<strong><p class="text-center">{{bienServicio.nBienServicio|slice:"15"}}... <span class="label label-success">Nuevo</span></p></strong>
-						<img class="img-responsive center-block" src="{{bienServicio.foto.url}}" alt="">
+						<strong><p class="text-center">{{bienServicio.nBienServicio|slice:"10"}}... <span class="label label-success">Nuevo</span></p></strong>
+						<img height="95px" width="auto" class="img-responsive center-block" src="{{bienServicio.foto.url}}" alt="">
 						<span class="label category label-app label-primary">{{bienServicio.categoria}}</span>
 					</div>
 				</a>

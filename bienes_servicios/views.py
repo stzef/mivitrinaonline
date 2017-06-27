@@ -227,7 +227,11 @@ def obtener_datos_de_contacto(request):
 			response_data['celular1'] = bienServicio.usuario.celular1
 			response_data['celular2'] = bienServicio.usuario.celular2
 			response_data['celular3'] = bienServicio.usuario.celular3
-			response_data['coordenadas'] = { 'lat': float(bienServicio.usuario.coordenadas.split(",")[0]) ,'lng': float(bienServicio.usuario.coordenadas.split(",")[1]) }
+
+			response_data['coordenadas'] = None
+
+			if bienServicio.usuario.coordenadas :
+				response_data['coordenadas'] = { 'lat': float(bienServicio.usuario.coordenadas.split(",")[0]) ,'lng': float(bienServicio.usuario.coordenadas.split(",")[1]) }
 			response_data['email'] = bienServicio.usuario.usuario.email
 
 			hs = bienesServiciosSolicitadosModel()
