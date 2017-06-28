@@ -195,6 +195,11 @@
 							scrollwheel: true,
 							zoom: 17
 						});
+						var marker = new google.maps.Marker({
+							position: new google.maps.LatLng(json.coordenadas.lat, json.coordenadas.lng),
+							title: "",
+							map: map,
+						});
 					}
 				}
 			})
