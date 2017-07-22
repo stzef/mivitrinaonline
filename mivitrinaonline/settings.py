@@ -1,4 +1,8 @@
+#from config.db import DATABASES as dbconfig
+#from config.credentials import CREDENTIALS
 import os
+import dj_database_url
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
@@ -16,6 +20,7 @@ DJANGO_APPS = (
 	'django.contrib.sessions',
 	'django.contrib.staticfiles',
 	'django.contrib.humanize',
+	'storages',
 )
 
 PROJECT_APPS = (
@@ -42,6 +47,29 @@ MIDDLEWARE_CLASSES = (
 	'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
+AWS_STORAGE_BUCKET_NAME = os.getenv("MVO_AWS_STORAGE_BUCKET_NAME","")
+print AWS_STORAGE_BUCKET_NAME
+AWS_ACCESS_KEY_ID = os.getenv("MVO_AWS_ACCESS_KEY_ID","")
+print AWS_ACCESS_KEY_ID
+AWS_SECRET_ACCESS_KEY = os.getenv("MVO_AWS_SECRET_ACCESS_KEY","")
+print AWS_SECRET_ACCESS_KEY
+
+# Tell django-storages that when coming up with the URL for an item in S3 storage, keep
+# it simple - just use this domain plus the path. (If this isn't set, things get complicated).
+# This controls how the `static` template tag from `staticfiles` gets expanded, if you're using it.
+# We also use it in the next setting.
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+
+# This is used by the `static` template tag from `static`, if you're using that. Or if anything else
+# refers directly to STATIC_URL. So it's safest to always set it.
+#STATIC_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
+
+# Tell the staticfiles app to use S3Boto storage when writing the collected static files (when
+# you run `collectstatic`).
+#STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+
+MEDIA_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 # SMTP Settings Backend
 EMAIL_BACKEND = 'djrill.mail.backends.djrill.DjrillBackend'
@@ -68,141 +96,25 @@ USE_L10N = True
 
 USE_TZ = True
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'sql_server.pyodbc',
-        'NAME': 'db_MiVitrinaOnLine',
-        'USER': 'admin_mvo',
-        'PASSWORD': 'stzEF1970',
-        'HOST': 'mivitrinaonline.database.windows.net',
-        'PORT': '1433',
-        'OPTIONS': {
-            'driver': 'ODBC Driver 13 for SQL Server',
-            'MARS_Connection': 'True',
-        }
-    }
-}
-
-DATABASE_CONNECTION_POOLING = False
-
-"""
-# Google App Engine
-if os.getenv('SERVER_SOFTWARE', '').startswith('Google App Engine'):
-	# Running on production App Engine, so use a Google Cloud SQL database.
+if "DATABASE_URL" in os.environ:
+	#DATABASES = dbconfig
 	DATABASES = {
-		'default': {
-			'ENGINE': 'django.db.backends.mysql',
-			'HOST': '/cloudsql/your-project-id:your-instance-name',
-			'NAME': 'django_test',
-			'USER': 'root',
-		}
+		'default' : dj_database_url.parse(os.environ.get("DATABASE_URL"), conn_max_age=600)
 	}
-elif os.getenv('SETTINGS_MODE') == 'prod':
-	# Running in development, but want to access the Google Cloud SQL instance
-	# in production.
-	DATABASES = {
-		'default': {
-			'ENGINE': 'django.db.backends.mysql',
-			'HOST': 'your-instance-ip-address',
-			'NAME': 'django_test',
-			'USER': 'root',
-			'PASSWORD': 'password',
-		}
-	}
-else:
-	# Running in development, so use a local MySQL database.
-	DATABASES = {
-		'default': {
-			#'ENGINE': 'django.db.backends.postgresql_psycopg2',
-			'ENGINE': 'django.db.backends.mysql',
-			'NAME': 'mivitrinaonline',
-			'USER': 'root',
-			'PASSWORD': 'stzEF0987',
-			'HOST': 'localhost',
-			'PORT': '5432',
-		}
-	}
-"""
 
-"""
-# Produccion Heroku
-DATABASES = {
-	'default': {
-		'ENGINE': 'django.db.backends.postgresql_psycopg2',
-		'NAME': 'da6sp8fv4gmdmq',
-		'USER': 'kpmzagniuviqmk',
-		'PASSWORD': 'lwU3nDRM25wik5-ItShIWmHThd',
-		'HOST':'ec2-54-243-210-223.compute-1.amazonaws.com',
-		'PORT':'5432',
-	}
-}
-"""
-
-"""
-# Desarrollo
-DATABASES = {
-	'default': {
-		'ENGINE': 'django.db.backends.postgresql_psycopg2',
-		'NAME': 'mivitrinaonline',
-		'USER': 'root',
-		'PASSWORD': 'stzEF0987',
-		'HOST': 'localhost',
-		'PORT': '5432',
-	}
-}
-"""
-
-
-"""
-# Amazon Web Service
-if 'RDS_DB_NAME' in os.environ:
-	DATABASES = {
-		'default': {
-			'ENGINE': 'django.db.backends.postgresql_psycopg2',
-			'NAME': os.environ['RDS_DB_NAME'],
-			'USER': os.environ['RDS_USERNAME'],
-			'PASSWORD': os.environ['RDS_PASSWORD'],
-			'HOST': os.environ['RDS_HOSTNAME'],
-			'PORT': os.environ['RDS_PORT'],
-		}
-	}
+	print "Si"
 else:
 	DATABASES = {
 		'default': {
-			'ENGINE': 'django.db.backends.postgresql_psycopg2',
-			'NAME': 'mivitrinaonline',
-			'USER': 'root',
-			'PASSWORD': 'stzEF0987',
-			'HOST': 'localhost',
-			'PORT': '5432',
+			'ENGINE': 'django.db.backends.sqlite3',
+			'NAME': 'dbsqlite',
 		}
 	}
-"""
-
-# Enable Connection Pooling (if desired)
-#DATABASES['default']['ENGINE'] = 'django_postgrespool'
+	print "No"
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 ALLOWED_HOSTS = ['*']
-
-"""LOGIN_URL = '/ingresar'
-
-LOGOUT_URL = '/salir'
-
-#STATIC_ROOT = 'staticfiles'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
-#STATIC_URL = '/static/'
-STATIC_URL = '/static/'
-
-#STATICFILES_DIRS = (
-	#os.path.join(BASE_DIR, 'static'),
-#)
-
-MEDIA_ROOT = os.path.join(BASE_DIR,'media')
-
-MEDIA_URL = '/media/'"""
 
 LOGIN_URL = '/ingresar'
 
@@ -218,4 +130,4 @@ STATICFILES_DIRS = (
 
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
-MEDIA_URL = '/media/'
+#MEDIA_URL = '/media/'

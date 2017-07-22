@@ -1,4 +1,10 @@
+# -*- encoding: utf-8 -*-
 from django.contrib.auth.models import User
+from .models import AuditoriaUser
+
+def log_user(user, accion):
+	log = AuditoriaUser(usuario = user, accion = accion)
+	log.save()
 
 class authEmailBackend(object):
 	def authenticate(self, email=None, password=None):

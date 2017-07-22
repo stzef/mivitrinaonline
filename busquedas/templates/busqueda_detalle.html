@@ -157,8 +157,11 @@
 				<span class="strong">{{ this.email }}</span>
 			</li>
 			<li>
-				<div id="map"></div>
-
+				{{#if this.coordenadas }}
+					<div id="map"></div>
+				{{else}}
+					<p>Sin coordenadas</p>
+				{{/if}}
 			</li>
 		</ul>
 	</ul>
@@ -180,19 +183,24 @@
 				},
 				success : function(json)
 				{
-					console.log(json)
 					var source = $("#datos-contacto-template").html();
 					var template = Handlebars.compile(source);
 					t = template(json);
-					console.log($('#js_verMasDatos'))
 					$('#js_verMasDatos').html(t);
 					$("#js_btnVermasDatos").toggle()
 
-					var map = new google.maps.Map(document.getElementById('map'), {
-						center: {lat: json.coordenadas.lat, lng: json.coordenadas.lng },
-						scrollwheel: true,
-						zoom: 17
-					});
+					if ( json.coordenadas ){
+						var map = new google.maps.Map(document.getElementById('map'), {
+							center: {lat: json.coordenadas.lat, lng: json.coordenadas.lng },
+							scrollwheel: true,
+							zoom: 17
+						});
+						var marker = new google.maps.Marker({
+							position: new google.maps.LatLng(json.coordenadas.lat, json.coordenadas.lng),
+							title: "",
+							map: map,
+						});
+					}
 				}
 			})
 		})

@@ -6,3 +6,6 @@ venv
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
 env/*
+.env
+config/db.py
+config/credentials.py

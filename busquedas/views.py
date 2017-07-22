@@ -28,13 +28,15 @@ class detalleBienServicioBuscada(DetailView):
 	#retorna elementos los otros bienes y servicios del mismo usuario
 	def getBienesServiciosUsuario(self, BienServicio):
 		#bienesServicioUsuario = bienesServiciosModel.objects.filter(usuario=BienServicio.usuario.usuario,estado=True).exclude(id=BienServicio.id)[:3]
-		bienesServicioUsuario = bienesServiciosModel.objects.filter(usuario=BienServicio.usuario.usuario).exclude(id=BienServicio.id)[:3]
+		bienesServicioUsuario = bienesServiciosModel.objects.filter(usuario=BienServicio.usuario.usuario.pk).exclude(id=BienServicio.id)[:3]
 		print bienesServicioUsuario
 		return bienesServicioUsuario
 
 	#incluye elementos dentro del contexto y los retorna
 	def get_context_data(self, **kwargs):
 		context = super(detalleBienServicioBuscada, self).get_context_data(**kwargs)
+		context['object'].numero_visita = (context['object'].numero_visita + 1)
+		context['object'].save()
 		recomendados = self.getRecomendados(context['object'])
 		bienesServicioUsuario = self.getBienesServiciosUsuario(context['object'])
 		context['recomendados'] = recomendados

@@ -62,10 +62,10 @@
 					</div>
 					<div>
 						<div className="col-sm-12">
-							<a href="/bienes-servicios/{{ bienServicio.slug }}/{{ bienServicio.pk }}" class="normal">	
+							<a href="/bienes-servicios/{{ bienServicio.slug }}/{{ bienServicio.pk }}" class="normal">
 								<div class=" row panel panel-default">
 									<div class="col-sm-12 col-md-4 div-align">
-										<img src="{{ bienServicio.foto.url }}" class="img-responsive center-block img-thumbnail" alt="{{ bienServicio.nBienServicio }}">
+										<img height="100px !important" width="auto" src="{{ bienServicio.foto.url }}" class="img-responsive center-block img-thumbnail" alt="{{ bienServicio.nBienServicio }}">
 									</div>
 									<div class="col-sm-12 col-md-5 div-align">
 										<h3>
@@ -135,7 +135,7 @@
 					<a href="/bienes-servicios/{{ inactiva.slug }}/{{ inactiva.pk }}" class="normal">
 						<div class="row panel panel-default">
 							<div class="col-sm-12 col-md-4 div-align">
-								<img src="{{ inactiva.foto.url }}" class="img-responsive center-block img-thumbnail" alt="{{ inactiva.nBienServicio }}">
+								<img height="100px !important" width="auto" src="{{ inactiva.foto.url }}" class="img-responsive center-block img-thumbnail" alt="{{ inactiva.nBienServicio }}">
 							</div>
 							<div class="col-sm-12 col-md-5 div-align">
 								<h3>{{ inactiva.nBienServicio | capfirst}}</h3>
@@ -201,7 +201,7 @@
 				<a href="/bienes-servicios/{{ this.slug }}/{{ this.id }}" class="normal">
 					<div class=" row panel panel-default">
 						<div class="col-sm-12 col-md-4 div-align">
-							<img src="{{ this.foto }}" class="img-responsive center-block img-thumbnail" alt="{{ this.nBienServicio }}">
+							<img height="100px !important" width="auto" src="{{ this.foto }}" class="img-responsive center-block img-thumbnail" alt="{{ this.nBienServicio }}">
 						</div>
 						<div class="col-sm-12 col-md-5 div-align">
 							<h3>

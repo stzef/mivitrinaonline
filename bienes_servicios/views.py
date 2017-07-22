@@ -35,15 +35,15 @@ class bienesServiciosListView(LoginRequiredMixin, ListView):
 	form = nuevoBienServicioForm
 
 	def getCantidadActivas(self):
-		cantidadActivas = bienesServiciosModel.objects.filter(usuario=self.request.user, estado=True).count()
+		cantidadActivas = bienesServiciosModel.objects.filter(usuario__usuario__username=self.request.user.username, estado=True).count()
 		return cantidadActivas
 
 	def getInactivos(self):
-		inactivas = bienesServiciosModel.objects.filter(usuario=self.request.user,estado=False).order_by('-fecha_creacion')
+		inactivas = bienesServiciosModel.objects.filter(usuario__usuario__username=self.request.user.username,estado=False).order_by('-fecha_creacion')
 		return inactivas
 
 	def get_queryset(self):
-		queryset = bienesServiciosModel.objects.filter(usuario=self.request.user, estado=True).order_by('-fecha_creacion')
+		queryset = bienesServiciosModel.objects.filter(usuario__usuario__username=self.request.user.username, estado=True).order_by('-fecha_creacion')
 		return queryset
 
 	def get(self, request, *args, **kwargs):
@@ -70,7 +70,7 @@ def crearNuevoBienServicio(request):
 			slugFind = bienesServiciosModel.objects.filter(slug=defaultfilters.slugify(bienServicioNuevo.slug))
 
 			print(slugFind)
-			
+
 			try:
 				bienServicioNuevo.save()
 				response_data['id'] = bienServicioNuevo.pk
@@ -227,7 +227,11 @@ def obtener_datos_de_contacto(request):
 			response_data['celular1'] = bienServicio.usuario.celular1
 			response_data['celular2'] = bienServicio.usuario.celular2
 			response_data['celular3'] = bienServicio.usuario.celular3
-			response_data['coordenadas'] = { 'lat': float(bienServicio.usuario.coordenadas.split(",")[0]) ,'lng': float(bienServicio.usuario.coordenadas.split(",")[1]) }
+
+			response_data['coordenadas'] = None
+
+			if bienServicio.usuario.coordenadas :
+				response_data['coordenadas'] = { 'lat': float(bienServicio.usuario.coordenadas.split(",")[0]) ,'lng': float(bienServicio.usuario.coordenadas.split(",")[1]) }
 			response_data['email'] = bienServicio.usuario.usuario.email
 
 			hs = bienesServiciosSolicitadosModel()

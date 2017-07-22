@@ -11,6 +11,7 @@ from django.template import RequestContext
 from django.conf import settings
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
+from .backends import log_user
 
 import os
 import json
@@ -21,6 +22,7 @@ from models import perfilUsuarioModel
 from app.utilidades import get_or_none
 
 def logoutView(request):
+	log_user(request.user, 'Cierre de sesión en la aplicación')
 	logout(request)
 	return redirect('/')
 
@@ -94,6 +96,7 @@ class loginView(FormView):
 	def form_valid(self, form):
 		perfil = get_or_none(perfilUsuarioModel, usuario=form.user_cache)
 		if perfil is not None:
+			log_user(perfil.usuario, 'Inicio de sesión en la aplicación')
 			login(self.request, form.user_cache)
 		else:
 			form.add_error(None, 'Lo sentimos este usuario no esta registrado')
