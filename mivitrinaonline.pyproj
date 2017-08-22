@@ -1,0 +1,290 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{02515176-87e1-40b6-9ec0-3211397e9422}</ProjectGuid>
+    <ProjectHome />
+    <StartupFile>manage.py</StartupFile>
+    <SearchPath />
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <InterpreterId>{9128c96f-aecc-4597-a81c-418fa45744de}</InterpreterId>
+    <InterpreterVersion>2.7</InterpreterVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
+    <PtvsTargetsFile>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets</PtvsTargetsFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="app\templates\404.html" />
+    <Content Include="app\templates\500.html" />
+    <Content Include="app\templates\base_mvv.html" />
+    <Content Include="app\templates\home.html" />
+    <Content Include="app\templates\mi_cuenta.html" />
+    <Content Include="bienes_servicios\templates\bienes_servicios.html" />
+    <Content Include="bienes_servicios\templates\detalle.html" />
+    <Content Include="bienes_servicios\templates\no_permitido.html" />
+    <Content Include="busquedas\templates\buscar.html" />
+    <Content Include="busquedas\templates\busqueda.html" />
+    <Content Include="busquedas\templates\busqueda_detalle.html" />
+    <Content Include="busquedas\templates\busqueda_palabras.html" />
+    <Content Include="media\bienes_servicios\img\no_image.png" />
+    <Content Include="media\bienes_servicios\no_image.png" />
+    <Content Include="media\usuarios\avatar\prohibido.png" />
+    <Content Include="media\usuarios\avatar\user.jpg" />
+    <Content Include="requirements.txt" />
+    <Content Include="req_files\development.txt" />
+    <Content Include="req_files\production.txt" />
+    <Content Include="runtime.txt" />
+    <Content Include="static\admin\css\base.css" />
+    <Content Include="static\admin\css\changelists.css" />
+    <Content Include="static\admin\css\dashboard.css" />
+    <Content Include="static\admin\css\forms.css" />
+    <Content Include="static\admin\css\ie.css" />
+    <Content Include="static\admin\css\login.css" />
+    <Content Include="static\admin\css\rtl.css" />
+    <Content Include="static\admin\css\widgets.css" />
+    <Content Include="static\admin\img\changelist-bg.gif" />
+    <Content Include="static\admin\img\changelist-bg_rtl.gif" />
+    <Content Include="static\admin\img\default-bg-reverse.gif" />
+    <Content Include="static\admin\img\default-bg.gif" />
+    <Content Include="static\admin\img\deleted-overlay.gif" />
+    <Content Include="static\admin\img\gis\move_vertex_off.png" />
+    <Content Include="static\admin\img\gis\move_vertex_on.png" />
+    <Content Include="static\admin\img\icon-no.gif" />
+    <Content Include="static\admin\img\icon-unknown.gif" />
+    <Content Include="static\admin\img\icon-yes.gif" />
+    <Content Include="static\admin\img\icon_addlink.gif" />
+    <Content Include="static\admin\img\icon_alert.gif" />
+    <Content Include="static\admin\img\icon_calendar.gif" />
+    <Content Include="static\admin\img\icon_changelink.gif" />
+    <Content Include="static\admin\img\icon_clock.gif" />
+    <Content Include="static\admin\img\icon_deletelink.gif" />
+    <Content Include="static\admin\img\icon_error.gif" />
+    <Content Include="static\admin\img\icon_searchbox.png" />
+    <Content Include="static\admin\img\icon_success.gif" />
+    <Content Include="static\admin\img\inline-delete-8bit.png" />
+    <Content Include="static\admin\img\inline-delete.png" />
+    <Content Include="static\admin\img\inline-restore-8bit.png" />
+    <Content Include="static\admin\img\inline-restore.png" />
+    <Content Include="static\admin\img\inline-splitter-bg.gif" />
+    <Content Include="static\admin\img\nav-bg-grabber.gif" />
+    <Content Include="static\admin\img\nav-bg-reverse.gif" />
+    <Content Include="static\admin\img\nav-bg-selected.gif" />
+    <Content Include="static\admin\img\nav-bg.gif" />
+    <Content Include="static\admin\img\selector-icons.gif" />
+    <Content Include="static\admin\img\selector-search.gif" />
+    <Content Include="static\admin\img\sorting-icons.gif" />
+    <Content Include="static\admin\img\tooltag-add.png" />
+    <Content Include="static\admin\img\tooltag-arrowright.png" />
+    <Content Include="static\admin\js\actions.js" />
+    <Content Include="static\admin\js\actions.min.js" />
+    <Content Include="static\admin\js\admin\DateTimeShortcuts.js" />
+    <Content Include="static\admin\js\admin\RelatedObjectLookups.js" />
+    <Content Include="static\admin\js\calendar.js" />
+    <Content Include="static\admin\js\collapse.js" />
+    <Content Include="static\admin\js\collapse.min.js" />
+    <Content Include="static\admin\js\core.js" />
+    <Content Include="static\admin\js\inlines.js" />
+    <Content Include="static\admin\js\inlines.min.js" />
+    <Content Include="static\admin\js\jquery.init.js" />
+    <Content Include="static\admin\js\jquery.js" />
+    <Content Include="static\admin\js\jquery.min.js" />
+    <Content Include="static\admin\js\LICENSE-JQUERY.txt" />
+    <Content Include="static\admin\js\prepopulate.js" />
+    <Content Include="static\admin\js\prepopulate.min.js" />
+    <Content Include="static\admin\js\SelectBox.js" />
+    <Content Include="static\admin\js\SelectFilter2.js" />
+    <Content Include="static\admin\js\timeparse.js" />
+    <Content Include="static\admin\js\urlify.js" />
+    <Content Include="static\css\bootstrap-3.3.6-dist\css\bootstrap-theme.css" />
+    <Content Include="static\css\bootstrap-3.3.6-dist\css\bootstrap-theme.min.css" />
+    <Content Include="static\css\bootstrap-3.3.6-dist\css\bootstrap.css" />
+    <Content Include="static\css\bootstrap-3.3.6-dist\css\bootstrap.min.css" />
+    <Content Include="static\css\bootstrap-3.3.6-dist\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="static\css\bootstrap-3.3.6-dist\js\bootstrap.js" />
+    <Content Include="static\css\bootstrap-3.3.6-dist\js\bootstrap.min.js" />
+    <Content Include="static\css\bootstrap-3.3.6-dist\js\npm.js" />
+    <Content Include="static\css\bootstrap.min.css" />
+    <Content Include="static\css\owl-carousel\owl.carousel.css" />
+    <Content Include="static\css\owl.carousel.css" />
+    <Content Include="static\css\owl.theme.default.min.css" />
+    <Content Include="static\css\style_mvo.css" />
+    <Content Include="static\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="static\img\app\favicon.ico" />
+    <Content Include="static\img\face.png" />
+    <Content Include="static\img\grey.jpg" />
+    <Content Include="static\img\icons\png\Book.png" />
+    <Content Include="static\img\icons\png\Calendar.png" />
+    <Content Include="static\img\icons\png\Chat.png" />
+    <Content Include="static\img\icons\png\Clipboard.png" />
+    <Content Include="static\img\icons\png\Compas.png" />
+    <Content Include="static\img\icons\png\Gift-Box.png" />
+    <Content Include="static\img\icons\png\Infinity-Loop.png" />
+    <Content Include="static\img\icons\png\Mail.png" />
+    <Content Include="static\img\icons\png\Map.png" />
+    <Content Include="static\img\icons\png\Pensils.png" />
+    <Content Include="static\img\icons\png\Pocket.png" />
+    <Content Include="static\img\icons\png\Retina-Ready.png" />
+    <Content Include="static\img\icons\png\Toilet-Paper.png" />
+    <Content Include="static\img\icons\png\Watches.png" />
+    <Content Include="static\img\icons\svg\book.svg" />
+    <Content Include="static\img\icons\svg\calendar.svg" />
+    <Content Include="static\img\icons\svg\chat.svg" />
+    <Content Include="static\img\icons\svg\clipboard.svg" />
+    <Content Include="static\img\icons\svg\clocks.svg" />
+    <Content Include="static\img\icons\svg\compas.svg" />
+    <Content Include="static\img\icons\svg\gift-box.svg" />
+    <Content Include="static\img\icons\svg\loop.svg" />
+    <Content Include="static\img\icons\svg\mail.svg" />
+    <Content Include="static\img\icons\svg\map.svg" />
+    <Content Include="static\img\icons\svg\paper-bag.svg" />
+    <Content Include="static\img\icons\svg\pencils.svg" />
+    <Content Include="static\img\icons\svg\retina.svg" />
+    <Content Include="static\img\icons\svg\ribbon.svg" />
+    <Content Include="static\img\icons\svg\toilet-paper.svg" />
+    <Content Include="static\img\logo.png" />
+    <Content Include="static\img\not-found.png" />
+    <Content Include="static\img\prohibido.png" />
+    <Content Include="static\jsapp\app-utilities.js" />
+    <Content Include="static\jsapp\csrf_load.js" />
+    <Content Include="static\jslibraries\bootstrap.min.js" />
+    <Content Include="static\jslibraries\flat-ui.min.js" />
+    <Content Include="static\jslibraries\handlebars.js" />
+    <Content Include="static\jslibraries\jquery-1.11.3.min.js" />
+    <Content Include="static\jslibraries\jquery.autocomplete.js" />
+    <Content Include="static\jslibraries\jquery.autocomplete.min.js" />
+    <Content Include="static\jslibraries\jquery.min.js" />
+    <Content Include="static\jslibraries\list.js" />
+    <Content Include="static\jslibraries\list.paginator.js" />
+    <Content Include="static\jslibraries\owl.carousel.min.js" />
+    <Content Include="static\jslibraries\scripts.js" />
+    <Content Include="static\jslibraries\spin.js" />
+    <Content Include="static\jslibraries\toastr.min.js" />
+    <Content Include="usuarios\templates\cambio_password_confirmacion.html" />
+    <Content Include="usuarios\templates\cambio_password_hecho.html" />
+    <Content Include="usuarios\templates\login.html" />
+    <Content Include="usuarios\templates\loginEmail.html" />
+    <Content Include="usuarios\templates\profile.html" />
+    <Content Include="usuarios\templates\registro_email_template.html" />
+    <Content Include="usuarios\templates\signup.html" />
+    <Content Include="usuarios\templates\solicitud_cambio_password_email.html" />
+    <Content Include="usuarios\templates\solicitud_cambio_password_hecho.html" />
+    <Content Include="usuarios\templates\UpdatePass.html" />
+    <Content Include="usuarios\templates\UpdateProfile.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="app\admin.py" />
+    <Compile Include="app\models.py" />
+    <Compile Include="app\tests.py" />
+    <Compile Include="app\urls.py" />
+    <Compile Include="app\utilidades.py" />
+    <Compile Include="app\views.py" />
+    <Compile Include="app\__init__.py" />
+    <Compile Include="bienes_servicios\admin.py" />
+    <Compile Include="bienes_servicios\forms.py" />
+    <Compile Include="bienes_servicios\management\commands\createsu.py" />
+    <Compile Include="bienes_servicios\management\commands\__init__.py" />
+    <Compile Include="bienes_servicios\management\__init__.py" />
+    <Compile Include="bienes_servicios\migrations\0001_initial.py" />
+    <Compile Include="bienes_servicios\migrations\__init__.py" />
+    <Compile Include="bienes_servicios\models.py" />
+    <Compile Include="bienes_servicios\tests.py" />
+    <Compile Include="bienes_servicios\urls.py" />
+    <Compile Include="bienes_servicios\views.py" />
+    <Compile Include="bienes_servicios\__init__.py" />
+    <Compile Include="busquedas\admin.py" />
+    <Compile Include="busquedas\models.py" />
+    <Compile Include="busquedas\tests.py" />
+    <Compile Include="busquedas\urls.py" />
+    <Compile Include="busquedas\views.py" />
+    <Compile Include="busquedas\__init__.py" />
+    <Compile Include="estadisticas\admin.py" />
+    <Compile Include="estadisticas\migrations\0001_initial.py" />
+    <Compile Include="estadisticas\migrations\__init__.py" />
+    <Compile Include="estadisticas\models.py" />
+    <Compile Include="estadisticas\tests.py" />
+    <Compile Include="estadisticas\views.py" />
+    <Compile Include="estadisticas\__init__.py" />
+    <Compile Include="manage.py" />
+    <Compile Include="mivitrinaonline\settings.py" />
+    <Compile Include="mivitrinaonline\settings_dev.py" />
+    <Compile Include="mivitrinaonline\urls.py" />
+    <Compile Include="mivitrinaonline\wsgi.py" />
+    <Compile Include="mivitrinaonline\__init__.py" />
+    <Compile Include="usuarios\admin.py" />
+    <Compile Include="usuarios\backends.py" />
+    <Compile Include="usuarios\forms.py" />
+    <Compile Include="usuarios\migrations\0001_initial.py" />
+    <Compile Include="usuarios\migrations\__init__.py" />
+    <Compile Include="usuarios\models.py" />
+    <Compile Include="usuarios\tests.py" />
+    <Compile Include="usuarios\urls.py" />
+    <Compile Include="usuarios\views.py" />
+    <Compile Include="usuarios\__init__.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="app" />
+    <Folder Include="app\templates" />
+    <Folder Include="bienes_servicios" />
+    <Folder Include="bienes_servicios\management" />
+    <Folder Include="bienes_servicios\management\commands" />
+    <Folder Include="bienes_servicios\migrations" />
+    <Folder Include="bienes_servicios\templates" />
+    <Folder Include="busquedas" />
+    <Folder Include="busquedas\templates" />
+    <Folder Include="estadisticas" />
+    <Folder Include="estadisticas\migrations" />
+    <Folder Include="media\" />
+    <Folder Include="media\bienes_servicios" />
+    <Folder Include="media\bienes_servicios\img" />
+    <Folder Include="media\usuarios\" />
+    <Folder Include="media\usuarios\avatar" />
+    <Folder Include="mivitrinaonline" />
+    <Folder Include="req_files" />
+    <Folder Include="static\" />
+    <Folder Include="static\admin\" />
+    <Folder Include="static\admin\css" />
+    <Folder Include="static\admin\img" />
+    <Folder Include="static\admin\img\gis" />
+    <Folder Include="static\admin\js" />
+    <Folder Include="static\admin\js\admin" />
+    <Folder Include="static\css" />
+    <Folder Include="static\css\bootstrap-3.3.6-dist\" />
+    <Folder Include="static\css\bootstrap-3.3.6-dist\css" />
+    <Folder Include="static\css\bootstrap-3.3.6-dist\fonts" />
+    <Folder Include="static\css\bootstrap-3.3.6-dist\js" />
+    <Folder Include="static\css\owl-carousel" />
+    <Folder Include="static\fonts" />
+    <Folder Include="static\img" />
+    <Folder Include="static\img\app" />
+    <Folder Include="static\img\icons\" />
+    <Folder Include="static\img\icons\png" />
+    <Folder Include="static\img\icons\svg" />
+    <Folder Include="static\jsapp" />
+    <Folder Include="static\jslibraries" />
+    <Folder Include="usuarios" />
+    <Folder Include="usuarios\migrations" />
+    <Folder Include="usuarios\templates" />
+  </ItemGroup>
+  <ItemGroup>
+    <Interpreter Include="env\">
+      <Id>{9128c96f-aecc-4597-a81c-418fa45744de}</Id>
+      <BaseInterpreter>{2af0f10d-7135-4994-9156-5d01c9c11b7e}</BaseInterpreter>
+      <Version>2.7</Version>
+      <Description>env (Python 2.7)</Description>
+      <InterpreterPath>Scripts\python.exe</InterpreterPath>
+      <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
+      <LibraryPath>Lib\</LibraryPath>
+      <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
+      <Architecture>X86</Architecture>
+    </Interpreter>
+  </ItemGroup>
+  <Import Project="$(PtvsTargetsFile)" Condition="Exists($(PtvsTargetsFile))" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="!Exists($(PtvsTargetsFile))" />
+</Project>

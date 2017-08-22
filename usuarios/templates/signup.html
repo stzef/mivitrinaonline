@@ -1,6 +1,12 @@
 {% extends "base_mvv.html" %}
 {% block head %}
 <title>Registro | Mi Vitrina Online</title>
+<style type="text/css" media="screen">
+		body{
+			background: url('/static/img/background/registro.jpg');
+			background-size: cover;
+		}
+	</style>
 <script src="//cdn.jsdelivr.net/webshim/1.14.5/polyfiller.js"></script>
 <script>
 	webshims.setOptions('forms-ext', {types: 'date'});
@@ -23,9 +29,8 @@
 </script>
 {% endblock %}
 {% block content  %}
-<body>
 	<div class="container">
-		<div class="row">
+		<div class="white-block">
 			<div>
 				<div class="account-wall">
 					<h3 class="text-center">Mi Vitrina Online</h3>
@@ -93,8 +98,8 @@
 							{% endif%}
 							{{  form.celular }}
 						</div>
-						<input class="btn btn-success btn-lg btn-block" type="submit" id="submit" value="Registrarme">
-						<a href="{% url 'inicio' %}" class="btn btn-danger btn-lg btn-block">Cancelar</a>
+						<input class="btn btn-success " type="submit" id="submit" value="Registrarme">
+						<a href="{% url 'inicio' %}" class="btn btn-danger ">Cancelar</a>
 					</form>
 				</div>
 			</div>
@@ -103,13 +108,12 @@
 	<script>
 		$("#id_password_confirm").keyup(function() {
 			if($(this).val() != $('#id_password').val()){
-				$('div .notify').html('<p class="text-danger">Las contraseñas no coinciden</p>');
+				$('div .notify').parent().addClass('has-error').removeClass('has-success');
 				$('#submit').prop("disabled", true);
 			}else{
-				$('div .notify').html('<p class="text-success">Las contraseñas coinciden</p>');
+				$('div .notify').parent().addClass('has-success').removeClass('has-error');
 				$('#submit').prop("disabled", false);
 			}
 		});
 	</script>
-</body>
 {% endblock %}

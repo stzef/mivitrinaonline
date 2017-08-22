@@ -1,10 +1,12 @@
 from django.conf.urls import patterns, include, url
+from django.contrib.auth.decorators import user_passes_test, permission_required, login_required
 from django.contrib.auth.forms import AdminPasswordChangeForm
 from views import *
 from django.contrib.auth import views as viewsauth
 from usuarios import views
 from usuarios.forms import SetPasswordForm
 
+login_forbidden = user_passes_test(lambda u: u.is_anonymous(), '/')
 
 urlpatterns = patterns('',
 	url(r'^perfil/$',views.profileView,name='profile'),
@@ -22,19 +24,8 @@ urlpatterns = patterns('',
 	url(r'^ingresar/$',loginView.as_view(),name='ingresar'),
 	url(r'^salir/$',views.logoutView,name='salir'),
 
-
-	url(
-			r'^recuperar-cuenta/$',
-			viewsauth.password_reset,
-			{
-				'template_name': 'solicitud_cambio_password_email.html',
-			},
-			name='recuperar-cuenta'
-		),
-
-
-	url(
-			r'^recuperar-cuenta/verificado/$',
+	url(r'^recuperar-cuenta/$', login_forbidden(ResetPasswordRequestView.as_view()), name='recuperar-cuenta'),
+	url(r'^recuperar-cuenta/verificado/$',
 			viewsauth.password_reset_done,
 			{
 				'template_name' : 'solicitud_cambio_password_hecho.html',
@@ -42,16 +33,7 @@ urlpatterns = patterns('',
 			name='password_reset_done'
 		),
 
-	url(
-			r'^recuperar-cuenta/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>.+)/$',
-			viewsauth.password_reset_confirm,
-			{
-				'template_name' : 'cambio_password_confirmacion.html',
-				'set_password_form' : SetPasswordForm,
-			},
-			name='password_reset_confirm'
-		),
-
+	url(r'^recuperar-cuenta/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$', login_forbidden(PasswordResetConfirmView.as_view()),name='password_reset_confirm'),
 
 	url(
 			r'^recuperar-cuenta/hecho/$',

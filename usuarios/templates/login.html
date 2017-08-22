@@ -1,33 +1,40 @@
 {% extends "base_mvv.html" %}
 {% block head %}
-<title>Ingresar | Mi Vitrina Online</title>
+	<title>Ingresar | Mi Vitrina Online</title>
+	<style type="text/css" media="screen">
+		body{
+			background: url('/static/img/background/ingreso.jpg');
+			background-size: cover;
+		}
+	</style>
 {% endblock %}
 {% block content  %}
-<body>
-	<div class="container">
-		<div class="col-sm-6 col-md-4 col-md-offset-4">
-			<div class="account-wall">
-				<h3 class="text-center">Mi Vitrina Online</h3>
-				<form action="" method="post" class="form-signin text-center">
-					{% csrf_token %}
-					{{ form.non_field_errors.as_ul|cut:"*" }}
-					{{ form.username.errors.as_ul|cut:"*" }}
-					<div class="form-group col-md-12">
-						{{ form.username }}
-					</div>
-					<div class="form-group col-md-12">
-						{{ form.password }}
-					</div>
-					{{ form.password.errors.as_ul|cut:"*" }}
-					<input class="btn btn-success btn-lg btn-block" type="submit" value="Ingresar">
-					<div class="text-center">
-						<a href="{% url 'registro' %}{% if next %}?next={{next}}{%endif%}">No tienes cuenta? <span class="blue-color">Registrate aqui!</span></a><br>
-						<a href="{% url 'recuperar-cuenta' %}">olvido su contraseña?</a>
-					</div>
-				</form>
-			</div>
+	<div class="col-sm-6 col-md-4 col-md-offset-4" style="margin-top: 50px;">
+		<div class="white-block">
+			<h3 class="text-center">Mi Vitrina Online</h3>
+			{% if messages %}
+				{% for message in messages %}
+					<p class="text-{{ message.tags }}"><strong>{{ message }}</strong></p>
+				{% endfor %}
+			{% endif %}
+			<form action="" method="post" class="form-signin text-center">
+				{% csrf_token %}
+				{{ form.non_field_errors.as_ul|cut:"*" }}
+				{{ form.username.errors.as_ul|cut:"*" }}
+				<div class="form-group col-md-12">
+					{{ form.username }}
+				</div>
+				<div class="form-group col-md-12">
+					{{ form.password }}
+				</div>
+				{{ form.password.errors.as_ul|cut:"*" }}
+				<input class="btn btn-success btn-lg btn-block" type="submit" value="Ingresar">
+				<div class="text-center">
+					<p>¿No tienes cuenta? <a href="{% url 'registro' %}{% if next %}?next={{next}}{%endif%}"><span class="blue-color">Registrate aqui!</span></a></p>
+					<p><a href="{% url 'recuperar-cuenta' %}">olvido su contraseña?</a></p>
+				</div>
+			</form>
 		</div>
 	</div>
-</body>
 {% endblock %}
 </html>

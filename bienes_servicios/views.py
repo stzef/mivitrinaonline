@@ -3,17 +3,18 @@
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import DetailView, ListView
+from django.views.generic import DetailView, ListView, CreateView
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.core import serializers
 from django.shortcuts import get_object_or_404
 from django.template import defaultfilters
 from django.utils import timezone
+from django.core.urlresolvers import reverse
 
 #Importaciones desde Aplicacion
 from models import bienesServiciosModel, categoriasModel
-from forms import nuevoBienServicioForm
+from forms import *
 from usuarios.models import perfilUsuarioModel
 from app.utilidades import cleanJsonModel
 from mivitrinaonline.settings import BASE_DIR
@@ -227,11 +228,7 @@ def obtener_datos_de_contacto(request):
 			response_data['celular1'] = bienServicio.usuario.celular1
 			response_data['celular2'] = bienServicio.usuario.celular2
 			response_data['celular3'] = bienServicio.usuario.celular3
-
-			response_data['coordenadas'] = None
-
-			if bienServicio.usuario.coordenadas :
-				response_data['coordenadas'] = { 'lat': float(bienServicio.usuario.coordenadas.split(",")[0]) ,'lng': float(bienServicio.usuario.coordenadas.split(",")[1]) }
+			response_data['coordenadas'] = { 'lat': float(bienServicio.usuario.coordenadas.split(",")[0]) ,'lng': float(bienServicio.usuario.coordenadas.split(",")[1]) }
 			response_data['email'] = bienServicio.usuario.usuario.email
 
 			hs = bienesServiciosSolicitadosModel()
@@ -254,3 +251,30 @@ def obtener_datos_de_contacto(request):
 				response_data,
 				safe=False,
 			)
+
+class bienServicioComentarioView(CreateView):
+	template_name = 'form_general.html'
+	success_message = 'Comentario agregado correctamente'
+	form_class = ComentarioForm
+
+	def get_context_data(self, **kwargs):
+		context = super(bienServicioComentarioView, self).get_context_data(**kwargs)
+		context['title'] = 'Agregar comentario'
+		context['url'] = reverse('comentario', kwargs = {'slug': self.kwargs['slug']})
+		return context
+
+	def form_valid(self, form):
+		form.instance.usuario = self.request.user
+		form.instance.bienServicio = bienesServiciosModel.objects.get(slug =  self.kwargs['slug'])
+		form.save()
+		return super(bienServicioComentarioView, self).form_valid(form)
+
+	def get_success_url(self):
+		return reverse('detallebusqueda', kwargs = {'slug': self.kwargs['slug']})
+
+def comentario_eliminar(request, pk):
+	response = {}
+	comentario = comentariosBienesServiciosModel.objects.get(pk = pk).delete()
+	response['type'] = 'success'
+	response['msg'] = 'Exito al eliminar el comentario'
+	return HttpResponse(json.dumps(response), "application/json")

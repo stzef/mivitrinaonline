@@ -4,55 +4,68 @@
 
 {% block head %}
 	<title>Inicio | Mi Vitrina Online</title>
+	<link href="{% static 'css/style_home.css' %}" rel="stylesheet" />
 {% endblock %}
 
 {% block content %}
-	<section class="container">
-		<div class="panel">
+	<div class="panel-find">
+		<div class="container text-center">
 			<div class="input-group">
-				<input id="findSpeed" name="findSpeed" type="text" class="form-control" placeholder="¿Buscas algo?" autocomplete="off">
+				<input id="findSpeed" name="findSpeed" type="text" class="form-control" placeholder="¿Que Estas Buscando?" autocomplete="off" required />
 				<span class="input-group-btn">
-					<button id="btnFindSpeed" class="btn btn-group btn-success">Buscar</button>
+					<input class="btn btn-success btn-find btn-group" id="btnFindSpeed" type="submit" value="Buscar" />
 				</span>
 			</div>
 		</div>
-
-		<h2>Novedades</h2>
-		<div class="owl-carousel owl-theme owl-rtl owl-loaded row">
-			{% for bienServicio in last_update %}
-				<a class="normal" href="{% url 'detallebusqueda' slug=bienServicio.slug %}" title="{{bienServicio.nBienServicio}}">
-					<div class="last_update">
-						<strong><p class="text-center">{{bienServicio.nBienServicio|slice:"10"}}... <span class="label label-success">Nuevo</span></p></strong>
-						<img height="95px" width="auto" class="img-responsive center-block" src="{{bienServicio.foto.url}}" alt="">
-						<span class="label category label-app label-primary">{{bienServicio.categoria}}</span>
-					</div>
-				</a>
-			{% endfor %}
-		</div>
-		<h2>Mas Bienes/Servicios</h2>
-		<section id="more-bienes-servicios">
-
-			<ul class="row col-md-12 list list-unstyled" >
-				{% for bienServicio in more %}
-					<li class="col-md-2 col-sm-3 col-xs-3">
-						<a class="normal" href="{% url 'detallebusqueda' slug=bienServicio.slug %}" title="{{bienServicio.nBienServicio}}">
-							<div class="more">
-								<strong><p class="text-center">{{bienServicio.nBienServicio|slice:"15"}}...</p></strong>
-								<img class="img-responsive center-block" src="{{bienServicio.foto.url}}" alt="">
-								<span class="label category label-app label-success">{{bienServicio.categoria}}</span>
-							</div>
-						</a>
-					</li>
+	</div>
+	<div class="container">
+		<div class="white-block" style="margin-top: -50px;">
+			<div class="page-header">
+				<h2>Novedades</h2>
+			</div>
+			<div class="owl-carousel owl-theme owl-rtl owl-loaded">
+				{% for bienServicio in last_update %}
+					<a class="normal" href="{% url 'detallebusqueda' slug=bienServicio.slug %}" title="{{bienServicio.nBienServicio}}">
+						<div class="last_update">
+							<img class="img-responsive center-block" style="object-fit: cover; width: 100% !important; margin-bottom: -25px;" src="{{bienServicio.foto.url}}" alt="">
+							<span class="label label-success" style="position:relative;">Nuevo</span>
+							<p class="text-center">
+								<small><b>{{bienServicio.nBienServicio|slice:"20"}}...</b></small>
+							</p>
+							<span class="label category label-app label-primary">{{bienServicio.categoria}}</span>
+						</div>
+					</a>
 				{% endfor %}
-			</ul>
-			<ul class="pagination"></ul>
-		</section>
-
-		<article>
-			<h2 class="text-center">Como Funciona</h2>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet sit distinctio, veniam deleniti incidunt nulla officia esse vero delectus asperiores velit veritatis eius atque aliquid. Beatae, similique labore illo facere.</p>
-		</article>
-	</section>
+			</div>
+			<div class="page-header">
+				<h2>Mas Bienes y servicios</h2>
+			</div>
+			<div id="more-bienes-servicios">
+				<ul class="row col-md-12 list list-unstyled" >
+					{% for bienServicio in more %}
+						<li class="col-md-2 col-sm-3 col-xs-3">
+							<a class="normal" href="{% url 'detallebusqueda' slug=bienServicio.slug %}" title="{{bienServicio.nBienServicio}}">
+								<div class="more">
+									<strong><p class="text-center">{{bienServicio.nBienServicio|slice:"15"}}...</p></strong>
+									<img class="img-responsive center-block" src="{{bienServicio.foto.url}}" alt="">
+									<span class="label category label-app label-success">{{bienServicio.categoria}}</span>
+								</div>
+							</a>
+						</li>
+					{% endfor %}
+				</ul>
+				<ul class="pagination"></ul>
+			</div>
+		</div>
+	</div>
+	<div class="text-center" style="color: #717171; padding: 10px;">
+		<h2>Nuestros Patrocinadores</h2>
+		<img src="{% static 'img/agua.jpg' %}" width="200">
+	</div>
+	<div class="how-fun">
+		<h2 class="text-center">¿Cómo Funciona?</h2>
+		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet sit distinctio, veniam deleniti incidunt nulla officia esse vero delectus asperiores velit veritatis eius atque aliquid. Beatae, similique labore illo facere.</p>
+	</div>
 	<script>
 		$("#btnFindSpeed").click(function(){
 			if(!$("#findSpeed").val()) return

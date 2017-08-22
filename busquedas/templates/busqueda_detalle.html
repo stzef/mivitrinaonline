@@ -14,28 +14,26 @@
 
 <div class="container content-info">
 	<div class="row">
-		<div class="row">
-			<div class="col-xs-12">
-				<h3>
-					{{bienServicio.nBienServicio}}
-				</h3>
-			</div>
+		<div class="page-header">
+			<h3>
+				<b>{{bienServicio.nBienServicio}}</b>
+			</h3>
 		</div>
 		<div class="row">
 			<div class="col-xs-6">
 				<figure>
-					<img src="{{bienServicio.foto.url}}" alt="{{bienServicio.nBienServicio}}" class="img-thumbnail" >
+					<img src="{{bienServicio.foto.url}}" alt="{{bienServicio.nBienServicio}}" class="img-responsive" >
 				</figure>
 			</div>
 			<div class="col-xs-6">
-				<div class="row">
+				<div class="row white-block">
 					<div class="col-xs-12 ">
 						<h4><b>Descripción:</b></h4>
-						<p align="justify">{{bienServicio.descripcion}}</p>
+						<p>{{bienServicio.descripcion}}</p>
 					</div>
 
-					<ul class="col-xs-12 list-unstyled">
-						<li class="label label-app label-warning col-xs-6 col-md-6 text-center separador-label" data-toggle="tooltip" data-placement="top" title="Calificación">
+					<div class="col-xs-12 text-center">
+						<span style="margin: 2px; padding: 5px;" class="label label-warning" data-toggle="tooltip" data-placement="top" title="Calificación">
 							<i class="glyphicon glyphicon-star "></i>
 							<strong >
 								{% if bienServicio.val_promedio %}
@@ -44,8 +42,8 @@
 								<span>Ninguno</span>
 								{% endif %}
 							</strong>
-						</li>
-						<li class="label label-app label-danger col-xs-6 col-md-6 text-center separador-label " data-toggle="tooltip" data-placement="top" title="Precio">
+						</span>
+						<span style="margin: 2px; padding: 5px;" class="label label-danger " data-toggle="tooltip" data-placement="top" title="Precio">
 							<i class="glyphicon glyphicon-usd "></i>
 							<strong >
 								{% if bienServicio.precio %}
@@ -54,52 +52,77 @@
 								<span>por acordar</span>
 								{% endif %}
 							</strong>
-						</li>
-					</ul>
+						</span>
+					</div>
 				</div>
 				<div class="row">
 					<div class="col-xs-12 ofertante-info text-center ">
-						<h4><b>Información del ofertante:</b></h4>
-						<div class="ofertante-nombre">
-							<img src="{{bienServicio.usuario.foto.url}}" alt="{{bienServicio.usuario.}}" width="40" />
-							{{bienServicio.usuario.usuario.first_name}} {{bienServicio.usuario.usuario.last_name}}
+						<h4><b>Ofertante:</b></h4>
+						<div class="row">
+							<div class="col-md-4 text-right">
+								<img src="{{bienServicio.usuario.foto.url}}" alt="{{bienServicio.usuario.}}" class="img-circle" width="60" />
+							</div>
+							<div class="col-md-8 text-left">
+								<p>{{bienServicio.usuario.usuario.first_name}} {{bienServicio.usuario.usuario.last_name}}</p>
+								<p>
+									<button class="btn btn-success" id="js_btnVermasDatos">Ver datos de contacto</button>
+								</p>
+							</div>
+							<div class="col-md-12">
+								<section class="verMasDatos" id="js_verMasDatos"></section>
+							</div>
 						</div>
-						<button class="btn btn-success" id="js_btnVermasDatos">Ver datos de contacto</button>
-						<section class="verMasDatos" id="js_verMasDatos">
-						</section>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-
-	<div class="row sugerencias">
-		<h3 class="sugerencias-titulo">Otros Bienes/Servicios de {{bienServicio.usuario.usuario.first_name}} {{bienServicio.usuario.usuario.last_name}}</h3>
 		<div class="row">
-			{% if bienesServicioUsuario %}
-			<div class="panel">
-				<div class="owl-carousel owl-theme owl-rtl owl-loaded">
-					{% for  bieneServicioUsuario in bienesServicioUsuario %}
-						<a class="normal" href="{% url 'detallebusqueda' slug=bieneServicioUsuario.slug %}" title="{{bienServicio.nBienServicio}}">
-							<div class="recomendado">
-								<strong><p class="text-center">...{{bieneServicioUsuario.nBienServicio|slice:"15"}}</p></strong>
-								<img src="{{bieneServicioUsuario.foto.url}}" alt="">
-								<span class="label label-app label-success">{{bieneServicioUsuario.categoria}}</span>
-							</div>
-						</a>
-					{% endfor %}
+			<h3>Comentarios {% if user.is_authenticated %} <a href="{% url 'comentario' bienServicio.slug %}" class="btn btn-success open-modal" data-toggle="modal" data-target="#Modal">Comentar</a> {% endif %}</h3>
+			{% for comentario in bienServicio.comentariosbienesserviciosmodel_set.all %}
+				<div class="row">
+					<div class="col-md-11">
+						<b>{{ comentario.usuario.first_name }} {{ comentario.usuario.last_name }}</b> dice {{ comentario.comentario }}
+						<hr>
+					</div>
+					{% if user.is_superuser %}
+						<div class="col-md-1">
+							<a href="{% url 'comentario_eliminar' comentario.pk %}" class="btn btn-danger delete">
+								<i class="glyphicon glyphicon-remove"></i>
+							</a>
+						</div>
+					{% endif %}
 				</div>
-			</div>
-			{% else %}
-			<p>No hay otros Bienes/Servicionde de este ofertante.</p>
-			{% endif %}
+			{% endfor %}
 		</div>
 	</div>
+</div>
+<div class="div_gray" style="margin-top: 20px;">
+	<div class="sugerencias container">
+			<h3 class="sugerencias-titulo">Otros Bienes/Servicios de {{bienServicio.usuario.usuario.first_name}} {{bienServicio.usuario.usuario.last_name}}</h3>
+			<div class="row">
+				{% if bienesServicioUsuario %}
+					<div class="owl-carousel owl-theme owl-rtl owl-loaded">
+						{% for  bieneServicioUsuario in bienesServicioUsuario %}
+							<a class="normal" href="{% url 'detallebusqueda' slug=bieneServicioUsuario.slug %}" title="{{bienServicio.nBienServicio}}">
+								<div class="recomendado">
+									<strong><p class="text-center">...{{bieneServicioUsuario.nBienServicio|slice:"15"}}</p></strong>
+									<img src="{{bieneServicioUsuario.foto.url}}" alt="">
+									<span class="label label-app label-success">{{bieneServicioUsuario.categoria}}</span>
+								</div>
+							</a>
+						{% endfor %}
+					</div>
+				{% else %}
+				<p>No hay otros Bienes/Servicionde de este ofertante.</p>
+				{% endif %}
+			</div>
+	</div>
+</div>
+<div class="container">
 	<div class="row sugerencias">
 		<h3 class="sugerencias-titulo">Sugerencias de Búsqueda</h3>
 		<div class="row">
 			{% if recomendados %}
-			<div class="panel">
 				<div class="owl-carousel owl-theme owl-rtl owl-loaded">
 					{% for  recomendado in recomendados %}
 						<a class="normal" href="{% url 'detallebusqueda' slug=recomendado.slug %}" title="{{bienServicio.nBienServicio}}">
@@ -111,7 +134,6 @@
 						</a>
 					{% endfor %}
 				</div>
-			</div>
 			{% else %}
 			<p>No hay sugerencias para esta búsqueda</p>
 			{% endif %}
@@ -157,11 +179,8 @@
 				<span class="strong">{{ this.email }}</span>
 			</li>
 			<li>
-				{{#if this.coordenadas }}
-					<div id="map"></div>
-				{{else}}
-					<p>Sin coordenadas</p>
-				{{/if}}
+				<div id="map"></div>
+
 			</li>
 		</ul>
 	</ul>
@@ -172,6 +191,14 @@
 <script src="{% static 'jsapp/csrf_load.js' %}"></script>
 <script>
 	$(function() {
+		$('.delete').click(function(){
+			var _this_ = $(this);
+			$.get($(this).attr('href'), function(response){
+				_this_.parent().parent().remove();
+				alert(response.msg);
+			});
+			return false;
+		});
 		//capturar boton y añadir el evento click
 		$("#js_btnVermasDatos").click(function () {
 			$.ajax({
@@ -183,24 +210,19 @@
 				},
 				success : function(json)
 				{
+					console.log(json)
 					var source = $("#datos-contacto-template").html();
 					var template = Handlebars.compile(source);
 					t = template(json);
+					console.log($('#js_verMasDatos'))
 					$('#js_verMasDatos').html(t);
 					$("#js_btnVermasDatos").toggle()
 
-					if ( json.coordenadas ){
-						var map = new google.maps.Map(document.getElementById('map'), {
-							center: {lat: json.coordenadas.lat, lng: json.coordenadas.lng },
-							scrollwheel: true,
-							zoom: 17
-						});
-						var marker = new google.maps.Marker({
-							position: new google.maps.LatLng(json.coordenadas.lat, json.coordenadas.lng),
-							title: "",
-							map: map,
-						});
-					}
+					var map = new google.maps.Map(document.getElementById('map'), {
+						center: {lat: json.coordenadas.lat, lng: json.coordenadas.lng },
+						scrollwheel: true,
+						zoom: 17
+					});
 				}
 			})
 		})

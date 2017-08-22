@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 from django import forms
-from models import bienesServiciosModel
+from models import *
 
 class nuevoBienServicioForm(forms.ModelForm):
 	class Meta:
@@ -16,4 +16,13 @@ class nuevoBienServicioForm(forms.ModelForm):
 		labels = {
 			'categoria': ('Categoria'),
 			'nBienServicio': ('Bien/Servicios'),
+		}
+
+class ComentarioForm(forms.ModelForm):
+	class Meta:
+		model = comentariosBienesServiciosModel
+		fields = '__all__'
+		exclude = ('usuario', 'bienServicio')
+		widgets = {
+			'comentario':forms.Textarea(attrs = {'required': True, 'rows': 5, 'cols': 70, 'placeholder': 'Escriba un comentario...', 'style': 'border: none;'})
 		}

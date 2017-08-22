@@ -4,185 +4,181 @@
 {% load humanize %}
 
 {% block head %}
-<title>Buscar | Mi Vitrina Online</title>
+	<title>Buscar | Mi Vitrina Online</title>
+	<link href="{% static 'css/style_home.css' %}" rel="stylesheet" />
 {% endblock %}
 
-{% block content %} 
-	<div >
-		<div class="row col-md-12">
-			<div class=" col-md-3">
-				<h3>Resultados</h3>
-			</div>
-			<div class="col-md-9 header-busqueda">
-				<div class="input-group">
-					<input id="busqueda" name="busqueda" type="text" class="form-control" placeholder="¿Buscas algo mas?" autocomplete="off">
-					<span class="input-group-btn">
-						<button class="btn btn-success" id="buscar" type="button">Buscar</button>
-					</span>
-				</div>
-			</div>
-		</div>
-		<!-- Modal -->
-		<div class="modal fade bs-example-modal-sm" id="modalCategorias" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title text-center" id="myModalLabel">Otras Categorias</h4>
-					</div>
-					<div class="modal-body">
-						<div class="panel">
-							<ul class="text-left padding">
-								{% if todasCategorias %}
-									{% for categoria  in todasCategorias %}
-										<li><a href="#"><p>{{ categoria }}</p></a></li>
-									{% endfor %}
-								{% endif %}
-							</ul>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<span class="btn-cancelar cursorPointer label label-danger" data-dismiss="modal">Cancelar</span>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- Modal -->
-		<div class="row col-md-12">
-			<div class="col-md-8">
-				<ul class="list-unstyled">
-					{% if  busqueda %}
-					<li>
-						busqueda
-						<span class="label label-app label-info">{{busqueda}}</span>
-					</li>
-					{% endif %}
-				</ul>
-			</div>
-			<div class="col-md-4 controles-paginador">
-				<span >
-					{% if is_paginated %}
-					{% if page_obj.has_previous %}
-					<a href="/b/pl/{{busqueda}}/?{%if orden%}orden={{orden}}&{%endif%}page={{ page_obj.previous_page_number }}">atrás</a>
-					{% endif %}
-					<span class="page-current">
-						Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
-					</span>
-					{% if page_obj.has_next %}
-					<a href="/b/pl/{{busqueda}}/?{%if orden%}orden={{orden}}&{%endif%}page={{ page_obj.next_page_number }}">siguiente</a>
-					{% endif %}
-					{% endif %}
+{% block content %}
+	<div class="panel-find">
+		<div class="container text-center">
+			<div class="input-group">
+				<input id="busqueda" name="busqueda" type="text" class="form-control" placeholder="¿Que Estas Buscando?" autocomplete="off" required />
+				<span class="input-group-btn">
+					<input class="btn btn-success btn-find btn-group" id="buscar" type="submit" value="Buscar" />
 				</span>
 			</div>
 		</div>
 	</div>
+	<div class="container">
+		<div class="white-block" style="margin-top: -50px;">
+			<div class="page-header">
+				<h2>Resultados de búsqueda</h2>
+			</div>
+			<p>
+				{% if busqueda %}
+					<b>Búsqueda:</b> <span class="label label-info">{{busqueda}} </span>
+				{% endif %}
+			</p>
+			<div class="row">
+				<div class="col-md-12 div-result">
+					<div class="row">
+						<div class="col-md-3">
+							<div class="filtros">
+								<label for="orden">Categoria</label>
+								<ul>
+									{% if todasCategorias %}
+										{% for categoria  in todasCategorias %}
+											<li><a href="/buscar/{{categoria.slug}}/"><p>{{ categoria }}</p></a></li>
+										{% endfor %}
+									{% endif %}
+								</ul>
+							</div>
+							<div>
+								<label for="orden">Orden</label><br>
+								<li>
+									<a id="drop2" href="#"  data-toggle="dropdown">
+										{{ordenActual}}
+										<span class="caret"></span>
+									</a>
+									<ul class="dropdown-menu" style="width:100%;">
+										{% for a,b,c in ordenList %}
+										{% if c != ordenActual %}
+										<li>
+											<a href="/b/pl/{{busqueda}}/?orden={{a}}">
+												{{c}}
+											</a>
+										</li>
+										{% endif %}
+										{% endfor %}
+									</ul>
+								</li>
+							</div>
+						</div>
+						<div class="col-md-9">
+							<div class="row">
+								<div id = "resultados">
+									{% if bienes_servicios %}
+									{% for bienServicio in bienes_servicios %}
+									<div class="col-md-11">
+										<a class="normal" href="{% url 'detallebusqueda' slug=bienServicio.slug %}">
+											<div class="textJustify row panel panel-default">
+												<div class="col-sm-12 col-md-4 div-align">
+													<img src="{{ bienServicio.foto.url }}" class="img-responsive center-block img-thumbnail" alt="Responsive image">
+												</div>
+												<div class="col-sm-12 col-md-5 div-align">
+													<h3>
+														<strong>{{ bienServicio.nBienServicio }}</strong>
+													</h3>
+													<p>
+														{{ bienServicio.descripcion|truncatechars:150  }}
+													</p>
+												</div>
+												<div class="col-sm-12 col-md-3">
+													<ul class="list-inline">
+														<li class="label label-app label-warning" data-toggle="tooltip" data-placement="top" title="Calificación">
 
-	<div class="container div-result">
-		<div>
-			<div class="col-md-3">
-				<div class="filtros">
-					<label for="orden">Categoria</label>
-					<ul>
-						{% if todasCategorias %}
-							{% for categoria  in todasCategorias %}
-								<li><a href="/buscar/{{categoria.slug}}/"><p>{{ categoria }}</p></a></li>
-							{% endfor %}
-						{% endif %}
-					</ul>
+															<i class="glyphicon glyphicon-star "></i>
+															<strong >
+																{% if bienServicio.val_promedio %}
+																{{ bienServicio.val_promedio }}
+																{% else %}
+																<span>Ninguno</span>
+																{% endif %}
+															</strong>
+														</li>
+
+														<li class="label label-app label-danger" data-toggle="tooltip" data-placement="top" title="Precio">
+															<i class="glyphicon glyphicon-usd "></i>
+															<strong >
+																{% if bienServicio.precio %}
+																{{ bienServicio.precio | intcomma}}
+																{% else %}
+																<span>por acordar</span>
+																{% endif %}
+															</strong>
+														</li>
+													</ul>
+												</div>
+											</div>
+
+										</a>
+									</div>
+
+									{% endfor %}
+									{% else %}
+									<h1>No hay resultados</h1>
+									{% endif %}
+								</div>
+							</div>
+							<div class="row paginador">
+								{% if is_paginated %}
+								<div class="pagination">
+									<span >
+										{% if page_obj.has_previous %}
+										<a href="/b/pl/{{busqueda}}/?{%if orden%}orden={{orden}}&{%endif%}page={{ page_obj.previous_page_number }}">atrás</a>
+										{% endif %}
+										<span class="page-current">
+											Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+										</span>
+										{% if page_obj.has_next %}
+										<a href="/b/pl/{{busqueda}}/?{%if orden%}orden={{orden}}&{%endif%}page={{ page_obj.next_page_number }}">siguiente</a>
+										{% endif %}
+									</span>
+								</div>
+								{% endif %}
+							</div>
+						</div>
+					</div>
 				</div>
-				<div>
-					<label for="orden">Orden</label><br>
-					<li>
-						<a id="drop2" href="#"  data-toggle="dropdown">
-							{{ordenActual}}
-							<span class="caret"></span>
-						</a>
-						<ul class="dropdown-menu" style="width:100%;">
-							{% for a,b,c in ordenList %}
-							{% if c != ordenActual %}
-							<li>
-								<a href="/b/pl/{{busqueda}}/?orden={{a}}">
-									{{c}}
-								</a>
-							</li>
-							{% endif %}
-							{% endfor %}
-						</ul>
-					</li>
+				<div class="col-md-12 controles-paginator">
+					<span >
+						{% if is_paginated %}
+						{% if page_obj.has_previous %}
+						<a href="/b/pl/{{busqueda}}/?{%if orden%}orden={{orden}}&{%endif%}page={{ page_obj.previous_page_number }}">atrás</a>
+						{% endif %}
+						<span class="page-current">
+							Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+						</span>
+						{% if page_obj.has_next %}
+						<a href="/b/pl/{{busqueda}}/?{%if orden%}orden={{orden}}&{%endif%}page={{ page_obj.next_page_number }}">siguiente</a>
+						{% endif %}
+						{% endif %}
+					</span>
 				</div>
 			</div>
-			<div class="col-md-9">
-				<div class="row">
-					<div id = "resultados">
-						{% if bienes_servicios %}
-						{% for bienServicio in bienes_servicios %}
-						<div>
-							<a class="normal" href="{% url 'detallebusqueda' slug=bienServicio.slug %}">
-								<div class="textJustify row panel panel-default">
-									<div class="col-sm-12 col-md-4 div-align">
-										<img src="{{ bienServicio.foto.url }}" class="img-responsive center-block img-thumbnail" alt="Responsive image">
-									</div>
-									<div class="col-sm-12 col-md-5 div-align">
-										<h3>
-											<strong>{{ bienServicio.nBienServicio }}</strong>
-										</h3>
-										<p>
-											{{ bienServicio.descripcion|truncatechars:150  }}
-										</p>
-									</div>
-									<div class="col-sm-12 col-md-3">
-										<ul class="list-inline">
-											<li class="label label-app label-warning" data-toggle="tooltip" data-placement="top" title="Calificación">
-
-												<i class="glyphicon glyphicon-star "></i>
-												<strong >
-													{% if bienServicio.val_promedio %}
-													{{ bienServicio.val_promedio }}
-													{% else %}
-													<span>Ninguno</span>
-													{% endif %}
-												</strong>
-											</li>
-
-											<li class="label label-app label-danger" data-toggle="tooltip" data-placement="top" title="Precio">
-												<i class="glyphicon glyphicon-usd "></i>
-												<strong >
-													{% if bienServicio.precio %}
-													{{ bienServicio.precio | intcomma}}
-													{% else %}
-													<span>por acordar</span>
-													{% endif %}
-												</strong>
-											</li>
-										</ul>
-									</div>
-								</div>
-
-							</a>
-						</div>
-
-						{% endfor %}
-						{% else %}
-						<h1>No hay resultados</h1>
-						{% endif %}
+		</div>
+	</div>
+		<!-- Modal -->
+	<div class="modal fade bs-example-modal-sm" id="modalCategorias" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title text-center" id="myModalLabel">Otras Categorias</h4>
+				</div>
+				<div class="modal-body">
+					<div class="panel">
+						<ul class="text-left padding">
+							{% if todasCategorias %}
+								{% for categoria  in todasCategorias %}
+									<li><a href="#"><p>{{ categoria }}</p></a></li>
+								{% endfor %}
+							{% endif %}
+						</ul>
 					</div>
 				</div>
-				<div class="row paginador">
-					{% if is_paginated %}
-					<div class="pagination">
-						<span >
-							{% if page_obj.has_previous %}
-							<a href="/b/pl/{{busqueda}}/?{%if orden%}orden={{orden}}&{%endif%}page={{ page_obj.previous_page_number }}">atrás</a>
-							{% endif %}
-							<span class="page-current">
-								Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
-							</span>
-							{% if page_obj.has_next %}
-							<a href="/b/pl/{{busqueda}}/?{%if orden%}orden={{orden}}&{%endif%}page={{ page_obj.next_page_number }}">siguiente</a>
-							{% endif %}
-						</span>
-					</div>
-					{% endif %}
+				<div class="modal-footer">
+					<span class="btn-cancelar cursorPointer label label-danger" data-dismiss="modal">Cancelar</span>
 				</div>
 			</div>
 		</div>

@@ -12,6 +12,7 @@ urlpatterns = patterns('',
 	url(r'^desactivar-bien-servicio/$',desactivarBienServicio,name='desactivar-bien-servicio'),
 	url(r'^activar-bien-servicio/$',activarBienServicio,name='activar-bien-servicio'),
 	url(r'^editar-bien-servicio/$',editarBienServicio,name='editar-bien-servicio'),
-
+	url(r'^comentario/(?P<slug>[\w\-]+)/$',bienServicioComentarioView.as_view(),name='comentario'),
+	url(r'^comentario-eliminar/(?P<pk>[\w]+)/$',comentario_eliminar,name='comentario_eliminar'),
 	url(r'^datosdecontacto/$','bienes_servicios.views.obtener_datos_de_contacto',name='datosdecontacto'),
 )

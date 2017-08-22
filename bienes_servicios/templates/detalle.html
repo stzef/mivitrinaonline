@@ -8,57 +8,34 @@
 {% endblock %}
 
 {% block content %}
-	<div class="row first">
-		<div class="full col-md-12">
-			<a href="{% url 'bienes-servicios' %}" class="btn btn-primary left">Atrás</a>
-		</div>
+<div class="container">
+	<div class="page-header">
+		<h2>
+			{{ bienServicio.categoria }}
+			<small>
+				{% if bienServicio.estado %}
+					<span class="text-success">Activo</span>
+				{% else %}
+					<span class="text-danger">Inactivo</span>
+				{% endif %}
+			</small>
+		</h2>
 	</div>
 	<div class="row second">
-		<div class="col-md-12 label-category text-center">
-			<p>
-				<strong>
-					{{ bienServicio.categoria }} -
-					{% if bienServicio.estado %}
-					<span class="text-success">Activo</span>
-					{% else %}
-					<span class="text-danger">Inactivo</span>
-					{% endif %}
-				</strong>
-			</p>
-		</div>
-		<div class="notice text-center col-xs-12 col-md-12 ">
+		<div class="notice text-center col-md-6">
 			<div class="imgDetalleEdit relative">
 
 				<a class="link-user linkCambiarFoto" data-toggle="modal" data-target="#editarFotoModal">
 					<img src="{{ bienServicio.foto.url }}" class="img-responsive center-block img-thumbnail">
 				</a>
 			</div>
-			<ul class="list-unstyled">
-				{% if bienServicio.estado %}
-				<li >
-					<a data-toggle="modal" data-target="#desactivarModal">
-						<span class="glyphicon glyphicon-stop"></span><span>Inactivar</span>
-					</a>
-				</li>
-				{% else %}
-				<li >
-					<a data-toggle="modal" data-target="#activarModal">
-						<span class="glyphicon glyphicon-play"></span><span>Activar</span>
-					</a>
-				</li>
-				{% endif %}
-				<li>
-					<a data-toggle="modal" data-target="#editarModal">
-						<span class="glyphicon glyphicon-pencil"></span><span>Editar</span>
-					</a>
-				</li>
-			</ul>
+		</div>
 
-			<div class="col-md-12">
+			<div class="col-md-6">
 				<h3>{{ bienServicio.nBienServicio | capfirst}}</h3>
 				<p>{{ bienServicio.descripcion | capfirst}}</p>
 			</div>
-			<ul class="col-md-12 list-unstyled">
+			<ul class="col-md-6 list-unstyled">
 				<li class="col-xs-4 col-md-4 label label-app label-warning" data-toggle="tooltip" data-placement="top" title="Puntos">
 					<i class="glyphicon glyphicon-star "></i>
 					{% if bienServicio.val_promedio %}
@@ -89,8 +66,23 @@
 					{% endif %}
 				</li>
 			</ul>
+			<div class="col-md-6 text-center">
+				{% if bienServicio.estado %}
+					<a data-toggle="modal" class="btn btn-danger" data-target="#desactivarModal">
+						<span class="glyphicon glyphicon-stop"></span><span>Inactivar</span>
+					</a>
+				{% else %}
+					<a data-toggle="modal" class="btn btn-success" data-target="#activarModal">
+						<span class="glyphicon glyphicon-play"></span><span>Activar</span>
+					</a>
+				{% endif %}
+				<a data-toggle="modal" class="btn btn-primary" data-target="#editarModal">
+					<span class="glyphicon glyphicon-pencil"></span><span>Editar</span>
+				</a>
+			</div>
 		</div>
 	</div>
+</div>
 	{% if bienServicio.estado %}
 	<div class="modal fade" id="desactivarModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">

@@ -1,24 +1,28 @@
 {% extends "base_mvv.html" %}
 
 {% block head %}
-<title>Buscar | Mi Vitrina Online</title>
+	<title>Buscar | Mi Vitrina Online</title>
+	<style type="text/css" media="screen">
+		body{
+			background: url('/static/img/background/busqueda.jpg');
+			background-size: cover;
+		}
+	</style>
 {% endblock %}
 
 {% block content %}
-	<div class="panel col-md-12">
-		<h2 class="text-center">Encuentra el Bien/Servicio que buscas</h2>
-
-		<form id="findBienServicio" class="input-group">
-			<input id="busqueda" name="busqueda" type="search" class="form-control" placeholder="¿Que Estas Buscando?" autocomplete="off" required />
-			<span class="input-group-btn">
-				<input class="btn btn-success btn-find" id="buscar" type="submit" value="Buscar" />
-			</span>
-		</form>
-
-		<span class="divider"></span>
-
-		<div class="text-left">
-			<h2 class="text-left"><b>Categorias</b></h2>
+	<div class="panel-find container">
+		<div class="text-center white-block" style="margin-top: 10%">
+			<div class="page-header">
+				<h2>Encuentra el Bien/Servicio que buscas</h2>
+			</div>
+			<form id="findBienServicio" class="input-group">
+				<input id="busqueda" name="busqueda" type="search" class="form-control" placeholder="¿Que Estas Buscando?" autocomplete="off" required />
+				<span class="input-group-btn">
+					<input class="btn btn-success btn-find" id="buscar" type="submit" value="Buscar" />
+				</span>
+			</form>
+			<h3>Categorias</h3>
 			<ul class="list-inline">
 				{% for categoria in categorias %}
 				<li class=" label label-success label-app">
@@ -28,6 +32,7 @@
 				</li>
 				{% endfor %}
 			</ul>
+			</div>
 		</div>
 	</div>
 

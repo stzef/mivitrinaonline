@@ -33,6 +33,9 @@ PROJECT_APPS = (
 
 THIRTY_PARTY_APPS = (
 	'djrill',
+	'mail_templated',
+	'djcelery',
+	'kombu.transport.django',
 )
 
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + THIRTY_PARTY_APPS
@@ -48,17 +51,17 @@ MIDDLEWARE_CLASSES = (
 )
 
 AWS_STORAGE_BUCKET_NAME = os.getenv("MVO_AWS_STORAGE_BUCKET_NAME","")
-print AWS_STORAGE_BUCKET_NAME
+
 AWS_ACCESS_KEY_ID = os.getenv("MVO_AWS_ACCESS_KEY_ID","")
-print AWS_ACCESS_KEY_ID
+
 AWS_SECRET_ACCESS_KEY = os.getenv("MVO_AWS_SECRET_ACCESS_KEY","")
-print AWS_SECRET_ACCESS_KEY
+
 
 # Tell django-storages that when coming up with the URL for an item in S3 storage, keep
 # it simple - just use this domain plus the path. (If this isn't set, things get complicated).
 # This controls how the `static` template tag from `staticfiles` gets expanded, if you're using it.
 # We also use it in the next setting.
-AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+AWS_S3_CUSTOM_DOMAIN = 'mvostatics.s3.amazonaws.com'
 
 # This is used by the `static` template tag from `static`, if you're using that. Or if anything else
 # refers directly to STATIC_URL. So it's safest to always set it.
@@ -72,11 +75,11 @@ MEDIA_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 # SMTP Settings Backend
-EMAIL_BACKEND = 'djrill.mail.backends.djrill.DjrillBackend'
+#EMAIL_BACKEND = 'djrill.mail.backends.djrill.DjrillBackend'
 
-MANDRILL_API_KEY = 'jxuFDPFiFErIiMd0c-cbXw'
+#MANDRILL_API_KEY = 'jxuFDPFiFErIiMd0c-cbXw'
 
-DEFAULT_FROM_EMAIL = "sistematizaref@gmail.com"
+#DEFAULT_FROM_EMAIL = "sistematizaref@gmail.com"
 # SMTP Settings Backend
 
 
@@ -96,13 +99,17 @@ USE_L10N = True
 
 USE_TZ = True
 
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = "carve.1285@gmail.com"
+EMAIL_HOST_PASSWORD = 'opcoiznyfdtvdgqe'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
 if "DATABASE_URL" in os.environ:
 	#DATABASES = dbconfig
 	DATABASES = {
 		'default' : dj_database_url.parse(os.environ.get("DATABASE_URL"), conn_max_age=600)
 	}
-
-	print "Si"
 else:
 	DATABASES = {
 		'default': {
@@ -110,7 +117,6 @@ else:
 			'NAME': 'dbsqlite',
 		}
 	}
-	print "No"
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 

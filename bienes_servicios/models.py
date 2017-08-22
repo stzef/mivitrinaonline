@@ -1,6 +1,7 @@
 from django.db import models
 from usuarios.models import perfilUsuarioModel
 from django.template import defaultfilters
+from django.contrib.auth.models import User
 
 BIEN_SERVICIO_FOTO_DEFAULT = 'bienes_servicios/img/no_image.png'
 
@@ -51,3 +52,7 @@ class bienesServiciosModel(models.Model):
 		self.slug = defaultfilters.slugify(self.nBienServicio)
 		super(bienesServiciosModel, self).save( *args, **kwargs)
 
+class comentariosBienesServiciosModel(models.Model):
+	usuario = models.ForeignKey(User)
+	bienServicio = models.ForeignKey(bienesServiciosModel)
+	comentario = models.CharField(max_length=2000)

@@ -1,25 +1,28 @@
 # -*- encoding: utf-8 -*-
-from django.shortcuts import render, redirect, render_to_response 
 from django.contrib.auth import login, logout, update_session_auth_hash, authenticate
-from django.contrib.auth.models import User
-from django.views.generic import FormView
-from django.views.decorators.csrf import csrf_exempt
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
+from django.shortcuts import render, redirect, render_to_response 
+from django.contrib.auth.tokens import default_token_generator
+from django.core.urlresolvers import reverse_lazy, reverse
 from django.contrib.auth.decorators import login_required
-from django.views.generic.edit import UpdateView
-from django.template import RequestContext
-from django.conf import settings
-from django.core.mail import EmailMessage
+from django.views.decorators.csrf import csrf_exempt
 from django.template.loader import render_to_string
-from .backends import log_user
-
-import os
-import json
-
-from forms import *
-from forms import loginForm,registroForm
-from models import perfilUsuarioModel
+from django.contrib.auth import get_user_model
+from django.utils.encoding import force_bytes
+from django.contrib.auth.models import User
+from django.template import RequestContext
+from django.core.mail import EmailMessage
 from app.utilidades import get_or_none
+from .models import perfilUsuarioModel
+from mivitrinaonline.tasks import *
+from django.contrib import messages
+from django.views.generic import *
+from django.conf import settings
+from .backends import log_user
+from forms import *
+import json
+import os
 
 def logoutView(request):
 	log_user(request.user, 'Cierre de sesión en la aplicación')
@@ -83,7 +86,6 @@ class registroView(FormView):
 		#enviando email
 		msg.send()
 
-
 # Vista generica para loggear a un usuario 
 # Esta vista es por defecto el login principal de la aplicacion
 
@@ -114,7 +116,6 @@ class loginView(FormView):
 		context = super(loginView, self).get_context_data(**kwargs)
 		context['next'] = self.request.GET.get('next')
 		return context
-
 
 def EditProfile(request):
 	pk = request.user.id
@@ -187,7 +188,6 @@ def cambiarFotoPerfil(request):
 		content_type="application/json"
 	)
 
-
 # Responde si la solicitud es ajax: '1' si usuario esta loggeado '0' si no
 def is_auth_ajax(request):
 
@@ -199,7 +199,6 @@ def is_auth_ajax(request):
 			auth = 0
 		# retorna json
 		return JsonResponse({'auth':auth},safe=False)
-
 
 # Loggea al usuario a traves de una solicitud ajax
 def login_ajax(request):
@@ -231,3 +230,71 @@ def login_ajax(request):
 						}, 
 						safe=False,
 					)
+
+class ResetPasswordRequestView(FormView):
+	template_name = 'form_password_reset_email.html'
+	success_url = reverse_lazy('ingresar')
+	form_class = PasswordResetRequestForm
+
+	def get_context_data(self, **kwargs):
+		context = super(ResetPasswordRequestView, self).get_context_data(**kwargs)
+		context['title'] = 'Recuperación de cuenta'
+		return context
+
+	def post(self, request, *args, **kwargs):
+		form = self.form_class(request.POST)
+		if form.is_valid():
+			user_email = form.cleaned_data["user_email"].lower()
+			try:
+				user = User.objects.get(email = user_email)
+				args = {
+					'email': user.email,
+					'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+					'user': user,
+					'token': default_token_generator.make_token(user),
+				}
+				send_email_task.delay('email/password_reset_subject.tpl', user_email, request.META['HTTP_HOST'], 'Cambio de Contraseña', args)
+				result = self.form_valid(form)
+				messages.success(request, 'Un correo ha sido enviado ha ' +user_email+". Por favor verifica tu correo y sigue las instrucciones.")
+			except User.DoesNotExist:
+				result = self.form_invalid(form)
+				messages.warning(request, 'No hay una cuenta asociada con el correo electronico digitado.')
+		return result
+
+class PasswordResetConfirmView(FormView):
+	template_name = 'form_password_reset_email.html'
+	success_url = reverse_lazy('ingresar')
+	form_class = SetPasswordForm
+
+	def get_context_data(self, **kwargs):
+		context = super(PasswordResetConfirmView, self).get_context_data(**kwargs)
+		context['title'] = 'Recuperación de cuenta'
+		return context
+
+	@staticmethod
+	def validate_url(uidb64, token):
+		UserModel = get_user_model()
+		assert uidb64 is not None and token is not None
+		try:
+			uid = urlsafe_base64_decode(uidb64)
+			user = UserModel._default_manager.get(pk = uid)
+		except (TypeError, ValueError, OverflowError, UserModel.DoesNotExist):
+			user = None
+		return user
+
+	def post(self, request, uidb64 = None, token = None, *arg, **kwargs):
+		user = self.validate_url(uidb64, token)
+		form = self.form_class(request.POST)
+		if user is not None and default_token_generator.check_token(user, token):
+			if form.is_valid():
+				new_password = form.cleaned_data['new_password2']
+				user.set_password(new_password)
+				user.save()
+				messages.success(request, 'Cambio de contraseña exitoso.')
+				return self.form_valid(form)
+			else:
+				messages.warning(request, 'Ha ocurrido un error.')
+				return self.form_invalid(form)
+		else:
+			messages.warning(request, 'La URL no es válida.')
+			return HttpResponseRedirect(reverse('ingresar'))

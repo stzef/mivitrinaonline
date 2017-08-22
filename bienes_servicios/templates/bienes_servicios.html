@@ -7,11 +7,12 @@
 <title>Biens/Servicios | Mi Vitrina Online </title>
 {% endblock %}
 {% block content %}
-<div class="page-header">
-	<h2 class="hbl-t">Biens/Servicios <a href="#" class="btn btn-primary" id="hbl">Nueva</a></h2>
-</div>
-<div>
-		<div class="panel" id="partialAdd" style="display:none">
+<div class="container">
+	<div class="page-header">
+		<h2>Bienes/Servicios <a href="#" class="btn btn-primary" id="hbl">Nueva</a></h2>
+	</div>
+	<div>
+		<div class="panel container" id="partialAdd" style="display:none">
 			<form id="nuevo-bien-servicio-form" method="post" enctype='multipart/form-data'>
 				<h4>Nuevo Bien/Servicio</h4>
 				<div class="form-group">
@@ -26,163 +27,164 @@
 				<div id="errors"></div>
 			</form>
 		</div>
-</div>
-<div class="space-tab">
-	<ul class="nav nav-tabs" id="tabs" data-tabs="tabs">
-		<li role="presentation" class="active">
-			<a href="#activas" data-toggle="tab">
-				Activos
-				<span id="cantidad-activas" data-cactiva="{{cantidadActivas}}" class="badge">
-					{{ cantidadActivas }}
-				</span>
-			</a>
-		</li>
-		<li role="presentation" >
-			<a href="#inactivas" data-toggle="tab">
-				Inactivos
-				<span class="badge">
-					{{ cantidadInactivas }}
-				</span>
-			</a>
-		</li>
+	</div>
+	<div class="space-tab">
+		<ul class="nav nav-tabs" id="tabs" data-tabs="tabs">
+			<li role="presentation" class="active">
+				<a href="#activas" data-toggle="tab">
+					Activos
+					<span id="cantidad-activas" data-cactiva="{{cantidadActivas}}" class="badge">
+						{{ cantidadActivas }}
+					</span>
+				</a>
+			</li>
+			<li role="presentation" >
+				<a href="#inactivas" data-toggle="tab">
+					Inactivos
+					<span class="badge">
+						{{ cantidadInactivas }}
+					</span>
+				</a>
+			</li>
+		</ul>
+	</div>
+	<ul id="listul">
 	</ul>
-</div>
-<ul id="listul">
-</ul>
-<p id="foo"></p>
-<div>
-	<div class="tab-content">
-		<div class="tab-pane active" id="activas">
-			{% if bienes_servicios %}
-				{% for bienServicio in bienes_servicios %}
-					<div class="col-md-12">
-						<div class="label-category label-description text-center">
-							<strong >{{ bienServicio.categoria }}</strong>
+	<p id="foo"></p>
+	<div>
+		<div class="tab-content">
+			<div class="tab-pane active" id="activas">
+				{% if bienes_servicios %}
+					{% for bienServicio in bienes_servicios %}
+						<div class="col-md-12">
+							<div class="label-category label-description text-center">
+								<strong >{{ bienServicio.categoria }}</strong>
+							</div>
 						</div>
+						<div>
+							<div className="col-sm-12">
+								<a href="/bienes-servicios/{{ bienServicio.slug }}/{{ bienServicio.pk }}" class="normal">	
+									<div class=" row panel panel-default">
+										<div class="col-sm-12 col-md-4 div-align">
+											<img src="{{ bienServicio.foto.url }}" class="img-responsive center-block img-thumbnail" alt="{{ bienServicio.nBienServicio }}">
+										</div>
+										<div class="col-sm-12 col-md-5 div-align">
+											<h3>
+												<strong>{{ bienServicio.nBienServicio | capfirst}}</strong>
+											</h3>
+											<p>{{ bienServicio.descripcion | capfirst}}</p>
+											<ul class="list-inline">
+												<li class="label label-app label-warning">
+													<i class="glyphicon glyphicon-star "></i>
+													{% if bienServicio.val_promedio %}
+														<span>Puntuacion: </span>
+														<strong>
+															{{ bienServicio.val_promedio }}
+														</strong>
+													{% else %}
+														<strong >Ninguno</strong>
+													{% endif %}
+												</li>
+
+												<li class="label label-app label-success">
+													<i class="glyphicon glyphicon-th-list "></i>
+													{% if  bienServicio.num_solicitudes%}
+														<span>Solicitudes: </span>
+														<strong>
+															{{ bienServicio.num_solicitudes }}
+														</strong>
+													{% else %}
+														<strong >Ninguno</strong>
+													{% endif %}
+												</li>
+
+												<li class="label label-app label-danger">
+													{% if bienServicio.precio %}
+														<i class="glyphicon glyphicon-usd "></i>
+														<span>Precio: </span>
+														<strong>
+															{{ bienServicio.precio | intcomma}}
+														</strong>
+													{% else %}
+														<span><b>Ninguno</b></span>
+													{% endif %}
+												</li>
+											</ul>
+										</div>
+									</div>
+								</a>
+							</div>
+						</div>
+					{% endfor %}
+				{% else %}
+				<div class="row text-center">
+					<img src="/static/img/not-found.png">
+					<p>Aún no has creado tu primer Bienes/Servicios, oprime click en nueva y llena el formulario</p>
+				</div>
+				{% endif %}
+			</div>
+			<div class="tab-pane" id="inactivas">
+				{% if inactivas %}
+				{% for inactiva in inactivas %}
+				<div class="col-md-12">
+					<div class="label-category text-center">
+						<strong >{{ inactiva.categoria }}</strong>
 					</div>
-					<div>
-						<div className="col-sm-12">
-							<a href="/bienes-servicios/{{ bienServicio.slug }}/{{ bienServicio.pk }}" class="normal">
-								<div class=" row panel panel-default">
-									<div class="col-sm-12 col-md-4 div-align">
-										<img height="100px !important" width="auto" src="{{ bienServicio.foto.url }}" class="img-responsive center-block img-thumbnail" alt="{{ bienServicio.nBienServicio }}">
-									</div>
-									<div class="col-sm-12 col-md-5 div-align">
-										<h3>
-											<strong>{{ bienServicio.nBienServicio | capfirst}}</strong>
-										</h3>
-										<p>{{ bienServicio.descripcion | capfirst}}</p>
-										<ul class="list-inline">
-											<li class="label label-app label-warning">
-												<i class="glyphicon glyphicon-star "></i>
-												{% if bienServicio.val_promedio %}
-													<span>Puntuacion: </span>
-													<strong>
-														{{ bienServicio.val_promedio }}
-													</strong>
-												{% else %}
-													<strong >Ninguno</strong>
-												{% endif %}
-											</li>
-
-											<li class="label label-app label-success">
-												<i class="glyphicon glyphicon-th-list "></i>
-												{% if  bienServicio.num_solicitudes%}
-													<span>Solicitudes: </span>
-													<strong>
-														{{ bienServicio.num_solicitudes }}
-													</strong>
-												{% else %}
-													<strong >Ninguno</strong>
-												{% endif %}
-											</li>
-
-											<li class="label label-app label-danger">
-												{% if bienServicio.precio %}
-													<i class="glyphicon glyphicon-usd "></i>
-													<span>Precio: </span>
-													<strong>
-														{{ bienServicio.precio | intcomma}}
-													</strong>
-												{% else %}
-													<span><b>Ninguno</b></span>
-												{% endif %}
-											</li>
-										</ul>
-									</div>
+				</div>
+				<div>
+					<div className="col-sm-12">
+						<a href="/bienes-servicios/{{ inactiva.slug }}/{{ inactiva.pk }}" class="normal">
+							<div class="row panel panel-default">
+								<div class="col-sm-12 col-md-4 div-align">
+									<img src="{{ inactiva.foto.url }}" class="img-responsive center-block img-thumbnail" alt="{{ inactiva.nBienServicio }}">
 								</div>
-							</a>
-						</div>
+								<div class="col-sm-12 col-md-5 div-align">
+									<h3>{{ inactiva.nBienServicio | capfirst}}</h3>
+									<p class="textJustify">{{ inactiva.descripcion | capfirst}}</p>
+									<ul class="list-inline">
+										<li class="label label-app label-warning">
+											<i class="glyphicon glyphicon-star"></i>
+											{% if inactiva.val_promedio %}
+											<span>Puntuacion: </span>
+											<strong>{{ inactiva.val_promedio }}</strong>
+											{% else %}
+											<strong>Ninguno</strong>
+											{% endif %}
+										</li>
+
+										<li class="label label-app label-success">
+											<i class="glyphicon glyphicon-th-list"></i>
+											{% if  inactiva.num_solicitudes%}
+											<span>Solicitudes: </span>
+											<strong>{{ inactiva.num_solicitudes }}</strong>
+											{% else %}
+											<strong>Ninguno</strong>
+											{% endif %}
+										</li>
+
+										<li class="label label-app label-danger">
+											{% if inactiva.precio %}
+											<i class="glyphicon glyphicon-usd"></i>
+											<span>Precio: </span>
+											<strong>{{ inactiva.precio | intcomma}}</strong>
+											{% else %}
+											<span><b>Ninguno</b></span>
+											{% endif %}
+										</li>
+									</ul>
+								</div>
+							</div>
+						</a>
 					</div>
+				</div>
 				{% endfor %}
-			{% else %}
-			<div class="row text-center">
-				<img src="/static/img/not-found.png">
-				<p>Aún no has creado tu primer Bienes/Servicios, oprime click en nueva y llena el formulario</p>
-			</div>
-			{% endif %}
-		</div>
-		<div class="tab-pane" id="inactivas">
-			{% if inactivas %}
-			{% for inactiva in inactivas %}
-			<div class="col-md-12">
-				<div class="label-category text-center">
-					<strong >{{ inactiva.categoria }}</strong>
+				{% else %}
+				<div class="row text-center">
+					<img src="/static/img/not-found.png">
+					<p>No tienes Bienes/Servicios inactivos.</p>
 				</div>
+				{% endif %}
 			</div>
-			<div>
-				<div className="col-sm-12">
-					<a href="/bienes-servicios/{{ inactiva.slug }}/{{ inactiva.pk }}" class="normal">
-						<div class="row panel panel-default">
-							<div class="col-sm-12 col-md-4 div-align">
-								<img height="100px !important" width="auto" src="{{ inactiva.foto.url }}" class="img-responsive center-block img-thumbnail" alt="{{ inactiva.nBienServicio }}">
-							</div>
-							<div class="col-sm-12 col-md-5 div-align">
-								<h3>{{ inactiva.nBienServicio | capfirst}}</h3>
-								<p class="textJustify">{{ inactiva.descripcion | capfirst}}</p>
-								<ul class="list-inline">
-									<li class="label label-app label-warning">
-										<i class="glyphicon glyphicon-star"></i>
-										{% if inactiva.val_promedio %}
-										<span>Puntuacion: </span>
-										<strong>{{ inactiva.val_promedio }}</strong>
-										{% else %}
-										<strong>Ninguno</strong>
-										{% endif %}
-									</li>
-
-									<li class="label label-app label-success">
-										<i class="glyphicon glyphicon-th-list"></i>
-										{% if  inactiva.num_solicitudes%}
-										<span>Solicitudes: </span>
-										<strong>{{ inactiva.num_solicitudes }}</strong>
-										{% else %}
-										<strong>Ninguno</strong>
-										{% endif %}
-									</li>
-
-									<li class="label label-app label-danger">
-										{% if inactiva.precio %}
-										<i class="glyphicon glyphicon-usd"></i>
-										<span>Precio: </span>
-										<strong>{{ inactiva.precio | intcomma}}</strong>
-										{% else %}
-										<span><b>Ninguno</b></span>
-										{% endif %}
-									</li>
-								</ul>
-							</div>
-						</div>
-					</a>
-				</div>
-			</div>
-			{% endfor %}
-			{% else %}
-			<div class="row text-center">
-				<img src="/static/img/not-found.png">
-				<p>No tienes Bienes/Servicios inactivos.</p>
-			</div>
-			{% endif %}
 		</div>
 	</div>
 	{% verbatim %}
@@ -201,7 +203,7 @@
 				<a href="/bienes-servicios/{{ this.slug }}/{{ this.id }}" class="normal">
 					<div class=" row panel panel-default">
 						<div class="col-sm-12 col-md-4 div-align">
-							<img height="100px !important" width="auto" src="{{ this.foto }}" class="img-responsive center-block img-thumbnail" alt="{{ this.nBienServicio }}">
+							<img src="{{ this.foto }}" class="img-responsive center-block img-thumbnail" alt="{{ this.nBienServicio }}">
 						</div>
 						<div class="col-sm-12 col-md-5 div-align">
 							<h3>

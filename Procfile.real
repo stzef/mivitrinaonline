@@ -1,0 +1,2 @@
+web: gunicorn mivitrinaonline.wsgi
+worker: python manage.py celery worker -A mivitrinaonline.celery --loglevel=info
